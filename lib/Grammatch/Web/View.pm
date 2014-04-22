@@ -18,7 +18,7 @@ sub make_instance {
         $view_conf->{path} = [ File::Spec->catdir($context->base_dir(), 'tmpl') ];
     }
     my $view = Text::Xslate->new(+{
-        'syntax'   => 'TTerse',
+        'syntax'   => 'Kolon',
         'module'   => [
             'Text::Xslate::Bridge::Star',
             'Grammatch::Web::ViewFunctions',

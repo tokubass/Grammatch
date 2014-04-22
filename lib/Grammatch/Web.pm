@@ -4,6 +4,7 @@ use warnings;
 use utf8;
 use parent qw/Grammatch Amon2::Web/;
 use File::Spec;
+use Try::Tiny;
 
 # dispatcher
 use Grammatch::Web::Dispatcher;
@@ -16,6 +17,18 @@ __PACKAGE__->load_plugins(
     'Web::FillInFormLite',
     'Web::CSRFDefender' => {
         post_only => 1,
+    },
+    'Web::JSON',
+    '+Grammatch::Plugin::Web::Debug',
+    '+Grammatch::Plugin::Web::Profiler',
+    'Web::Auth' => +{
+        module      => 'Twitter',
+        on_finished => sub {
+            my ($c, $access_token, $access_token_secret, $user_id, $screen_name) = @_;
+            $c->session->set('signin_twitter_user_id'     => $user_id); 
+            $c->session->set('signin_twitter_screen_name' => $screen_name); 
+            return $c->redirect('/');
+        },
     },
 );
 

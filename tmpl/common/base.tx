@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>Grammatch<: if $title { :> - <: $title :><: } :></title>
+    <link href="<: static_file('/static/bootstrap/css/bootstrap.min.css') :>" rel="stylesheet">
+    <link href="<: static_file('/favicon.ico') :>" rel="shortcut icon">
+  </head>
+  <body>
+    <div class="container">
+
+      <h1>Grammatch<: if $title { :> - <: $title :><: } :></h1>
+      <hr>       
+: block container -> {
+: }
+    </div>
+  <script src="<: static_file('/static/js/vendor/jquery-1.9.1.min.js') :>"></script>
+  <script src="<: static_file('/static/js/vendor/es5-shim.min.js') :>"></script>
+  <script src="<: static_file('/static/bootstrap/js/bootstrap.min.js') :>"></script>
+: for $js -> $src {
+    <script src="<: static_file('/static/js/' ~ $src) :>"></script>
+: }
+: block js -> {}
+  </body>
+</html>

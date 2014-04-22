@@ -16,3 +16,6 @@ MYMETA.yml
 /_build/
 /local/
 /.carton/
+
+/config/auth.pl
+/sql/test/

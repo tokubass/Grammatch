@@ -1,0 +1,17 @@
+: cascade common::base
+
+: around container -> {
+
+<h2>Login</h2>
+<p>
+    <a href="/auth/twitter/authenticate">login</a> <br />
+    <a href="/logout">logout</a> <br />
+</p>
+
+<h2>Your Profile</h2>
+<p>
+id: <: $id :> <br />
+</p>
+        
+
+: }
