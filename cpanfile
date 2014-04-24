@@ -1,6 +1,6 @@
-requires 'perl', '5.008001';
-requires 'Amon2', '3.87';
-requires 'Text::Xslate', '1.6001';
+requires 'perl'                           , '5.008001';
+requires 'Amon2'                          , '3.87';
+requires 'Text::Xslate'                   , '1.6001';
 requires 'Amon2::DBI'                     , '0.30';
 requires 'DBD::mysql';
 requires 'HTML::FillInForm::Lite'         , '1.11';
@@ -12,14 +12,24 @@ requires 'Plack::Session'                 , '0.14';
 requires 'Test::WWW::Mechanize::PSGI'     , '0';
 requires 'Time::Piece'                    , '1.20';
 
+requires 'Teng';
+requires 'Amon2::Web::Dispatcher::RouterSimple::Extended';
+requires 'Amon2::Plugin::Web::Auth';
+
 requires 'Text::UnicodeTable::Simple';
 requires 'Module::Pluggable::Object';
 requires 'Data::Dumper';
 requires 'Log::Dispatch::Config';
 requires 'Log::Dispatch::Configurator::Any';
-
-requires 'Teng';
-requires 'Amon2::Web::Dispatcher::RouterSimple::Extended';
+requires 'Log::Dispatch::Screen::Color';
+requires 'Module::Functions';
+requires 'File::Spec';
+requires 'Try::Tiny';
+requires 'Devel::KYTProf';
+requires 'DBIx::QueryLog';
+requires 'Redis';
+requires 'Plack::Session::Store::Redis';
+requires 'Net::OAuth';
 
 on 'configure' => sub {
    requires 'Module::Build', '0.38';
