@@ -19,7 +19,7 @@
   <dt>Dojo</dt>
   <dd>
 : if $dojo_data {
-    <: $dojo_data.dojo_name :>   
+    <a href="/dojo/<: $dojo_data.dojo_id :>"><: $dojo_data.dojo_name :></a>
 : } else {
     Not established
 : }

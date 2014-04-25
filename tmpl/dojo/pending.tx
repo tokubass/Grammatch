@@ -1,0 +1,12 @@
+: cascade common::base
+: around container -> {
+
+<h1>
+  Dojo - Pending
+</h1>
+
+: while $user_list.next -> $user {
+<a href="/user/<: $user.user_id :>"><: $user.user_name :></a> <a href="/dojo/<: $dojo_id :>/accept?user_id=<: $user.user_id :>" class="btn btn-default">Accept!</a><br>
+: }
+
+: }

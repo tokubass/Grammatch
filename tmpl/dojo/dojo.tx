@@ -9,11 +9,14 @@
 <div>
   <dl class="dl-horizontal">
     <dt>Dojo Master</dt>
-    <dd><: $owner_data.user_name :></dd>
+    <dd><a href="/user/<: $owner_data.user_id :>"><: $owner_data.user_name :></a></dd>
   
     <dt>Dojo</dt>
     <dd><: $dojo_data.dojo_name :></dd>
-  
+
+    <dt>Member</dt>
+    <dd><: $dojo_data.dojo_member :> / <: c().config().dojo_limit :></dd>
+
     <dt>Created at</dt>
     <dd><: $dojo_data.created_at :></dd>
     
@@ -27,6 +30,10 @@
 : }
 
 <h3>Dojo Members</h3>
+
+: while $user_list.next -> $user {
+<a href="/user/<: $user.user_id :>"><: $user.user_name :></a><br>
+: }
 
 DEBUG : <: $joined :>
 

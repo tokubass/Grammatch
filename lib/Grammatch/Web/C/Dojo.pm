@@ -14,9 +14,13 @@ sub dojo {
     my $owner = $dojo_data->owner;
     return $c->redirect('/') unless $owner; 
 
+    my $user_list = Grammatch::Model::Dojo->dojo_member($dojo_id);
+    return $c->redirect('/') unless $user_list; 
+
     return $c->render('dojo/dojo.tx',{
         dojo_data  => $dojo_data,
         owner_data => $owner,
+        user_list  => $user_list,
         joined     => $dojo_data->joined($user_id),
     });
 }
@@ -38,6 +42,31 @@ sub join {
     my $retval = Grammatch::Model::Dojo->join($user_id, $dojo_id);
     return $c->redirect('/') unless $retval;
     return $c->redirect("/dojo/$dojo_id");
+}
+
+sub pending {
+    my ($class, $c, $param) = @_;
+    my $dojo_id = $param->{id};
+    my $user_id = $c->session_get();
+
+    my $user_list = Grammatch::Model::Dojo->pending($user_id, $dojo_id);
+    return $c->redirect('/') unless $user_list;
+
+    return $c->render('dojo/pending.tx',{
+        user_list => $user_list,
+        dojo_id   => $dojo_id,
+    });
+}
+
+sub accept {
+    my ($class, $c, $param) = @_;
+    my $dojo_id = $param->{id};
+    my $user_id = $c->session_get();
+    my $accept_user_id = $c->req->param('user_id');
+
+    Grammatch::Model::Dojo->accept($user_id, $dojo_id, $accept_user_id);
+
+    return $c->redirect("/dojo/$dojo_id/p");
 }
 
 1;
