@@ -4,7 +4,7 @@ USE grammatch;
 CREATE TABLE IF NOT EXISTS user (
     id                  INTEGER     NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_name           VARCHAR(20) NOT NULL,
-    user_summary        TEXT        NOT NULL,
+    user_summary        TEXT        NOT NULL DEFAULT '',
     twitter_user_id     INTEGER     NOT NULL,
     twitter_screen_name VARCHAR(20) NOT NULL,
     pref_id             INTEGER     NOT NULL DEFAULT 0,

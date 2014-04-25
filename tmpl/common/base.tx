@@ -16,7 +16,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="navbar-form navbar-right">
-: my $user_name = c().session().get('signin_twitter_screen_name');
+: my $user_name = c().session().get('user_name');
 : if $user_name {
             <a class="btn btn-primary" href="/logout">Logout</a>
 : } else {

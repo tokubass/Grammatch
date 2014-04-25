@@ -4,7 +4,7 @@ use warnings;
 use utf8;
 use parent qw/Grammatch Amon2::Web/;
 use File::Spec;
-use Try::Tiny;
+use Grammatch::Model::Login;
 
 # dispatcher
 use Grammatch::Web::Dispatcher;
@@ -25,9 +25,19 @@ __PACKAGE__->load_plugins(
         module      => 'Twitter',
         on_finished => sub {
             my ($c, $access_token, $access_token_secret, $user_id, $screen_name) = @_;
-            $c->session->set('signin_twitter_user_id'     => $user_id); 
-            $c->session->set('signin_twitter_screen_name' => $screen_name); 
-            return $c->redirect('/');
+            my $user = Grammatch::Model::Login->login($user_id);
+  
+            if ($user) {
+                $c->session->set('user_id'   => $user->id);
+                $c->session->set('user_name' => $user->user_name);
+                return $c->redirect('/');
+            } 
+
+            my $entry_user = Grammatch::Model::Login->entry($user_id, $screen_name);  
+            $c->session->set('user_id'   => $entry_user->id);
+            $c->session->set('user_name' => $entry_user->user_name);
+
+            return $c->redirect('/user');
         },
     },
 );
