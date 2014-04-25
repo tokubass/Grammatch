@@ -9,11 +9,15 @@ sub owner {
     $self->{teng}->single(user => { user_id => $self->user_id });
 }
 
-sub joined_user {
-    my $self = shift;
-    my $user_id = shift or die;
-    $self->{teng}->single(user_dojo_map => { dojo_id => $self->dojo_id, user_id => $user_id }) || 0;
-}
+sub joined {
+    my ($self, $user_id) = @_;
+    return undef unless $user_id;
 
+    my $result = $self->{teng}->single(user_dojo_map => {
+        user_id => $user_id,
+        dojo_id => $self->dojo_id,
+    });
+    return defined $result ? $result->status : 0;
+}
 
 1;

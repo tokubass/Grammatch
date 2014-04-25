@@ -8,13 +8,11 @@ get '/'       => 'Root#root';
 get '/logout' => 'Root#logout';
 
 # user
-get '/user'      => 'User#user';
 get '/user/{id}' => 'User#user';
 
 # dojo
-get '/dojo'           => 'Dojo#my_dojo';
+get '/dojo/create'    => 'Dojo#create';
 get '/dojo/{id}'      => 'Dojo#dojo';
 get '/dojo/{id}/join' => 'Dojo#join';
-get '/dojo/create'    => 'Dojo#create';
 
 1;

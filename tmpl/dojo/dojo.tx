@@ -8,8 +8,8 @@
 <h3>Dojo Data</h3>
 <div>
   <dl class="dl-horizontal">
-    <dt>Master</dt>
-    <dd><: $dojo_owner.user_name :></dd>
+    <dt>Dojo Master</dt>
+    <dd><: $owner_data.user_name :></dd>
   
     <dt>Dojo</dt>
     <dd><: $dojo_data.dojo_name :></dd>
@@ -28,5 +28,6 @@
 
 <h3>Dojo Members</h3>
 
+DEBUG : <: $joined :>
 
 : }

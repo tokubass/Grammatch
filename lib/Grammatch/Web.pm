@@ -33,16 +33,17 @@ __PACKAGE__->load_plugins(
             my $user = Grammatch::Model::Login->login($user_id);
   
             if ($user) {
-                $c->session->set('user_id'   => $user->user_id);
-                $c->session->set('user_name' => $user->user_name);
+                $c->session->set('user_id'   => $user->user_id );
+                $c->session->set('user_name' => $user->user_name );
+                $c->session->set('dojo_id'   => $user->dojo_id );
                 return $c->redirect('/');
             } 
 
             my $entry_user = Grammatch::Model::Login->entry($user_id, $screen_name);  
-            $c->session->set('user_id'   => $entry_user->user_id);
-            $c->session->set('user_name' => $entry_user->user_name);
-
-            return $c->redirect('/user');
+            $c->session->set('user_id'   => $entry_user->user_id );
+            $c->session->set('user_name' => $entry_user->user_name );
+            $c->session->set('dojo_id'   => $entry_user->dojo_id );
+            return $c->redirect("/user/" . $entry_user->user_id);
         },
     },
 );
