@@ -12,7 +12,7 @@ table {
         id user_name user_summary
         twitter_user_id twitter_screen_name
         pref_id allow_create_dojo
-        created_at updated_at 
+        last_logged_at created_at updated_at 
     /;
 };
 

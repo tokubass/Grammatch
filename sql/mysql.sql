@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS user (
     twitter_screen_name VARCHAR(20) NOT NULL,
     pref_id             INTEGER     NOT NULL DEFAULT 0,
     allow_create_dojo   BOOLEAN     NOT NULL DEFAULT 0,
-    
+
+    last_logged_at      INTEGER     NOT NULL,
     created_at          INTEGER     NOT NULL,
     updated_at          INTEGER     NOT NULL
 );
