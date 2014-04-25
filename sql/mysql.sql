@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS user (
     updated_at          INTEGER     NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS dojo (
     dojo_id             INTEGER     NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id             INTEGER     NOT NULL,
     

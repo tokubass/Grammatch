@@ -3,6 +3,7 @@ use File::Basename qw(dirname);
 my $basedir = File::Spec->rel2abs(File::Spec->catdir(dirname(__FILE__), '..'));
 my $dbpath  = File::Spec->catfile($basedir, 'db', 'development.db');
 my $auth    = do File::Spec->catfile($basedir, 'config', 'auth.pl');
+my $pref    = do File::Spec->catfile($basedir, 'config', 'pref.pl');
 +{
     'DBI' => [
         'dbi:mysql:database=grammatch;host=localhost',
@@ -13,6 +14,7 @@ my $auth    = do File::Spec->catfile($basedir, 'config', 'auth.pl');
     'Web::Validator' => {},
    
     Auth => $auth,
+    pref => $pref,
 
     'Plugin::Logger' => {
         dispatchers => [qw/screen/],

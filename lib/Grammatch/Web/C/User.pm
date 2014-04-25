@@ -11,6 +11,7 @@ sub profile {
     my $user_data = Grammatch::Model::User->user($user->{user_id});
     return $c->render('user/user.tx',{
         user_data => $user_data,
+        dojo_data => $user_data->his_dojo,
     });
 }
 
