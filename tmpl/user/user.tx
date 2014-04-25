@@ -34,4 +34,8 @@
 
 <h3>Dojo List</h3>
 
+: while $dojo_list.next -> $dojo {
+<a href="/dojo/<: $dojo.dojo_id :>"><: $dojo.dojo_name :></a><br>
+: }
+
 : }
