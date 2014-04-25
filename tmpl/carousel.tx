@@ -1,0 +1,39 @@
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="<: static_file('/static/img/img1.jpg') :>" alt=""  width="300" height="200">
+          <div class="container">
+            <div class="carousel-caption">
+              <p class="title">ギーク道場では、楽しく、温かく<br>プログラミングを学習する「場」を提供します</p>
+              <p><a class="btn btn-lg btn-default" href="#" role="button">道場を探す</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="<: static_file('/static/img/img2.jpg') :>" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <p class="title">ギーク道場では、楽しく、温かく<br>プログラミングを学習する「場」を提供します</p>
+              <p><a class="btn btn-lg btn-default" href="#" role="button">イベントを探す</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="<: static_file('/static/img/img3.jpg') :>" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <p class="title">ギーク道場では、楽しく、温かく<br>プログラミングを学習する「場」を提供します</p>
+              <p><a class="btn btn-lg btn-default" href="#" role="button">ギーク道場について</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div><!-- /.carousel -->

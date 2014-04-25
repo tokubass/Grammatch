@@ -31,6 +31,7 @@ sub create {
 
     my $dojo_id = Grammatch::Model::Dojo->create($user_id);
     return $c->redirect('/') unless $dojo_id;
+    $c->session->set('dojo_id' => $dojo_id);
     return $c->redirect("/dojo/$dojo_id");
 }
 

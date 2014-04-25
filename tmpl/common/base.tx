@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <title>Grammatch<: if $title { :> - <: $title :><: } :></title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+: for $css -> $src {
+    <link href="<: static_file('/static/css/' ~ $src) :>" rel="stylesheet">
+: }
     <link href="<: static_file('/static/css/main.css') :>" rel="stylesheet">
     <link href="<: static_file('/favicon.ico') :>" rel="shortcut icon">
   </head>
@@ -12,30 +15,36 @@
 : my $user_id   = c().session().get('user_id');
 : my $dojo_id   = c().session().get('dojo_id');
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/">Grammatch</a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
+    <nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">ギーク道場</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/search/dojo">道場を探す</a></li>
+          <li><a href="/search/event">イベントを探す</a></li>
 : if $user_id {
-            <li><a href="/user/<: $user_id :>">My Profile</a></li>
+          <li><a href="/user/<: $user_id :>">My Profile</a></li>
 : }
 : if $dojo_id {
-            <li><a href="/dojo/<: $dojo_id :>">My Dojo</a></li>
+          <li><a href="/dojo/<: $dojo_id :>">My Dojo</a></li>
 : }
-          </ul>
-          <ul class="navbar-form navbar-right">
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
 : if $user_id {
-            <a class="btn btn-primary" href="/logout">Logout</a>
+          <li><a href="/logout">ログアウト</a></li>
 : } else {
-            <a class="btn btn-primary" href="/auth/twitter/authenticate">Login / Signin</a>
+          <li><a href="/auth/twitter/authenticate">ログイン</a></li>
+          <li><a href="/auth/twitter/authenticate">新規登録</a></li>
 : }
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+    </nav>
 
     <div class="container" role="main">
 : block container -> {

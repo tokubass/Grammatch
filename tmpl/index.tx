@@ -1,4 +1,7 @@
-: cascade common::base
+: cascade common::base { css => [ 'carousel.css' ], js => [ 'docs.min.js' ] }
+
 : around container -> {
+
+: include 'carousel.tx';
 
 : }
