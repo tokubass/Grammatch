@@ -8,12 +8,25 @@ use Time::Piece;
 table {
     name 'user';
     pk   'user_id';
-
     columns qw/
-        user_id user_name user_summary
+        user_id dojo_id
+        user_name user_summary
         twitter_user_id twitter_screen_name
-        pref_id allow_create_dojo
+        pref_id allow_create_dojo 
         last_logged_at created_at updated_at 
+    /;
+
+    inflate qr/_at$/ => sub { inflate_time(@_) };
+    deflate qr/_at$/ => sub { deflate_time(@_) };
+};
+
+table {
+    name 'dojo';
+    pk   'dojo_id';
+    columns qw/
+        dojo_id user_id
+        dojo_name dojo_summary dojo_member
+        created_at updated_at
     /;
 
     inflate qr/_at$/ => sub { inflate_time(@_) };

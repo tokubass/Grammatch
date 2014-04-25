@@ -1,9 +1,9 @@
 package Grammatch::Model::Login;
 use strict;
 use warnings;
+use Amon2::Declare;
 use Try::Tiny;
 use Time::Piece;
-use Amon2::Declare;
 
 sub login {
     my ($class, $twitter_user_id) = @_;

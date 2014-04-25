@@ -8,7 +8,7 @@ sub profile {
     my $user = $c->auth();
     return $c->redirect('/') unless $user;
 
-    my $user_data = Grammatch::Model::User->profile($user->{user_id});
+    my $user_data = Grammatch::Model::User->user($user->{user_id});
     return $c->render('user/user.tx',{
         user_data => $user_data,
     });

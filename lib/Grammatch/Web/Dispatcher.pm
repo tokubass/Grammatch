@@ -10,4 +10,7 @@ get '/logout' => 'Root#logout';
 # user
 get '/user' => 'User#profile';
 
+# dojo
+get '/dojo/create' => 'Dojo#create';
+
 1;

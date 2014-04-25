@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Amon2::Declare;
 
-sub profile {
+sub user {
     my ($class, $user_id) = @_;
     die "Error" unless $user_id;
 
