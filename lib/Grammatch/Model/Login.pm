@@ -19,7 +19,7 @@ sub login {
     try {
         $user->update(
             { last_logged_at => $current_time },
-            { id => $user->id }
+            { user_id        => $user->user_id }
         ); 
         $txn->commit;
     } catch {

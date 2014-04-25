@@ -7,10 +7,10 @@ use Time::Piece;
 
 table {
     name 'user';
-    pk   'id';
+    pk   'user_id';
 
     columns qw/
-        id user_name user_summary
+        user_id user_name user_summary
         twitter_user_id twitter_screen_name
         pref_id allow_create_dojo
         last_logged_at created_at updated_at 

@@ -4,10 +4,8 @@ use warnings;
 
 sub root {
     my ($class, $c) = @_;
-
-    return $c->render('index.tx',{
-        id => $c->session->get('signin_twitter_screen_name') || 'undefine',
-    });
+    
+    return $c->render('index.tx');
 }
 
 sub logout {

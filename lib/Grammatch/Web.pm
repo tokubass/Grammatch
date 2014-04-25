@@ -6,6 +6,18 @@ use parent qw/Grammatch Amon2::Web/;
 use File::Spec;
 use Grammatch::Model::Login;
 
+# Authentication
+sub auth {
+    my ($c) = @_;
+    my $user_id   = $c->session->get('user_id');
+    my $user_name = $c->session->get('user_name');
+
+    if ($user_id && $user_name) {
+        return { user_id => $user_id, user_name => $user_name }; 
+    }
+    return undef;
+}
+
 # dispatcher
 use Grammatch::Web::Dispatcher;
 sub dispatch {
@@ -28,13 +40,13 @@ __PACKAGE__->load_plugins(
             my $user = Grammatch::Model::Login->login($user_id);
   
             if ($user) {
-                $c->session->set('user_id'   => $user->id);
+                $c->session->set('user_id'   => $user->user_id);
                 $c->session->set('user_name' => $user->user_name);
                 return $c->redirect('/');
             } 
 
             my $entry_user = Grammatch::Model::Login->entry($user_id, $screen_name);  
-            $c->session->set('user_id'   => $entry_user->id);
+            $c->session->set('user_id'   => $entry_user->user_id);
             $c->session->set('user_name' => $entry_user->user_name);
 
             return $c->redirect('/user');
