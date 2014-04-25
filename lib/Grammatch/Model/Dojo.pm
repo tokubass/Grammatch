@@ -13,6 +13,30 @@ sub dojo {
     return c->db->single('dojo' => { dojo_id => $dojo_id }) or die "dojo $dojo_id: not found"; 
 }
 
+sub join {
+    my ($class, $user_id, $dojo_data) = @_;
+    die "Error" unless $user_id;
+    die "Error" unless $dojo_data;
+    
+    my $db = c->db;
+
+    my $txn = $db->txn_scope;
+    my $current_time = localtime();
+    try {
+        $db->fast_insert('user_dojo_map' => {
+            user_id    => $user_id,
+            dojo_id    => $dojo_data->dojo_id,
+            status     => 2,
+            created_at => $current_time,
+            updated_at => $current_time,
+        });    
+        $txn->commit;
+    } catch {
+        $txn->rollback;
+        die $_;
+    };
+}
+
 sub create {
     my ($class, $user_id) = @_;
     die "Error" unless $user_id;

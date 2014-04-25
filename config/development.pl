@@ -15,6 +15,7 @@ my $pref    = do File::Spec->catfile($basedir, 'config', 'pref.pl');
    
     Auth => $auth,
     pref => $pref,
+    dojo_limit => 20,
 
     'Plugin::Logger' => {
         dispatchers => [qw/screen/],

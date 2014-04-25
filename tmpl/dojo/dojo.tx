@@ -22,6 +22,11 @@
   </dl>
 <div>
 
+: if $joined == 0 && $dojo_data.dojo_member < c().config().dojo_limit {
+<a href="/dojo/<: $dojo_data.dojo_id :>/join" class="btn btn-info text-center">Join this Dojo!</a>
+: }
+
 <h3>Dojo Members</h3>
+
 
 : }

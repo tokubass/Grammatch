@@ -33,6 +33,19 @@ table {
     deflate qr/_at$/ => sub { deflate_time(@_) };
 };
 
+table {
+    name 'user_dojo_map';
+    pk   'id';
+    columns qw/
+        id user_id dojo_id
+        status created_at updated_at
+    /;
+    # 0未登録, 1加入済み, 2加入申請中
+
+    inflate qr/_at$/ => sub { inflate_time(@_) };
+    deflate qr/_at$/ => sub { deflate_time(@_) };
+};
+
 sub inflate_time {
     my ($col_value) = shift;
     return localtime( $col_value );
