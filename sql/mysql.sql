@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS user (
     twitter_user_id     BIGINT      NOT NULL,
     twitter_screen_name VARCHAR(20) NOT NULL,
     pref_id             INTEGER     NOT NULL DEFAULT 0,
-    allow_create_dojo   BOOLEAN     NOT NULL DEFAULT 0,
+    allow_create_dojo   BOOLEAN     NOT NULL DEFAULT 0, # role
 
     last_logged_at      INTEGER     NOT NULL,
     created_at          INTEGER     NOT NULL,
@@ -23,10 +23,9 @@ CREATE TABLE IF NOT EXISTS dojo (
     
     dojo_name           VARCHAR(20) NOT NULL,
     dojo_summary        TEXT,
-    dojo_member         INTEGER     NOT NULL DEFAULT 0,
+    dojo_member         INTEGER     NOT NULL DEFAULT 0, # member_num? count?
 
     created_at          INTEGER     NOT NULL,
     updated_at          INTEGER     NOT NULL
 );
-
 

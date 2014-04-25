@@ -1,0 +1,27 @@
+: cascade common::base
+: around container -> {
+
+<h1>
+  Dojo: <: $dojo_data.dojo_name :>
+</h1>
+
+<h3>Dojo Data</h3>
+<div>
+  <dl class="dl-horizontal">
+    <dt>Master</dt>
+    <dd><: $dojo_owner.user_name :></dd>
+  
+    <dt>Dojo</dt>
+    <dd><: $dojo_data.dojo_name :></dd>
+  
+    <dt>Created at</dt>
+    <dd><: $dojo_data.created_at :></dd>
+    
+    <dt>Summary</dt>
+    <dd><: $dojo_data.dojo_summary :></dd>
+  </dl>
+<div>
+
+<h3>Dojo Members</h3>
+
+: }

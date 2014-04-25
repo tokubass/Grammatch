@@ -6,16 +6,9 @@ use parent qw/Grammatch Amon2::Web/;
 use File::Spec;
 use Grammatch::Model::Login;
 
-# Authentication
-sub auth {
+sub session_get {
     my ($c) = @_;
-    my $user_id   = $c->session->get('user_id');
-    my $user_name = $c->session->get('user_name');
-
-    if ($user_id && $user_name) {
-        return { user_id => $user_id, user_name => $user_name }; 
-    }
-    return undef;
+    return $c->session->get('user_id') || undef;
 }
 
 # dispatcher

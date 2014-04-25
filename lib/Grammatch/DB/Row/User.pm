@@ -6,7 +6,7 @@ use parent 'Teng::Row';
 
 sub his_dojo {
     my $self = shift;
-    $self->{teng}->single(dojo => $self->dojo_id);
+    $self->{teng}->single(dojo => { dojo_id => $self->dojo_id });
 }
 
 1;

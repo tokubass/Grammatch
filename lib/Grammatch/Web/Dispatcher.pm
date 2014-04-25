@@ -8,9 +8,12 @@ get '/'       => 'Root#root';
 get '/logout' => 'Root#logout';
 
 # user
-get '/user' => 'User#profile';
+get '/user'      => 'User#user';
+get '/user/{id}' => 'User#user';
 
 # dojo
+get '/dojo'        => 'Dojo#my_dojo';
+get '/dojo/{id}'   => 'Dojo#dojo';
 get '/dojo/create' => 'Dojo#create';
 
 1;
