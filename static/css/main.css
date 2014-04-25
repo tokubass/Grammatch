@@ -1,17 +1,22 @@
 body {
-    margin-top: 50px;
+  padding-top: 50px;
+  padding-bottom: 30px;
 }
 
-footer {
-    text-align: right;
-    padding-right: 10px;
-    padding-top: 2px; }
-    footer a {
-        text-decoration: none;
-        color: black;
-        font-weight: bold;
-    }
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
 
-/* smart phones */
-@media screen and (max-device-width: 480px) {
+@media screen and (min-width: 768px) {
+  .header,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .header {
+    margin-bottom: 30px;
+  }
 }
