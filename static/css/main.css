@@ -1,15 +1,42 @@
+div.container-fluid{
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#ffd6a1');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#ffd6a1')";
+  background-image: -moz-linear-gradient(top, #ffffff, #ffd6a1);
+  background-image: -ms-linear-gradient(top, #ffffff, #ffd6a1);
+  background-image: -o-linear-gradient(top, #ffffff, #ffd6a1);
+  background-image: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#ffd6a1));
+  background-image: -webkit-linear-gradient(top, #ffffff, #ffd6a1);
+  background-image: linear-gradient(top, #ffffff, #ffd6a1);
+
+  border: 0 none;
+
+}
+
+div.navbar-header{
+  height:80px;
+  margin-top:20px;
+  padding-left:20px;
+}
+
 a#top_logo{
-  padding-top:0px;
+  margin-top:50px;
+  padding-top:30px;
   margin-top:-2px;
   padding-left:10px;
   margin-right:-25px;
-  background:url(/static/img/top_logo.png);
+  background:url(/static/img/top_logo_mitekafe.png);
   background-repeat: no-repeat;
-  width:170px;
+  height:80px;
+  width:250px;
 }
 
 a#top_logo:hover {
-  background:url(/static/img/top_logo_hover.png);
+  background:url(/static/img/top_logo_mitekafe_hover.png);
+  background-repeat: no-repeat;
+}
+
+div.collapse{
+  margin-top:45px;
 }
 
 p.title{
