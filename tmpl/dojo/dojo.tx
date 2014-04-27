@@ -1,17 +1,18 @@
 : cascade common::base
 : around container -> {
 
+: my $user_id = c().session().get('user_id');
+
 <div class="row">
   <div class="col-xs-3">
 
     <h1>
       <a href="/dojo/<: $dojo_data.dojo_id :>">
-        <: $dojo_data.dojo_name :>
+          <: $dojo_data.dojo_name :>
       </a>
     </h1>
 
     <center><h4>
-: my $user_id = c().session().get('user_id');
 : if $user_id {
 :   if $logged_user_status {
 :     if $logged_user_status.status == 1 {
@@ -20,7 +21,6 @@
       <p><span class="label label-info">申請中</span></p>
 :     } elsif $logged_user_status.status == 3 {
       <p><span class="label label-danger">師範</span></p>
-      <a href="/dojo/motion" class="btn btn-primary">入門申請確認</a>
 :     } elsif $logged_user_status.status == 4 {
       <p><span class="label label-warning">免許皆伝</span></p>
 :     }
@@ -54,9 +54,18 @@
       <dt>設立</dt>
       <dd><: $dojo_data.created_at.strftime("%Y/%m/%d %H:%M:%S") :></dd>
       
-      <dt>コメント</dt>
-      <dd><: $user_data.user_summary :></dd>
+      <dt>紹介文</dt>
+      <dd>
+        <: $dojo_data.dojo_summary :>
+      </dd>
     </dl>
+
+    <hr>
+
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="/dojo/edit">道場編集</a></li>
+      <li><a href="/dojo/motion">入門申請確認</a></li>
+    </ul>
   </div>
 
   <div class="col-xs-6">

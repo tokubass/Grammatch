@@ -75,4 +75,31 @@ sub create {
     return $c->redirect("/dojo/$dojo_id");
 }
 
+sub edit {
+    my ($class, $c) = @_;
+    my $logged_user_id = $c->session_get();
+    return $c->redirect('/') unless $logged_user_id;
+
+    my $dojo_data = Grammatch::App::Dojo->info($logged_user_id);
+    return $c->render('dojo/edit.tx', { dojo_data => $dojo_data });
+}
+
+sub commit {
+    my ($class, $c) = @_;
+    my $logged_user_id = $c->session_get();
+    return $c->redirect('/') unless $logged_user_id;
+
+    my $params = $c->req->parameters();
+    $c->form(
+        dojo_name => [qw/ NOT_BLANK /, [qw/ LENGTH 1 20 /]], 
+    );
+    if ($c->form->has_error) {
+        my $errors;
+        return $c->render('dojo/edit.tx', { dojo_data => $params->as_hashref, form => $c->form });
+    }
+
+    Grammatch::App::Dojo->commit($logged_user_id, $params);
+    return $c->redirect('/dojo');
+}
+
 1;

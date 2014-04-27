@@ -1,0 +1,51 @@
+: cascade common::base
+
+: around container -> {
+
+<h1>道場編集</h1>
+
+<form class="form-horizontal" role="form" method="POST" action="/dojo/edit">
+: if $form.missing('dojo_name') || $form.invalid('dojo_name') {
+  <div class="form-group has-error">
+: } else {
+  <div class="form-group">
+: }
+    <label for="dojo_name" class="col-sm-3 control-label">道場名</label>
+    <div class="col-sm-7">
+: if $form.missing('dojo_name') {
+      <label class="control-label">
+        道場名を記入して下さい.
+      </label>
+: } elsif $form.invalid('dojo_name') {
+      <label class="control-label">
+        道場名は20文字以下にしてください.
+      </label>
+: }
+      <input type="text" class="form-control" id="dojo_name" name="dojo_name" placeholder="Dojo name" value="<: $dojo_data.dojo_name :>">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="pref_id" class="col-sm-3 control-label">居住地</label>
+    <div class="col-sm-7">
+      <select name="pref_id" class="form-control">
+: my $pref_map = c().config().pref;
+: for $pref_map.keys().sort(-> $a, $b { $a <=> $b }) -> $id {
+        <option value="<: $id :>" <: if $id == $dojo_data.pref_id { :> selected <: } :>><: $pref_map[$id] :></option>
+: }
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="summary" class="col-sm-3 control-label">紹介文</label>
+    <div class="col-sm-7">
+      <textarea class="form-control" name="dojo_summary" rows="10"><: $dojo_data.dojo_summary :></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-7">
+      <button type="submit" class="btn btn-primary">編集</button>
+    </div>
+  </div>
+</form>
+
+: }

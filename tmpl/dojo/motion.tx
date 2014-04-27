@@ -2,7 +2,7 @@
 : around container -> {
 
 <h1>
-  入門申請者
+  入門申請確認
   <small>
     <: $dojo_data.dojo_name :>
   </small>

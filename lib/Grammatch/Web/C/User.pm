@@ -17,7 +17,6 @@ sub edit {
     return $c->redirect('/') unless $logged_user_id;
 
     my $user_data = Grammatch::App::User->profile($logged_user_id);
-    $c->log->info($user_data->get_columns);
     return $c->render('user/edit.tx', { user_data => $user_data });
 }
 

@@ -55,4 +55,22 @@ sub accept {
         die $_;
     };
 }
+
+sub commit {
+    my ($self, $params) = @_;
+
+    my $txn = $self->{teng}->txn_scope;
+    try {
+        $self->update({
+            dojo_name    => $params->{dojo_name},
+            pref_id      => $params->{pref_id},
+            dojo_summary => $params->{dojo_summary},
+        });
+        $txn->commit;
+    } catch {
+        $txn->rollback;
+        die $_;
+    };
+}
+
 1;

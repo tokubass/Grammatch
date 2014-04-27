@@ -22,4 +22,7 @@ post '/dojo/accept' => 'Dojo#accept';
 post '/dojo/create' => 'Dojo#create';
 get '/dojo'         => 'Dojo#dojo_root';
 
+get '/dojo/edit'  => 'Dojo#edit';
+post '/dojo/edit' => 'Dojo#commit';
+
 1;

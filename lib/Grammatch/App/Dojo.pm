@@ -128,4 +128,15 @@ sub create {
     return $dojo_id;
 }
 
+sub info {
+    my ($class, $user_id) = @_;
+    c->db->single(dojo => { user_id => $user_id }) or die;
+}
+
+sub commit {
+    my ($class, $user_id, $params) = @_;
+    my $dojo_data = c->db->single(dojo => { user_id => $user_id }) or die;
+    $dojo_data->commit($params);
+}
+
 1;

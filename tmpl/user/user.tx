@@ -46,7 +46,9 @@
         <dd><: $user_data.last_logged_at.strftime("%Y/%m/%d %H:%M:%S") :></dd>
         
         <dt>自己紹介</dt>
-        <dd><: $user_data.user_summary :></dd>
+        <dd>
+        <: $user_data.user_summary :>
+        </dd>
       </dl>
   </div>
 
