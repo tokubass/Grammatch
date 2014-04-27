@@ -1,3 +1,16 @@
+a#top_logo{
+  padding-top:0px;
+  margin-top:-2px;
+  padding-left:10px;
+  margin-right:-25px;
+  background:url(/static/img/top_logo.png);
+  width:170px;
+}
+
+a#top_logo:hover {
+  background:url(/static/img/top_logo_hover.png);
+}
+
 p.title{
   font-size: 30px;
   color: white;
