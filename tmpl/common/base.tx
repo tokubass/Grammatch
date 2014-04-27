@@ -7,7 +7,7 @@
     <link href="<: static_file('/static/css/' ~ $src) :>" rel="stylesheet">
 : }
     <link href="<: static_file('/static/css/main.css') :>" rel="stylesheet">
-    <link href="<: static_file('/favicon.ico') :>" rel="shortcut icon">
+    <link href="<: static_file('/static/img/favicon.ico') :>" rel="shortcut icon">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body>
