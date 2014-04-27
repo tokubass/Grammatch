@@ -11,4 +11,13 @@ sub user {
     return $c->render('user/user.tx', $data);
 }
 
+sub edit {
+    my ($class, $c) = @_;
+    my $logged_user_id = $c->session_get();
+    return $c->redirect('/') unless $logged_user_id;
+
+    my $data = Grammatch::App::User->user($logged_user_id);
+    return $c->render('user/edit.tx', $data);
+}
+
 1;

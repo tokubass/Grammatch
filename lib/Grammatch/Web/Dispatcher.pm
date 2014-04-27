@@ -9,6 +9,7 @@ get '/logout' => 'Root#logout';
 
 # user
 get '/user/{id:[0-9]+}' => 'User#user';
+get '/user/edit'        => 'User#edit';
 
 # dojo
 get '/dojo/{id:[0-9]+}'          => 'Dojo#dojo';
