@@ -1,15 +1,14 @@
 div.container-fluid{
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#ffd6a1');
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#ffd6a1')";
-  background-image: -moz-linear-gradient(top, #ffffff, #ffd6a1);
-  background-image: -ms-linear-gradient(top, #ffffff, #ffd6a1);
-  background-image: -o-linear-gradient(top, #ffffff, #ffd6a1);
-  background-image: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#ffd6a1));
-  background-image: -webkit-linear-gradient(top, #ffffff, #ffd6a1);
-  background-image: linear-gradient(top, #ffffff, #ffd6a1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffd2a1', endColorstr = '#c7a77e');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffd2a1', endColorstr = '#c7a77e')";
+  background-image: -moz-linear-gradient(top, #ffd2a1, #c7a77e);
+  background-image: -ms-linear-gradient(top, #ffd2a1, #c7a77e);
+  background-image: -o-linear-gradient(top, #ffd2a1, #c7a77e);
+  background-image: -webkit-gradient(linear, center top, center bottom, from(#ffd2a1), to(#c7a77e));
+  background-image: -webkit-linear-gradient(top, #ffd2a1, #c7a77e);
+  background-image: linear-gradient(top, #ffd2a1, #c7a77e);
 
-  border: 0 none;
-
+  border-style: none;
 }
 
 div.navbar-header{
@@ -35,8 +34,50 @@ a#top_logo:hover {
   background-repeat: no-repeat;
 }
 
+.navbar-inverse .navbar-nav>li>a:link {
+  color: white;
+}
+
+.navbar-inverse .navbar-nav>li>a:visited {
+  color: white;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover {
+  color: #999;
+}
+
+.navbar-inverse .navbar-nav>li>a:link {
+  color: white;
+}
+
+.navbar-inverse .navbar-nav>li>a:visited {
+  color: white;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover {
+  color: #999;
+}
 div.collapse{
   margin-top:45px;
+}
+
+a.btn-primary{
+  background-color: #754c24;
+  border-color: #754c24;
+}
+
+.panel-primary{
+  border-color:#754c24;
+}
+
+div.panel-primary>.panel-heading{
+  background-color: #754c24;
+  border: 1px solid #754c24;
+}
+
+div.panel-primary>.panel-body{
+  border: 1px solid #754c24;
+  border-color: #754c24;
 }
 
 p.title{

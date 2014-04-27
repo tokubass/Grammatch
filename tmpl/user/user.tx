@@ -34,7 +34,7 @@
           <a href="/dojo/<: $dojo_data.dojo_id :>"><: $dojo_data.dojo_name :></a>
 : } else {
           未設立<br>
-:   if $user_data.allow_create_dojo {
+:    if $user_data.allow_create_dojo {
           <form method="POST" action="/dojo/create">
             <input type="submit" value="道場設立" class="btn btn-primary btn-xs">
           </form>
