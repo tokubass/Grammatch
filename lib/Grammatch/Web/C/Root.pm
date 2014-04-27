@@ -16,7 +16,6 @@ sub root {
 
 sub logout {
     my ($class, $c) = @_;
-
     $c->session->expire;
     return $c->redirect('/');
 }

@@ -10,14 +10,35 @@
         <: $user_data.user_name :>
       </a>
     </h1>
-    <a class="btn btn-primary btn-xs" href="https://twitter.com/<: $user_data.twitter_screen_name :>">
-      Twitter
-    </a>
+
+    <center>
+      <a class="btn btn-primary btn-xs" href="https://twitter.com/<: $user_data.twitter_screen_name :>">
+        Twitter
+      </a>
+    <center>
 
     <hr>
-
-: include 'user/user_status.tx' { user_data => $user_data, dojo_data => $dojo_data };
+      <dl class="dl">
+        <dt>居住地</dt>
+        <dd><: c().config().pref[$user_data.pref_id] :></dd>
+      
+        <dt>所有道場</dt>
+        <dd>
+: if $dojo_data {
+          <a href="/dojo/<: $dojo_data.dojo_id :>"><: $dojo_data.dojo_name :></a>
+: } else {
+          未設立
+: }
+        </dd>
+      
+        <dt>最終ログイン</dt>
+        <dd><: $user_data.last_logged_at.strftime("%Y/%m/%d %H:%M:%S") :></dd>
+        
+        <dt>コメント</dt>
+        <dd><: $user_data.user_summary :></dd>
+      </dl>
   </div>
+
   <div class="col-xs-6">
     <div class="panel panel-primary">
       <div class="panel-heading">

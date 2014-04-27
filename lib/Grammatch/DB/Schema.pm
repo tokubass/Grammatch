@@ -25,7 +25,7 @@ table {
     pk   'dojo_id';
     columns qw/
         dojo_id user_id
-        dojo_name dojo_summary dojo_member
+        dojo_name dojo_summary dojo_member pref_id
         created_at updated_at
     /;
 
@@ -40,7 +40,7 @@ table {
         id user_id dojo_id
         status created_at updated_at
     /;
-    # 0未登録, 1加入済み, 2加入申請中
+    # 0未登録, 1加入済み, 2加入申請中, 3師匠, 4免許皆伝
 
     inflate qr/_at$/ => sub { inflate_time(@_) };
     deflate qr/_at$/ => sub { deflate_time(@_) };

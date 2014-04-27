@@ -1,28 +1,33 @@
 package Grammatch::Web::C::Dojo;
 use strict;
 use warnings;
-use Grammatch::Model::Dojo;
+use Grammatch::App::Dojo;
 
 sub dojo {
     my ($class, $c, $param) = @_;
-    my $dojo_id = $param->{id};
-    my $user_id = $c->session_get();
+    my $logged_user_id = $c->session_get();
 
-    my $dojo_data = Grammatch::Model::Dojo->dojo($dojo_id);
-    return $c->redirect('/') unless $dojo_data; 
+    my $data = Grammatch::App::Dojo->dojo($param->{id}, $logged_user_id);
+    return $c->render('dojo/dojo.tx', $data);
 
-    my $owner = $dojo_data->owner;
-    return $c->redirect('/') unless $owner; 
-
-    my $user_list = Grammatch::Model::Dojo->dojo_member($dojo_id);
-    return $c->redirect('/') unless $user_list; 
-
-    return $c->render('dojo/dojo.tx',{
-        dojo_data  => $dojo_data,
-        owner_data => $owner,
-        user_list  => $user_list,
-        joined     => $dojo_data->joined($user_id),
-    });
+#    my $dojo_id = $param->{id};
+#    my $user_id = $c->session_get();
+#
+#    my $dojo_data = Grammatch::Model::Dojo->dojo($dojo_id);
+#    return $c->redirect('/') unless $dojo_data; 
+#
+#    my $owner = $dojo_data->owner;
+#    return $c->redirect('/') unless $owner; 
+#
+#    my $user_list = Grammatch::Model::Dojo->dojo_member($dojo_id);
+#    return $c->redirect('/') unless $user_list; 
+#
+#    return $c->render('dojo/dojo.tx',{
+#        dojo_data  => $dojo_data,
+#        owner_data => $owner,
+#        user_list  => $user_list,
+#        joined     => $dojo_data->joined($user_id),
+#    });
 }
 
 sub create {

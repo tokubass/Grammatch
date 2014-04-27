@@ -5,7 +5,7 @@ use parent 'Teng::Row';
 use Try::Tiny;
 use Time::Piece;
 
-sub dojo {
+sub own_dojo {
     my $self = shift;
     $self->{teng}->single(dojo => { dojo_id => $self->dojo_id });
 }

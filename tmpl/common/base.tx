@@ -12,8 +12,8 @@
   </head>
   <body>
 
-: my $user_id   = c().session().get('user_id');
-: my $dojo_id   = c().session().get('dojo_id');
+: my $user_id = c().session().get('user_id');
+: my $dojo_id = c().session().get('dojo_id');
 
     <nav class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">

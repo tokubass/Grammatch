@@ -1,44 +1,112 @@
 : cascade common::base
 : around container -> {
 
-<h1>
-  Dojo: <: $dojo_data.dojo_name :>
-</h1>
+<div class="row">
+  <div class="col-xs-3">
 
-<h3>Dojo Data</h3>
-<div>
-  <dl class="dl-horizontal">
-    <dt>Dojo Master</dt>
-    <dd><a href="/user/<: $owner_data.user_id :>"><: $owner_data.user_name :></a></dd>
-  
-    <dt>Dojo</dt>
-    <dd><: $dojo_data.dojo_name :></dd>
+    <h1>
+      <: $dojo_data.dojo_name :>
+    </h1>
 
-    <dt>Member</dt>
-    <dd><: $dojo_data.dojo_member :> / <: c().config().dojo_limit :></dd>
+    <center><h4>
+: my $user_id = c().session().get('user_id');
+: if $user_id {
+:   if $logged_user_status {
+:     my $status = $logged_user_status.status;
+:     if $status == 1 {
+      <span class="label label-primary">弟子</span>
+:     } elsif $status == 2 {
+      <span class="label label-info">申請中</span>
+:     } elsif $status == 3 {
+      <span class="label label-danger">師範</span>
+:     } elsif $status == 4 {
+      <span class="label label-warning">免許皆伝</span>
+:     }
+:   } else {
+:     if $dojo_data.dojo_member < c().config().dojo_limit {
+        <a href="/dojo/<: $dojo_data.dojo_id :>/join" class="btn btn-info text-center">入門申請</a>
+:     } else {
+        <a href="/dojo/<: $dojo_data.dojo_id :>/join" class="btn btn-info text-center">入門申請</a>
+:     } 
+:   }
+: }      
+    </h4></center>
 
-    <dt>Created at</dt>
-    <dd><: $dojo_data.created_at :></dd>
+    <hr>
+
+    <dl class="dl">
+      <dt>所在地</dt>
+      <dd><: c().config().pref[$dojo_data.pref_id] :></dd>
     
-    <dt>Summary</dt>
-    <dd><: $dojo_data.dojo_summary :></dd>
-  </dl>
-<div>
+      <dt>道場主 (師匠)</dt>
+      <dd>
+        <a href="/user/<: $owner_data.user_id :>"><: $owner_data.user_name :></a>
+      </dd>
+      
+      <dt>門下生</dt>
+      <dd><: $dojo_data.dojo_member :>人 / <: c().config().dojo_limit :>人</dd>
+    
+      <dt>設立</dt>
+      <dd><: $dojo_data.created_at.strftime("%Y/%m/%d %H:%M:%S") :></dd>
+      
+      <dt>コメント</dt>
+      <dd><: $user_data.user_summary :></dd>
+    </dl>
+  </div>
 
-: if $joined == 0 && $dojo_data.dojo_member < c().config().dojo_limit {
-<a href="/dojo/<: $dojo_data.dojo_id :>/join" class="btn btn-info text-center">Join this Dojo!</a>
+  <div class="col-xs-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        参加予定イベント 
+      </div>
+      <div class="panel-body">
+        これからさんかするよー      
+      </div>
+    </div>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        参加済みイベント 
+      </div>
+      <div class="panel-body">
+        いぜんさんかしたよー 
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-xs-3">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        門下生
+        <small>(<: $dojo_data.dojo_member :>/<: c().config().dojo_limit :>)</small>
+      </div>
+      <ul class="list-group">
+
+: while $member_list.next -> $member {
+        <li class="list-group-item">
+        <a href="/user/<: $member.user_id :>"><: $member.user_name :></a>
+        <small>
+          (<: c().config().status[$member.status] :>)
+        </small>
+        </li>
 : }
+      </ul>
+    </div>
+  </div>
+</div>
 
-<h3>Dojo Members</h3>
+<hr>
 
-: if $joined == 3 {
-  <a href="/dojo/<: $dojo_data.dojo_id :>/p">Accept</a><br>
-: }
+: if $user_id {
+:   if $logged_user_status {
+:     my $status = $logged_user_status.status;
+:     if $status == 1 || $status == 4 {
+  <a class="btn btn-danger pull-right">道場脱退</a>
+:     } elsif $status == 2 {
+  <a class="btn btn-danger pull-right">申請取消</a>
+:     }
+:   }
+: }      
 
-: while $user_list.next -> $user {
-<a href="/user/<: $user.user_id :>"><: $user.user_name :></a><br>
-: }
-
-DEBUG : <: $joined :>
 
 : }
