@@ -4,6 +4,7 @@ use warnings;
 use Amon2::Declare;   
 use Try::Tiny;
 use Time::Piece;
+use SQL::Maker::Condition;
 
 sub dojo {
     my ($class, $dojo_id, $logged_user_id) = @_;
@@ -106,8 +107,8 @@ sub create {
     my $current_time = localtime();
     try {
         $dojo_id = c->db->fast_insert(dojo => {
-            dojo_name => $user_data->user_name,
-            user_id   => $user_data->user_id,
+            dojo_name  => $user_data->user_name,
+            user_id    => $user_data->user_id,
             created_at => $current_time,
             updated_at => $current_time,
         });

@@ -25,4 +25,6 @@ get '/dojo'         => 'Dojo#dojo_root';
 get '/dojo/edit'  => 'Dojo#edit';
 post '/dojo/edit' => 'Dojo#commit';
 
+get '/search/dojo'  => 'Search#dojo';
+
 1;

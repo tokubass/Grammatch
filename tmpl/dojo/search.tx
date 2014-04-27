@@ -1,0 +1,47 @@
+: cascade common::base
+: around container -> {
+
+<h1>
+  道場検索
+</h1>
+
+<form class="form-inline" role="form" method="GET" action="/search/dojo">
+  <div class="form-group">
+    <label class="sr-only" for="keyword">キーワード</label>
+    <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Keyword" value="<: $keyword :>">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="pref_id">所在地</label>
+    所在地
+    <select name="pref_id" class="form-control">
+: my $pref_map = c().config().pref;
+: for $pref_map.keys().sort(-> $a, $b { $a <=> $b }) -> $id {
+      <option value="<: $id :>" <: if $id == $pref_id { :> selected <: } :>><: $pref_map[$id] :></option>
+: }
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">検索</button>
+</form>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>道場名</th>
+      <th>師匠</th>
+      <th>居住地</th>
+      <th>紹介文</th>
+    </tr>
+  </thead>
+  <tbody>
+: while $dojo_list.next -> $dojo {
+    <tr>
+      <th><a href="/dojo/<: $dojo.dojo_id :>"><: $dojo.dojo_name :></a></th>
+      <th><a href="/user/<: $dojo.dojo_id :>"><: $dojo.user_name :></a></th>
+      <th><: c().config().pref[$dojo.dojo_pref_id] :></th>
+      <th><: $dojo.dojo_summary :></th>
+    </tr>
+: }
+  </tbody>
+</table>
+
+: }
