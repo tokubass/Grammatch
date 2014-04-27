@@ -8,14 +8,17 @@ get '/'       => 'Root#root';
 get '/logout' => 'Root#logout';
 
 # user
-get '/user/{id}' => 'User#user';
+get '/user/{id:[0-9]+}' => 'User#user';
 
 # dojo
-get '/dojo/{id}'          => 'Dojo#dojo';
-get '/dojo/{id}/motion'   => 'Dojo#motion';
-post '/dojo/{id}/join'    => 'Dojo#join';
-post '/dojo/{id}/dropout' => 'Dojo#dropout';
-post '/dojo/{id}/accept'  => 'Dojo#accept';
-post '/dojo/create'       => 'Dojo#create';
+get '/dojo/{id:[0-9]+}'          => 'Dojo#dojo';
+post '/dojo/{id:[0-9]+}/join'    => 'Dojo#join';
+post '/dojo/{id:[0-9]+}/dropout' => 'Dojo#dropout';
+
+get '/dojo/motion'  => 'Dojo#motion';
+post '/dojo/accept' => 'Dojo#accept';
+post '/dojo/create' => 'Dojo#create';
+get '/dojo'         => 'Dojo#dojo_root';
+
 
 1;

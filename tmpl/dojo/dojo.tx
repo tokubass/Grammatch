@@ -5,7 +5,9 @@
   <div class="col-xs-3">
 
     <h1>
-      <: $dojo_data.dojo_name :>
+      <a href="/dojo/<: $dojo_data.dojo_id :>">
+        <: $dojo_data.dojo_name :>
+      </a>
     </h1>
 
     <center><h4>
@@ -13,13 +15,14 @@
 : if $user_id {
 :   if $logged_user_status {
 :     if $logged_user_status.status == 1 {
-      <span class="label label-primary">弟子</span>
+      <p><span class="label label-primary">弟子</span></p>
 :     } elsif $logged_user_status.status == 2 {
-      <span class="label label-info">申請中</span>
+      <p><span class="label label-info">申請中</span></p>
 :     } elsif $logged_user_status.status == 3 {
-      <span class="label label-danger">師範</span>
+      <p><span class="label label-danger">師範</span></p>
+      <a href="/dojo/motion" class="btn btn-primary">入門申請確認</a>
 :     } elsif $logged_user_status.status == 4 {
-      <span class="label label-warning">免許皆伝</span>
+      <p><span class="label label-warning">免許皆伝</span></p>
 :     }
 :   } else {
       <p><span class="label label-warning">未加入</span></p>

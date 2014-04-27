@@ -22,7 +22,6 @@ sub user_status {
     $self->{teng}->single(user_dojo_map => { user_id => $user_id, dojo_id => $self->dojo_id });
 }
 
-
 sub motions {
     my $self = shift;
     $self->{teng}->search_by_sql(

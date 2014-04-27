@@ -27,11 +27,8 @@
         <ul class="nav navbar-nav">
           <li><a href="/search/dojo">道場を探す</a></li>
           <li><a href="/search/event">イベントを探す</a></li>
-: if $user_id {
-          <li><a href="/user/<: $user_id :>">My Profile</a></li>
-: }
 : if $dojo_id {
-          <li><a href="/dojo/<: $dojo_id :>">My Dojo</a></li>
+          <li><a href="/dojo">My Dojo</a></li>
 : }
         </ul>
         <ul class="nav navbar-nav navbar-right">

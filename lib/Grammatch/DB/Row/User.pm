@@ -35,4 +35,17 @@ sub login {
     };
 }
 
+sub created_dojo {
+    my ($self, $dojo_id) = @_;
+    
+    my $txn = $self->{teng}->txn_scope;
+    try {
+        $self->update({ allow_create_dojo => 0, dojo_id => $dojo_id });
+        $txn->commit;
+    } catch {
+        $txn->rollback;
+        die $_;
+    };
+}
+
 1;
