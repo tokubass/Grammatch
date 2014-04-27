@@ -4,6 +4,7 @@ my $basedir = File::Spec->rel2abs(File::Spec->catdir(dirname(__FILE__), '..'));
 my $dbpath  = File::Spec->catfile($basedir, 'db', 'development.db');
 my $auth    = do File::Spec->catfile($basedir, 'config', 'auth.pl');
 my $pref    = do File::Spec->catfile($basedir, 'config', 'pref.pl');
+my $status  = do File::Spec->catfile($basedir, 'config', 'user_status.pl');
 +{
     'DBI' => [
         'dbi:mysql:database=grammatch;host=localhost',
@@ -13,8 +14,9 @@ my $pref    = do File::Spec->catfile($basedir, 'config', 'pref.pl');
     
     'Web::Validator' => {},
    
-    Auth => $auth,
-    pref => $pref,
+    Auth       => $auth,
+    pref       => $pref,
+    status     => $status,
     dojo_limit => 20,
 
     'Plugin::Logger' => {

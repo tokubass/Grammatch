@@ -12,25 +12,7 @@
 : }
 
 <h3>Profile</h3>
-<dl class="dl-horizontal">
-  <dt>Hometown</dt>
-  <dd><: c().config().pref[$user_data.pref_id] :></dd>
-
-  <dt>Dojo</dt>
-  <dd>
-: if $dojo_data {
-    <a href="/dojo/<: $dojo_data.dojo_id :>"><: $dojo_data.dojo_name :></a>
-: } else {
-    Not established
-: }
-  </dd>
-
-  <dt>Last logged at</dt>
-  <dd><: $user_data.last_logged_at :></dd>
-  
-  <dt>Summary</dt>
-  <dd><: $user_data.user_summary :></dd>
-</dl>
+: include 'user/user_status.tx' { user_data => $user_data, dojo_data => $dojo_data };
 
 <h3>Dojo List</h3>
 
