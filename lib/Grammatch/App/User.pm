@@ -17,4 +17,15 @@ sub user {
     }; 
 }
 
+sub profile {
+    my ($class, $user_id) = @_;
+    c->db->single(user => { user_id => $user_id }) or die;
+}
+
+sub commit {
+    my ($class, $user_id, $params) = @_;
+    my $user_data = c->db->single(user => { user_id => $user_id }) or die;
+    $user_data->commit($params);
+}
+
 1;

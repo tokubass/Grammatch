@@ -16,8 +16,28 @@ sub edit {
     my $logged_user_id = $c->session_get();
     return $c->redirect('/') unless $logged_user_id;
 
-    my $data = Grammatch::App::User->user($logged_user_id);
-    return $c->render('user/edit.tx', $data);
+    my $user_data = Grammatch::App::User->profile($logged_user_id);
+    $c->log->info($user_data->get_columns);
+    return $c->render('user/edit.tx', { user_data => $user_data });
+}
+
+sub commit {
+    my ($class, $c) = @_;
+    my $logged_user_id = $c->session_get();
+    return $c->redirect('/') unless $logged_user_id;
+
+    my $params = $c->req->parameters();
+    $c->log->info($params);
+    $c->form(
+        user_name => [qw/ NOT_BLANK /, [qw/ LENGTH 1 20 /]], 
+    );
+    if ($c->form->has_error) {
+        my $errors;
+        return $c->render('user/edit.tx', { user_data => $params->as_hashref, form => $c->form });
+    }
+
+    Grammatch::App::User->commit($logged_user_id, $params);
+    return $c->redirect('/');
 }
 
 1;

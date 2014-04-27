@@ -4,10 +4,23 @@
 
 <h1>プロフィール編集</h1>
 
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" method="POST" action="/user/edit">
+: if $form.missing('user_name') || $form.invalid('user_name') {
+  <div class="form-group has-error">
+: } else {
   <div class="form-group">
+: }
     <label for="user_name" class="col-sm-3 control-label">ユーザーネーム</label>
     <div class="col-sm-7">
+: if $form.missing('user_name') {
+      <label class="control-label">
+        ユーザー名を記入して下さい.
+      </label>
+: } elsif $form.invalid('user_name') {
+      <label class="control-label">
+        ユーザー名は20文字以下にしてください.
+      </label>
+: }
       <input type="text" class="form-control" id="user_name" name="user_name" placeholder="User name" value="<: $user_data.user_name :>">
     </div>
   </div>
@@ -25,12 +38,12 @@
   <div class="form-group">
     <label for="summary" class="col-sm-3 control-label">自己紹介</label>
     <div class="col-sm-7">
-      <textarea class="form-control" rows="10"><:  :></textarea>
+      <textarea class="form-control" name="user_summary" rows="10"><: $user_data.user_summary :></textarea>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-3 col-sm-7">
-      <button type="submit" class="btn btn-default">編集</button>
+      <button type="submit" class="btn btn-primary">編集</button>
     </div>
   </div>
 </form>

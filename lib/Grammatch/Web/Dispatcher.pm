@@ -10,6 +10,7 @@ get '/logout' => 'Root#logout';
 # user
 get '/user/{id:[0-9]+}' => 'User#user';
 get '/user/edit'        => 'User#edit';
+post '/user/edit'       => 'User#commit';
 
 # dojo
 get '/dojo/{id:[0-9]+}'          => 'Dojo#dojo';
@@ -20,6 +21,5 @@ get '/dojo/motion'  => 'Dojo#motion';
 post '/dojo/accept' => 'Dojo#accept';
 post '/dojo/create' => 'Dojo#create';
 get '/dojo'         => 'Dojo#dojo_root';
-
 
 1;

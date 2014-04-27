@@ -48,4 +48,21 @@ sub created_dojo {
     };
 }
 
+sub commit {
+    my ($self, $params) = @_;
+
+    my $txn = $self->{teng}->txn_scope;
+    try {
+        $self->update({
+            user_name    => $params->{user_name} || 'e',
+            pref_id      => $params->{pref_id},
+            user_summary => $params->{user_summary},
+        });
+        $txn->commit;
+    } catch {
+        $txn->rollback;
+        die $_;
+    };
+}
+
 1;

@@ -15,6 +15,7 @@ requires 'Time::Piece'                    , '1.20';
 requires 'Teng';
 requires 'Amon2::Web::Dispatcher::RouterSimple::Extended';
 requires 'Amon2::Plugin::Web::Auth';
+requires 'Amon2::Plugin::Web::FormValidator::Simple';
 
 requires 'Text::UnicodeTable::Simple';
 requires 'Module::Pluggable::Object';
