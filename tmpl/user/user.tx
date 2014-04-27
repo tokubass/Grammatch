@@ -28,7 +28,7 @@
         <dt>居住地</dt>
         <dd><: c().config().pref[$user_data.pref_id] :></dd>
       
-        <dt>所有道場</dt>
+        <dt>所有カフェ</dt>
         <dd style="display:block;">
 : if $dojo_data {
           <a href="/dojo/<: $dojo_data.dojo_id :>"><: $dojo_data.dojo_name :></a>
@@ -73,7 +73,7 @@
   <div class="col-xs-3">
     <div class="panel panel-primary">
       <div class="panel-heading">
-        所属道場 
+        所属カフェ 
       </div>
       <div class="panel-body">
 : if $dojo_data{

@@ -11,6 +11,19 @@ div.container-fluid{
   border-style: none;
 }
 
+a:link { color: #754c24; }
+a:visited { color: #754c24; }
+a:hover { color: #4b3117; }
+
+a.btn:link { color:white; }
+a.btn:visited { color:white; }
+a.btn:hover { color:white; }
+
+
+.navbar-inverse {
+  border-color:#ffd2a1;
+}
+
 div.navbar-header{
   height:80px;
   margin-top:20px;
@@ -64,6 +77,13 @@ div.collapse{
 a.btn-primary{
   background-color: #754c24;
   border-color: #754c24;
+  color: white;
+}
+
+a.btn-primary:hover {
+  background-color: #4b3117;
+  border-color: #4b3117;
+  color: white;
 }
 
 .panel-primary{
@@ -106,6 +126,15 @@ dd{
   margin-bottom: 10px;  
 }
 
+div.footer{
+  position: absolute;
+  width:100%;
+  background-color:#ffd2a1;
+  bottom:0px;
+  height: 30px;
+  padding-top:5px;
+  font-size:12px;
+}
 
 
 /* smart phones */
