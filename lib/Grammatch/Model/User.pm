@@ -6,7 +6,7 @@ use Amon2::Declare;
 sub user {
     my ($class, $user_id) = @_;
     return undef unless $user_id;
-    return c->db->single('user' => { user_id => $user_id }) || undef;
+    return c->db->single('user' => { user_id => $user_id });
 }
 
 sub dojo_list {

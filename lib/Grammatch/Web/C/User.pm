@@ -1,22 +1,14 @@
 package Grammatch::Web::C::User;
 use strict;
 use warnings;
-use Grammatch::Model::User;
+use Grammatch::App::User;
 
 sub user {
     my ($class, $c, $param) = @_;
-    my $user_id = $param->{id};
+    my $data = Grammatch::App::User->user($param->{id});
 
-    my $user_data = Grammatch::Model::User->user($user_id);
-    return $c->redirect('/') unless $user_data; 
-    my $dojo_list = Grammatch::Model::User->dojo_list($user_id);
-    return $c->redirect('/') unless $dojo_list; 
-    
-    return $c->render('user/user.tx',{
-        user_data => $user_data,
-        dojo_data => $user_data->dojo,
-        dojo_list => $dojo_list,
-    });
+    return $c->redirect('/') unless $data; 
+    return $c->render('user/user.tx', $data);
 }
 
 1;

@@ -1,23 +1,61 @@
 : cascade common::base
+
 : around container -> {
 
-<h1>
-  User: <: $user_data.user_name :>
-  <small> / <a href="https://twitter.com/<: $user_data.twitter_screen_name :>
-">Twitter</a></small>
-</h1>
+<div class="row">
+  <div class="col-xs-3">
 
-: if $user_data.allow_create_dojo == 1 {
-<a href="/dojo/create" class="btn btn-info text-center">Create Dojo!</a>
-: }
+    <h1>
+      <a href="/user/<: $user_data.user_id :>">
+        <: $user_data.user_name :>
+      </a>
+    </h1>
+    <a class="btn btn-primary btn-xs" href="https://twitter.com/<: $user_data.twitter_screen_name :>">
+      Twitter
+    </a>
 
-<h3>Profile</h3>
+    <hr>
+
 : include 'user/user_status.tx' { user_data => $user_data, dojo_data => $dojo_data };
+  </div>
+  <div class="col-xs-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        参加予定イベント 
+      </div>
+      <div class="panel-body">
+        これからさんかするよー      
+      </div>
+    </div>
 
-<h3>Dojo List</h3>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        参加済みイベント 
+      </div>
+      <div class="panel-body">
+        いぜんさんかしたよー 
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-xs-3">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        所属道場 
+      </div>
+      <ul class="list-group">
 
 : while $dojo_list.next -> $dojo {
-<a href="/dojo/<: $dojo.dojo_id :>"><: $dojo.dojo_name :></a><br>
+        <li class="list-group-item">
+        <a href="/dojo/<: $dojo.dojo_id :>"><: $dojo.dojo_name :></a>
+        <small>
+          (<: c().config().status[$dojo.status] :>)
+        </small>
+        </li>
 : }
+      </ul>
+    </div>
+  </div>
+</div>
 
 : }

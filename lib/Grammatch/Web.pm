@@ -4,7 +4,8 @@ use warnings;
 use utf8;
 use parent qw/Grammatch Amon2::Web/;
 use File::Spec;
-use Grammatch::Model::Login;
+use Try::Tiny;
+use Time::Piece;
 
 sub session_get {
     my ($c) = @_;
@@ -30,20 +31,31 @@ __PACKAGE__->load_plugins(
         module      => 'Twitter',
         on_finished => sub {
             my ($c, $access_token, $access_token_secret, $user_id, $screen_name) = @_;
-            my $user = Grammatch::Model::Login->login($user_id);
-  
-            if ($user) {
-                $c->session->set('user_id'   => $user->user_id );
-                $c->session->set('user_name' => $user->user_name );
-                $c->session->set('dojo_id'   => $user->dojo_id );
-                return $c->redirect('/');
-            } 
+            my $user = $c->db->single(user => { twitter_user_id => $user_id });
+            
+            unless ($user) {
+                my $txn = $c->db->txn_scope;
+                my $current_time = localtime();
+                try {
+                    $user = $c->db->insert('user' => { 
+                        user_name           => $screen_name,
+                        twitter_screen_name => $screen_name,
+                        twitter_user_id     => $user_id,
+                        created_at          => $current_time,
+                        updated_at          => $current_time,
+                        last_logged_at      => $current_time,
+                    }); 
+                    $txn->commit;
+                } catch {
+                    $txn->rollback;
+                    die $_;
+                };
+            }
 
-            my $entry_user = Grammatch::Model::Login->entry($user_id, $screen_name);  
-            $c->session->set('user_id'   => $entry_user->user_id );
-            $c->session->set('user_name' => $entry_user->user_name );
-            $c->session->set('dojo_id'   => $entry_user->dojo_id );
-            return $c->redirect("/user/" . $entry_user->user_id);
+            $c->session->set('user_id'   => $user->user_id );
+            $c->session->set('user_name' => $user->user_name );
+            $c->session->set('dojo_id'   => $user->dojo_id );
+            return $c->redirect('/');
         },
     },
 );

@@ -1,9 +1,9 @@
-package Grammatch::App::Root;
+package Grammatch::App::User;
 use strict;
 use warnings;
 use Amon2::Declare;   
 
-sub root {
+sub user {
     my ($class, $user_id) = @_;
     my $user_data = c->db->single(user => { user_id => $user_id }) or die "user id '$user_id' : not found.";
    
@@ -16,7 +16,5 @@ sub root {
         dojo_list => $dojo_list,
     }; 
 }
-
-
 
 1;
