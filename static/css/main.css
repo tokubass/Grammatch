@@ -20,6 +20,12 @@ img.icon{
   height: 200px;
 }
 
+dd{
+  margin-bottom: 10px;  
+}
+
+
+
 /* smart phones */
 @media screen and (max-device-width: 480px) {
 }

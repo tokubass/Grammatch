@@ -4,12 +4,14 @@
 
 <div class="row">
   <div class="col-xs-3">
-
-    <h1>
-      <a href="/user/<: $user_data.user_id :>">
-        <: $user_data.user_name :>
-      </a>
-    </h1>
+    
+    <center>
+      <h1>
+        <a href="/user/<: $user_data.user_id :>">
+          <: $user_data.user_name :>
+        </a>
+      </h1>
+    </center>
 
     <center>
       <p><a class="btn btn-info btn-xs" href="https://twitter.com/<: $user_data.twitter_screen_name :>">
@@ -26,11 +28,11 @@
         <dd><: c().config().pref[$user_data.pref_id] :></dd>
       
         <dt>所有道場</dt>
-        <dd>
+        <dd style="display:block;">
 : if $dojo_data {
           <a href="/dojo/<: $dojo_data.dojo_id :>"><: $dojo_data.dojo_name :></a>
 : } else {
-          未設立
+          未設立<br>
 :   if $user_data.allow_create_dojo {
           <form method="POST" action="/dojo/create">
             <input type="submit" value="道場設立" class="btn btn-primary btn-xs">
@@ -71,6 +73,13 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         所属道場 
+      </div>
+      <div class="panel-body">
+: if $dojo_data{
+       <a href="/dojo/<: $dojo_data.dojo_id :>"><: $dojo_data.dojo_name :></a> 
+: } else {
+       未所属
+:}
       </div>
       <ul class="list-group">
 : while $dojo_list.next -> $dojo {
