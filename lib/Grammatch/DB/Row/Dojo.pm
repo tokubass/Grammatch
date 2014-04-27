@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use parent 'Teng::Row';
 use Try::Tiny;
+use Time::Piece;
 
 sub owner {
     my $self = shift;
@@ -34,8 +35,12 @@ sub dropout {
     my ($self, $user_id) = @_;
     
     my $txn = $self->{teng}->txn_scope;
+    my $current_time = localtime();
     try {
-    $self->update({ dojo_member => $self->dojo_member - 1 });
+        $self->update({
+            dojo_member => $self->dojo_member - 1,
+            updated_at  => $current_time,
+        });
         $txn->commit;
     } catch {
         $txn->rollback;
@@ -47,8 +52,12 @@ sub accept {
     my ($self, $user_id) = @_;
     
     my $txn = $self->{teng}->txn_scope;
+    my $current_time = localtime();
     try {
-        $self->update({ dojo_member => $self->dojo_member + 1 });
+        $self->update({
+            dojo_member => $self->dojo_member + 1,
+            updated_at  => $current_time,
+        });
         $txn->commit;
     } catch {
         $txn->rollback;
@@ -60,11 +69,13 @@ sub commit {
     my ($self, $params) = @_;
 
     my $txn = $self->{teng}->txn_scope;
+    my $current_time = localtime();
     try {
         $self->update({
             dojo_name    => $params->{dojo_name},
             pref_id      => $params->{pref_id},
             dojo_summary => $params->{dojo_summary},
+            updated_at   => $current_time,
         });
         $txn->commit;
     } catch {

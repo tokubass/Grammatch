@@ -39,8 +39,13 @@ sub created_dojo {
     my ($self, $dojo_id) = @_;
     
     my $txn = $self->{teng}->txn_scope;
+    my $current_time = localtime();
     try {
-        $self->update({ allow_create_dojo => 0, dojo_id => $dojo_id });
+        $self->update({
+            allow_create_dojo => 0,
+            dojo_id           => $dojo_id,
+            updated_at        => $current_time,
+        });
         $txn->commit;
     } catch {
         $txn->rollback;
@@ -52,11 +57,13 @@ sub commit {
     my ($self, $params) = @_;
 
     my $txn = $self->{teng}->txn_scope;
+    my $current_time = localtime();
     try {
         $self->update({
             user_name    => $params->{user_name},
             pref_id      => $params->{pref_id},
             user_summary => $params->{user_summary},
+            updated_at   => $current_time,
         });
         $txn->commit;
     } catch {

@@ -3,6 +3,8 @@
 
 : around container -> {
 
+: my $user_id = c().session().get('user_id');
+
 <div class="row">
   <div class="col-xs-3">
     
@@ -18,9 +20,11 @@
       <p><a class="btn btn-info btn-xs" href="https://twitter.com/<: $user_data.twitter_screen_name :>">
         Twitter
       </a></p>
+: if $user_data && $user_data.user_id == $user_id {
       <p><a class="btn btn-primary" href="/user/edit">
         プロフィール編集 
       </a></p>
+: }
     </center>
 
     <hr>
@@ -47,7 +51,7 @@
         
         <dt>自己紹介</dt>
         <dd>
-        <: $user_data.user_summary :>
+          <: $user_data.user_summary :>
         </dd>
       </dl>
   </div>

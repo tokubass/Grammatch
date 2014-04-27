@@ -60,12 +60,13 @@
       </dd>
     </dl>
 
+: if $user_id && $logged_user_status && $logged_user_status.status == 3 {
     <hr>
-
     <ul class="nav nav-pills nav-stacked">
       <li><a href="/dojo/edit">道場編集</a></li>
       <li><a href="/dojo/motion">入門申請確認</a></li>
     </ul>
+: }
   </div>
 
   <div class="col-xs-6">
