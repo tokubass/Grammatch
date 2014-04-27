@@ -17,7 +17,7 @@ my $status  = do File::Spec->catfile($basedir, 'config', 'user_status.pl');
     Auth       => $auth,
     pref       => $pref,
     status     => $status,
-    dojo_limit => 20,
+    dojo_limit => 1,
 
     'Plugin::Logger' => {
         dispatchers => [qw/screen/],

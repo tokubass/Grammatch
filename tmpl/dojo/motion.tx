@@ -1,0 +1,50 @@
+: cascade common::base
+: around container -> {
+
+<h1>
+  入門申請者
+  <small>
+    <: $dojo_data.dojo_name :>
+  </small>
+</h1>
+: if $dojo_data.dojo_member < c().config().dojo_limit {
+<div class="alert alert-info">
+  あなたの道場はあと<: c().config().dojo_limit - $dojo_data.dojo_member :>人の弟子を受け入れることができます.
+</div>
+: } else {
+<div class="alert alert-warning">
+  あなたの道場の弟子は定員の<: c().config().dojo_limit :>人に達したので, これ以上弟子を受け入れることはできません.
+</div>
+: }
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ユーザ名</th>
+      <th>Twitter</th>
+      <th>居住地</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+: while $motion_list.next -> $user {
+    <tr>
+      <th><: $user.user_name :></th>
+      <th> 
+        <a href="https://twitter.com/<: $user.twitter_screen_name :>">@<: $user.twitter_screen_name :></a>
+      </th>
+      <th><: c().config().pref[$user.pref_id] :></th>
+      <th>
+: if $dojo_data.dojo_membrer < c().config().dojo_limit {
+        <form method="POST" action="/dojo/<: $dojo_data.dojo_id :>/accept">
+          <input type="submit" value="入門許可" class="btn btn-primary btn-xs">
+          <input type="hidden" name="user_id" value="<: $user.user_id :>">
+        </form>
+: }
+      </th>
+    </tr>
+: }
+  </tbody>
+</table>
+
+: }

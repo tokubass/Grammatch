@@ -65,14 +65,15 @@
         所属道場 
       </div>
       <ul class="list-group">
-
 : while $dojo_list.next -> $dojo {
+:   if $dojo.status != 2 {
         <li class="list-group-item">
         <a href="/dojo/<: $dojo.dojo_id :>"><: $dojo.dojo_name :></a>
         <small>
           (<: c().config().status[$dojo.status] :>)
         </small>
         </li>
+:   }
 : }
       </ul>
     </div>

@@ -12,11 +12,10 @@ get '/user/{id}' => 'User#user';
 
 # dojo
 get '/dojo/{id}'          => 'Dojo#dojo';
+get '/dojo/{id}/motion'   => 'Dojo#motion';
+post '/dojo/{id}/join'    => 'Dojo#join';
 post '/dojo/{id}/dropout' => 'Dojo#dropout';
-
-get '/dojo/create'      => 'Dojo#create';
-get '/dojo/{id}/join'   => 'Dojo#join';
-get '/dojo/{id}/p'      => 'Dojo#pending';
-get '/dojo/{id}/accept' => 'Dojo#accept';
+post '/dojo/{id}/accept'  => 'Dojo#accept';
+post '/dojo/create'       => 'Dojo#create';
 
 1;
