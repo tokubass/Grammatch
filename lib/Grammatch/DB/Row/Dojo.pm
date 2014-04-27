@@ -1,13 +1,12 @@
 package Grammatch::DB::Row::Dojo;
 use strict;
 use warnings;
-
 use parent 'Teng::Row';
+use Try::Tiny;
 
 sub owner {
     my $self = shift;
-    $self->{teng}->single(user => { user_id => $self->user_id })
-        or die sprintf "dojo id '%s' : owner not found.", $self->dojo_id;
+    $self->{teng}->single(user => { user_id => $self->user_id });
 }
 
 sub members {
@@ -21,6 +20,19 @@ sub members {
 sub user_status {
     my ($self, $user_id) = @_;
     $self->{teng}->single(user_dojo_map => { user_id => $user_id, dojo_id => $self->dojo_id });
+}
+
+sub dropout {
+    my ($self, $user_id) = @_;
+    
+    my $txn = $self->{teng}->txn_scope;
+    try {
+    $self->update({ dojo_member => $self->dojo_member - 1 });
+        $txn->commit;
+    } catch {
+        $txn->rollback;
+        die $_;
+    };
 }
 
 1;

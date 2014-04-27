@@ -41,6 +41,7 @@ table {
         status created_at updated_at
     /;
     # 0未登録, 1加入済み, 2加入申請中, 3師匠, 4免許皆伝
+    row_class 'Grammatch::DB::Row::UserDojoMap';
 
     inflate qr/_at$/ => sub { inflate_time(@_) };
     deflate qr/_at$/ => sub { deflate_time(@_) };

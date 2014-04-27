@@ -15,7 +15,7 @@
       <a class="btn btn-primary btn-xs" href="https://twitter.com/<: $user_data.twitter_screen_name :>">
         Twitter
       </a>
-    <center>
+    </center>
 
     <hr>
       <dl class="dl">

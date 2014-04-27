@@ -11,7 +11,8 @@ get '/logout' => 'Root#logout';
 get '/user/{id}' => 'User#user';
 
 # dojo
-get '/dojo/{id}'        => 'Dojo#dojo';
+get '/dojo/{id}'          => 'Dojo#dojo';
+post '/dojo/{id}/dropout' => 'Dojo#dropout';
 
 get '/dojo/create'      => 'Dojo#create';
 get '/dojo/{id}/join'   => 'Dojo#join';

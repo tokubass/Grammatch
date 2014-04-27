@@ -24,7 +24,9 @@
 :     }
 :   } else {
 :     if $dojo_data.dojo_member < c().config().dojo_limit {
-        <a href="/dojo/<: $dojo_data.dojo_id :>/join" class="btn btn-info text-center">入門申請</a>
+        <form method="POST" action="/dojo/<: $dojo_data.dojo_id :>/join">
+          <input type="submit" value="入門申請" class="btn btn-info">
+        </form>
 :     } else {
         <a href="/dojo/<: $dojo_data.dojo_id :>/join" class="btn btn-info text-center">入門申請</a>
 :     } 
@@ -101,12 +103,15 @@
 :   if $logged_user_status {
 :     my $status = $logged_user_status.status;
 :     if $status == 1 || $status == 4 {
-  <a class="btn btn-danger pull-right">道場脱退</a>
+  <form method="POST" action="/dojo/<: $dojo_data.dojo_id :>/dropout">
+    <input type="submit" value="道場脱退" class="btn btn-danger pull-right">
+  </form>
 :     } elsif $status == 2 {
-  <a class="btn btn-danger pull-right">申請取消</a>
+  <form method="POST" action="/dojo/<: $dojo_data.dojo_id :>/dropout">
+    <input type="submit" value="申請取消" class="btn btn-danger pull-right">
+  </form>
 :     }
 :   }
 : }      
-
 
 : }
