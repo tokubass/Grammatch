@@ -9,14 +9,17 @@ sub event {
     my ($class, $event_id, $logged_user_id) = @_;
     my $event_data = c->db->single(event => { event_id => $event_id }) or die;
     
-    my $owner_data         = $event_data->owner();
-    my $member_list        = $event_data->members();
+    my $owner_data  = $event_data->owner();
+    my $member_list = $event_data->members();
+
+    my $finished = $event_data->start_time <= localtime() ? 1 : 0;
 
     return {
         event_data  => $event_data,
         owner_data  => $owner_data,
         dojo_data   => $owner_data->own_dojo,
         member_list => $member_list,
+        finished    => $finished,
     };
 }
 
