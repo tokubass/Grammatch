@@ -86,4 +86,9 @@ sub commit {
     };
 }
 
+sub events {
+    my $self = shift;
+    $self->{teng}->search(event => { dojo_id => $self->dojo_id });
+}
+
 1;

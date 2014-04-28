@@ -8,6 +8,7 @@ sub dojo {
     my $logged_user_id = $c->session_get();
 
     my $data = Grammatch::App::Dojo->dojo($param->{id}, $logged_user_id);
+    $c->log->info($data->{event_list});
     return $c->redirect('/') unless $data;
     return $c->render('dojo/dojo.tx', $data);
 }

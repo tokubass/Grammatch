@@ -19,6 +19,7 @@ sub dojo {
 
     my $owner_data         = $dojo_data->owner();
     my $member_list        = $dojo_data->members();
+    my $event_list         = $dojo_data->events();
     my $logged_user_status = defined $logged_user_id
         ? $dojo_data->user_status($logged_user_id)
         : undef;
@@ -27,6 +28,7 @@ sub dojo {
         dojo_data          => $dojo_data,
         owner_data         => $owner_data,
         member_list        => $member_list,
+        event_list         => $event_list,
         logged_user_status => $logged_user_status,
     }
 }
