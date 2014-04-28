@@ -31,6 +31,7 @@ requires 'DBIx::QueryLog';
 requires 'Redis';
 requires 'Plack::Session::Store::Redis';
 requires 'Net::OAuth';
+requires 'Plack::Middleware::Auth::Basic';
 
 on 'configure' => sub {
    requires 'Module::Build', '0.38';
