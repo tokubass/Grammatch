@@ -10,8 +10,8 @@
           <img src="<: static_file('/static/img/img1.jpg') :>" alt=""  width="300" height="200">
           <div class="container">
             <div class="carousel-caption">
-              <p class="title">ギーク道場では、楽しく、温かく<br>プログラミングを学習する「場」を提供します</p>
-              <p><a class="btn btn-lg btn-default" href="#" role="button">道場を探す</a></p>
+              <p class="title">あなたのプログラミング学習に仲間と師匠を</p>
+              <p class="message">ギーク道場はチューターを囲んでの<br>プログラミング学習の場を提供します。</p>
             </div>
           </div>
         </div>
@@ -19,8 +19,8 @@
           <img src="<: static_file('/static/img/img2.jpg') :>" alt="">
           <div class="container">
             <div class="carousel-caption">
-              <p class="title">ギーク道場では、楽しく、温かく<br>プログラミングを学習する「場」を提供します</p>
-              <p><a class="btn btn-lg btn-default" href="#" role="button">イベントを探す</a></p>
+              <p class="title">道場で学ぶ</p>
+              <p class="message">道場は同じ師匠の下で学び合う<br>仲間のコミュニティです。</p>
             </div>
           </div>
         </div>
@@ -28,8 +28,8 @@
           <img src="<: static_file('/static/img/img3.jpg') :>" alt="">
           <div class="container">
             <div class="carousel-caption">
-              <p class="title">ギーク道場では、楽しく、温かく<br>プログラミングを学習する「場」を提供します</p>
-              <p><a class="btn btn-lg btn-default" href="#" role="button">ギーク道場について</a></p>
+              <p class="title">師匠に学ぶ</p>
+              <p class="message">師匠がオフラインの場で<br>あなたのプログラミングの疑問に答えます。</p>
             </div>
           </div>
         </div>
@@ -37,3 +37,61 @@
       <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
       <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
     </div><!-- /.carousel -->
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+      <div class="col-lg-4">
+        <img class="img-circle" data-src="holder.js/140x140" alt="Generic placeholder image">
+        <h2>道場について</h2>
+        <p>プログラミングの師匠を囲んで、同じ弟子同士で切磋琢磨しながら学ぶ場。</p>
+        <p><a class="btn btn-primary" href="#" role="button">道場を探す &raquo;</a></p>
+      </div>
+      
+      <div class="col-lg-4">
+        <img class="img-circle" data-src="holder.js/140x140" alt="Generic placeholder image">
+        <h2>道場について</h2>
+        <p>プログラミングの師匠を囲んで、同じ弟子同士で切磋琢磨しながら学ぶ場。</p>
+        <p><a class="btn btn-primary" href="#" role="button">道場を探す &raquo;</a></p>
+      </div>
+      
+      <div class="col-lg-4">
+        <img class="img-circle" data-src="holder.js/140x140" alt="Generic placeholder image">
+        <h2>イベントについて</h2>
+        <p>近くのカフェやコワーキングスペースで師匠を囲んでプログラミングの勉強をしましょう。</p>
+        <p><a class="btn btn-primary" href="#" role="button">イベントを探す &raquo;</a></p>
+      </div>
+      
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">自分の住んでいる街のプログラミング道場を見つけよう<span class="text-muted">It'll blow your mind.</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodocursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+      </div>
+      <div class="col-md-5">
+        <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-5">
+        <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+      </div>
+      <div class="col-md-7">
+        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodocursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <!-- /END THE FEATURETTES -->
+
