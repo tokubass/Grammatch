@@ -57,11 +57,11 @@
     <script src="<: static_file('/static/js/' ~ $src) :>"></script>
 : }
 : block js -> {}
-  <div class="footer">
-    <center>
-      Copyrights(c) 2014 GaiaX Co., Ltd. All Right Reserved.
-    </center>
-  </div>
+:#  <div class="footer">
+:#    <center>
+:#      Copyrights(c) 2014 GaiaX Co., Ltd. All Right Reserved.
+:#    </center>
+:#  </div>
 
   </body>
 </html>

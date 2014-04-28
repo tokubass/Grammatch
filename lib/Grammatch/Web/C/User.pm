@@ -26,7 +26,6 @@ sub commit {
     return $c->redirect('/') unless $logged_user_id;
 
     my $params = $c->req->parameters();
-    $c->log->info($params);
     $c->form(
         user_name => [qw/ NOT_BLANK /, [qw/ LENGTH 1 20 /]], 
     );

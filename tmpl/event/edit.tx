@@ -1,0 +1,137 @@
+: cascade common::base
+
+: around container -> {
+
+<h1>イベント登録</h1>
+
+<form class="form-horizontal" role="form" method="POST" action="/event/create">
+: if $form.missing('event_name') || $form.invalid('event_name') {
+  <div class="form-group has-error">
+: } else {
+  <div class="form-group">
+: }
+    <label for="event_name" class="col-sm-3 control-label">イベント名</label>
+    <div class="col-sm-7">
+: if $form.missing('event_name') {
+      <label class="control-label">
+        イベント名を記入して下さい.
+      </label>
+: } elsif $form.invalid('event_name') {
+      <label class="control-label">
+        イベント名は20文字以下にしてください.
+      </label>
+: }
+      <input type="text" class="form-control" id="event_name" name="event_name" placeholder="Event name" value="<: $event_data.event_name :>">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="pref_id" class="col-sm-3 control-label">開催地</label>
+    <div class="col-sm-7">
+      <select name="pref_id" class="form-control">
+: my $pref_map = c().config().pref;
+: for $pref_map.keys().sort(-> $a, $b { $a <=> $b }) -> $id {
+:   if $id != 0 {
+        <option value="<: $id :>" <: if $id == $event_data.pref_id { :> selected <: } :>><: $pref_map[$id] :></option>
+:   }
+: }
+      </select>
+    </div>
+  </div>
+
+: if $form.missing('place') || $form.invalid('place') {
+  <div class="form-group has-error">
+: } else {
+  <div class="form-group">
+: }
+    <label for="place" class="col-sm-3 control-label">開催場所</label>
+    <div class="col-sm-7">
+: if $form.missing('place') {
+      <label class="control-label">
+        開催場所を記入して下さい.
+      </label>
+: } elsif $form.invalid('place') {
+      <label class="control-label">
+        開催場所は50文字以下にしてください.
+      </label>
+: }
+      <input type="text" class="form-control" id="place" name="place" placeholder="" value="<: $event_data.place :>">
+    </div>
+  </div>
+
+: if $form.missing('reward') || $form.invalid('reward') {
+  <div class="form-group has-error">
+: } else {
+  <div class="form-group">
+: }
+    <label for="reward" class="col-sm-3 control-label">おごってほしいもの</label>
+    <div class="col-sm-7">
+: if $form.missing('reward') {
+      <label class="control-label">
+        ｢おごってほしいもの｣を記入してください.
+      </label>
+: } elsif $form.invalid('event_name') {
+      <label class="control-label">
+        ｢おごってほしいもの｣は20文字以内にしてください. 
+      </label>
+: }
+      <input type="text" class="form-control" id="reward" name="reward" placeholder="例: 無料, ワンドリンク, 食事1回..." value="<: $event_data.reward :>">
+    </div>
+  </div>
+
+: if $form.missing('start_time') || $form.invalid('start_time') {
+  <div class="form-group has-error">
+: } else {
+  <div class="form-group">
+: }
+    <label for="start_time" class="col-sm-3 control-label">開始時間</label>
+    <div class="col-sm-7">
+: if $form.missing('start_time') {
+      <label class="control-label">
+        開始時間を記入してください.
+      </label>
+: } elsif $form.invalid('start_time') {
+      <label class="control-label">
+        開始時間のフォーマットが異なります.
+      </label>
+: }
+      <input type="text" class="form-control col-sm-3" id="start_time" name="start_time" placeholder="例: 2014/04/01 11:00" value="<: $event_data.start_time :>">
+      <div class="pull-right">から</div>
+    </div>
+  </div>
+
+: if $form.missing('period') || $form.invalid('period') {
+  <div class="form-group has-error">
+: } else {
+  <div class="form-group">
+: }
+    <label for="period" class="col-sm-3 control-label">開催時間</label>
+    <div class="col-sm-7">
+: if $form.missing('period') {
+      <label class="control-label">
+        開催時間を記入してください.
+      </label>
+: } elsif $form.invalid('period') {
+      <label class="control-label">
+        開催時間は数値にしてください.
+      </label>
+: }
+      <input type="text" class="form-control" id="period" name="period" placeholder="" value="<: $event_data.period :>">
+      <div class="pull-right">分くらい</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="summary" class="col-sm-3 control-label">イベント詳細</label>
+    <div class="col-sm-7">
+      <textarea class="form-control" name="event_summary" rows="5"><: $event_data.event_summary :></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-7">
+      <button type="submit" class="btn btn-primary">編集</button>
+    </div>
+  </div>
+</form>
+
+: }

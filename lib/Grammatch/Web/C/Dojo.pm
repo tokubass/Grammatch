@@ -80,7 +80,7 @@ sub edit {
     my $logged_user_id = $c->session_get();
     return $c->redirect('/') unless $logged_user_id;
 
-    my $dojo_data = Grammatch::App::Dojo->info($logged_user_id);
+    my $dojo_data = Grammatch::App::Dojo->info_by_user_id($logged_user_id);
     return $c->render('dojo/edit.tx', { dojo_data => $dojo_data });
 }
 

@@ -129,7 +129,7 @@ sub create {
     return $dojo_id;
 }
 
-sub info {
+sub info_by_user_id {
     my ($class, $user_id) = @_;
     c->db->single(dojo => { user_id => $user_id }) or die;
 }
