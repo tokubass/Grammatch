@@ -28,7 +28,7 @@ sub motions {
     my $self = shift;
     $self->{teng}->search_by_sql(q{
         SELECT * FROM user_dojo_map JOIN user ON user_dojo_map.user_id = user.user_id
-        WHERE user_dojo_map.dojo_id = ? AND user_dojo_map.status = 2'
+        WHERE user_dojo_map.dojo_id = ? AND user_dojo_map.status = 2
     }, [ $self->dojo_id ],
     );
 }
