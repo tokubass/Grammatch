@@ -34,6 +34,10 @@ requires 'Net::OAuth';
 requires 'Plack::Middleware::Auth::Basic';
 requires 'Teng::Plugin::Pager';
 
+requires 'Server::Starter';
+requires 'Starman';
+requires 'Net::Server::SS::PreFork';
+
 on 'configure' => sub {
    requires 'Module::Build', '0.38';
    requires 'Module::CPANfile', '0.9010';
