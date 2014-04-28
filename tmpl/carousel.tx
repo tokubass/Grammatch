@@ -45,53 +45,26 @@
     <div class="container marketing">
 
       <div class="col-lg-4">
-        <img class="img-circle" data-src="holder.js/140x140" alt="Generic placeholder image">
-        <h2>道場について</h2>
-        <p>プログラミングの師匠を囲んで、同じ弟子同士で切磋琢磨しながら学ぶ場。</p>
-        <p><a class="btn btn-primary" href="#" role="button">道場を探す &raquo;</a></p>
+        <img class="img-circle" src="/static/img/top1.jpg" alt="Generic placeholder image">
+        <h2>気軽に直接質問できる</h2>
+        <p>近くのカフェで、コワーキングスペースで、師匠を囲んでプログラミングの勉強。
+        一人での勉強では解決できないつまづきを、直接質問して解決できます。
+        開催地と言語の種類でイベントを選んで、エントリーしてみましょう！</p>
       </div>
       
       <div class="col-lg-4">
-        <img class="img-circle" data-src="holder.js/140x140" alt="Generic placeholder image">
-        <h2>道場について</h2>
-        <p>プログラミングの師匠を囲んで、同じ弟子同士で切磋琢磨しながら学ぶ場。</p>
-        <p><a class="btn btn-primary" href="#" role="button">道場を探す &raquo;</a></p>
+        <img class="img-circle" src="/static/img/top2.jpg" alt="Generic placeholder image">
+        <h2>書ける人＝師匠</h2>
+        <p>プログラミングが出来るだけで、初心者にとっては立派な先生です。
+        道場にはあなたのスキルを必要としている人がいます。
+        授業を用意する必要はありません、質問に答えられればOKです。
+        初心者が壁を乗り越える瞬間の手助けをしてみませんか。</p>
       </div>
       
       <div class="col-lg-4">
-        <img class="img-circle" data-src="holder.js/140x140" alt="Generic placeholder image">
-        <h2>イベントについて</h2>
-        <p>近くのカフェやコワーキングスペースで師匠を囲んでプログラミングの勉強をしましょう。</p>
-        <p><a class="btn btn-primary" href="#" role="button">イベントを探す &raquo;</a></p>
+        <img class="img-circle" src="/static/img/top3.jpg" alt="Generic placeholder image">
+        <h2>道場で仲間と出会う</h2>
+        <p>道場は同じ師のもと切磋琢磨しあう学友のコミュニティ。
+        壁にぶつかる事が多いプログラミング学習も、仲間がいれば楽しみながら進めます。
+        道場に入門すれば師匠にイベント開催をリクエストすることもできます。</p>
       </div>
-      
-      <!-- START THE FEATURETTES -->
-
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">自分の住んでいる街のプログラミング道場を見つけよう<span class="text-muted">It'll blow your mind.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodocursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-      </div>
-      <div class="col-md-5">
-        <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-5">
-        <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-      </div>
-      <div class="col-md-7">
-        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodocursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    <!-- /END THE FEATURETTES -->
-
