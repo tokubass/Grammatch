@@ -81,13 +81,13 @@
       <div class="panel-heading">
         所属カフェ 
       </div>
-      <div class="panel-body">
-: if $dojo_data{
-       <a href="/dojo/<: $dojo_data.dojo_id :>"><: $dojo_data.dojo_name :></a> 
-: } else {
-       未所属
-:}
-      </div>
+:#       <div class="panel-body">
+:# : if $dojo_data{
+:#        <a href="/dojo/<: $dojo_data.dojo_id :>"><: $dojo_data.dojo_name :></a> 
+:# : } else {
+:#        未所属
+:# :}
+:#       </div>
       <ul class="list-group">
 : while $dojo_list.next -> $dojo {
 :   if $dojo.status != 2 {
