@@ -4,7 +4,12 @@
 
 <h1>イベント登録</h1>
 
+: if $event_data.event_id {
+<form class="form-horizontal" role="form" method="POST" action="/event/<: $event_data.event_id :>/edit">
+: } else {
 <form class="form-horizontal" role="form" method="POST" action="/event/create">
+: }
+
 : if $form.missing('event_name') || $form.invalid('event_name') {
   <div class="form-group has-error">
 : } else {
@@ -95,7 +100,7 @@
         開始時間のフォーマットが異なります.
       </label>
 : }
-      <input type="text" class="form-control col-sm-3" id="start_time" name="start_time" placeholder="例: 2014/04/01 11:00" value="<: $event_data.start_time :>">
+        <input type="text" class="form-control col-sm-3" id="start_time" name="start_time" placeholder="例: 2014/04/01 11:00" value="<: $event_data.start_time.strftime("%Y/%m/%d %H:%M") :>">
       <div class="pull-right">から</div>
     </div>
   </div>

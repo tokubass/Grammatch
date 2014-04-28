@@ -28,7 +28,6 @@ sub insert {
 
     my $txn = c->db->txn_scope;
     my $current_time = localtime();
-    my $start_time = Time::Piece->strptime($params->{start_time}, "%Y/%m/%d %H:%M");
     try {
         $event_id = c->db->fast_insert(event => {
             user_id       => $logged_user_id,
@@ -38,7 +37,7 @@ sub insert {
             place         => $params->{place},
             reward        => $params->{reward},
             period        => $params->{period},
-            start_time    => $start_time,
+            start_time    => $params->{start_time} - 60 * 60 * 9, # FIXME
             created_at    => $current_time,
             updated_at    => $current_time,
             event_summary => $params->{event_summary},
@@ -49,6 +48,41 @@ sub insert {
         die $_;
     };
     return $event_id;
+}
+
+sub update {
+    my ($class, $params) = @_;
+
+    my $event_id = $params->{event_id} ;
+    my $dojo_data = c->db->single(event => { event_id => $event_id });
+
+    my $txn = c->db->txn_scope;
+    my $current_time = localtime();
+    try {
+        c->db->update(event => {
+            event_name    => $params->{event_name},
+            pref_id       => $params->{pref_id},
+            place         => $params->{place},
+            reward        => $params->{reward},
+            period        => $params->{period},
+            start_time    => $params->{start_time} - 60 * 60 * 9, # FIXME
+            updated_at    => $current_time,
+            event_summary => $params->{event_summary},
+        }, {
+            event_id       => $event_id,
+        });
+        $txn->commit;
+    } catch {
+        $txn->rollback;
+        die $_;
+    };
+}
+
+sub info {
+    my ($class, $event_id) = @_;
+    my $event_data = c->db->single(event => { event_id => $event_id }) or die;
+    
+    return $event_data;
 }
 
 1;

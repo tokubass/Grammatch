@@ -12,6 +12,13 @@
       </a>
     </h1>
 
+: if $user_id == $owner_data.user_id {
+    <center>
+      <p><a class="btn btn-primary" href="/event/<: $event_data.event_id :>/edit">
+        イベント編集 
+      </a></p>
+    </center>
+: }
     <hr>
 
     <dl class="dl">
@@ -35,7 +42,7 @@
     
       <dt>開始時間 / 開催時間</dt>
       <dd>
-        <: $event_data.start_time.strftime("%Y/%m/%d %H:%M:%S") :><br>
+        <: $event_data.start_time.strftime("%Y/%m/%d %H:%M") :><br>
         から <: $event_data.period :>分程度
       </dd>
     </dl>
