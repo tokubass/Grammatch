@@ -28,7 +28,8 @@ post '/dojo/edit' => 'Dojo#commit';
 get '/search/dojo'  => 'Search#dojo';
 
 # event
-get '/event/create'  => 'Event#create';
-post '/event/create' => 'Event#create_commit';
+get '/event/create'      => 'Event#create';
+post '/event/create'     => 'Event#create_commit';
+get '/event/{id:[0-9]+}' => 'Event#event';
 
 1;

@@ -2,6 +2,16 @@ package Grammatch::Web::C::Event;
 use strict;
 use warnings;
 use Grammatch::App::Event;
+use Grammatch::App::Dojo;
+
+sub event {
+    my ($class, $c, $param) = @_;
+    my $logged_user_id = $c->session_get();
+    my $data = Grammatch::App::Event->event($param->{id}, $logged_user_id);
+
+    return $c->redirect('/') unless $data; 
+    return $c->render('event/event.tx', $data);
+}
 
 sub create {
     my ($class, $c) = @_;
@@ -30,6 +40,7 @@ sub create_commit {
         return $c->render('/event/edit.tx', { event_data => $params->as_hashref, form => $c->form });
     }
 
+    $c->log->info($params);
     my $event_id = Grammatch::App::Event->insert($logged_user_id, $params);
     return $c->redirect('/event/' . $event_id);
 }

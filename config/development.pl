@@ -14,10 +14,11 @@ my $status  = do File::Spec->catfile($basedir, 'config', 'user_status.pl');
     
     'Web::Validator' => {},
    
-    Auth       => $auth,
-    pref       => $pref,
-    status     => $status,
-    dojo_limit => 1,
+    Auth        => $auth,
+    pref        => $pref,
+    status      => $status,
+    dojo_limit  => 1,
+    event_limit => 1,
 
     'Plugin::Logger' => {
         dispatchers => [qw/screen/],

@@ -1,0 +1,82 @@
+: cascade common::base
+: around container -> {
+
+: my $user_id = c().session().get('user_id');
+
+<div class="row">
+  <div class="col-xs-3">
+
+    <h1>
+      <a href="/event/<: $event_data.event_id :>">
+          <: $event_data.event_name :>
+      </a>
+    </h1>
+
+    <hr>
+
+    <dl class="dl">
+      <dt>主催者</dt>
+      <dd>
+        <a href="/user/<: $owner_data.user_id :>"><: $owner_data.user_name :></a><br>
+        <a href="/dojo/<: $dojo_data.dojo_id :>">(<: $dojo_data.dojo_name :>)</a>
+      </dd>
+     
+      <dt>開催地</dt>
+      <dd><: c().config().pref[$event_data.pref_id] :></dd>
+   
+      <dt>開催場所</td>
+      <dd><: $event_data.place :></dd> 
+
+      <dt>おごってほしいもの</td>
+      <dd><: $event_data.reward :></dd> 
+      
+      <dt>参加者</dt>
+      <dd><: $event_data.event_member :>人 / <: c().config().event_limit :>人</dd>
+    
+      <dt>開始時間 / 開催時間</dt>
+      <dd>
+        <: $event_data.start_time.strftime("%Y/%m/%d %H:%M:%S") :><br>
+        から <: $event_data.period :>分程度
+      </dd>
+    </dl>
+
+  </div>
+
+  <div class="col-xs-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        イベント概要         
+      </div>
+      <div class="panel-body">
+        <: $event_data.event_summary :>
+      </div>
+    </div>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        コメント 
+      </div>
+      <div class="panel-body">
+        いぜんさんかしたよー 
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-xs-3">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        参加者一覧 
+        <small>(<: $event_data.event_member :>/<: c().config().event_limit :>)</small>
+      </div>
+      <ul class="list-group">
+: while $member_list.next -> $member {
+        <li class="list-group-item">
+        <a href="/user/<: $member.user_id :>"><: $member.user_name :></a>
+        </li>
+: }
+      </ul>
+    </div>
+  </div>
+</div>
+
+: }

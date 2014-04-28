@@ -47,6 +47,33 @@ table {
     deflate qr/_at$/ => sub { deflate_time(@_) };
 };
 
+table {
+    name 'event';
+    pk   'event_id';
+    columns qw/
+        event_id user_id event_id
+        event_name event_member pref_id place reward period event_summary
+        start_time created_at updated_at
+    /;
+
+    inflate qr/_at$/ => sub { inflate_time(@_) };
+    deflate qr/_at$/ => sub { deflate_time(@_) };
+    inflate 'start_time' => sub { inflate_time(@_) };
+    deflate 'start_time' => sub { deflate_time(@_) };
+};
+
+table {
+    name 'user_event_map';
+    pk   'id';
+    columns qw/
+        id user_id event_id
+        status created_at updated_at
+    /;
+
+    inflate qr/_at$/ => sub { inflate_time(@_) };
+    deflate qr/_at$/ => sub { deflate_time(@_) };
+};
+
 sub inflate_time {
     my ($col_value) = shift;
     return localtime( $col_value );
