@@ -18,9 +18,6 @@ use DBI;
 }
 my $config = Grammatch->config || die "Missing configuration";
 builder {
-    enable_if { $ENV{PLACK_ENV} eq 'deployment' }
-    "Auth::Basic", authenticator => \&authen_cb;
-
     enable 'Plack::Middleware::Static',
         path => qr{^(?:/static/)},
         root => File::Spec->catdir(dirname(__FILE__));
