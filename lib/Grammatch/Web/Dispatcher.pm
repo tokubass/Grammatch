@@ -20,11 +20,10 @@ get  '/dojo/edit'                     => 'Dojo#edit_form';
 post '/dojo/edit'                     => 'Dojo#edit';
 post '/dojo/{dojo_id:[0-9]+}/request' => 'Dojo#request';
 post '/dojo/{dojo_id:[0-9]+}/dropout' => 'Dojo#dropout';
-get '/dojo/request'                   => 'Dojo#request_list';
+get  '/dojo/request'                  => 'Dojo#request_list';
 post '/dojo/accept'                   => 'Dojo#accept';
-#post '/dojo/create' => 'Dojo#create';
-#
-#
+post '/dojo/create'                   => 'Dojo#create';
+
 #get '/search/dojo'  => 'Search#dojo';
 
 # event

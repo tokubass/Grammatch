@@ -29,4 +29,8 @@ sub commit {
     $user_data->commit($params);
 }
 
+sub create_dojo {
+
+}
+
 1;

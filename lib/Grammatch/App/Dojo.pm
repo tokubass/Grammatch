@@ -118,48 +118,30 @@ sub accept {
     }
 }
 
-#
-#sub create {
-#    my ($class, $logged_user_id) = @_;
-#    my $user_data = c->db->single(user => { user_id => $logged_user_id });
-#    return 0 if $user_data->allow_create_dojo != 1 || $user_data->dojo_id != 0;
-#
-#    my $dojo_id;
-#    my $txn = c->db->txn_scope;
-#    my $current_time = localtime();
-#    try {
-#        $dojo_id = c->db->fast_insert(dojo => {
-#            dojo_name  => $user_data->user_name,
-#            user_id    => $user_data->user_id,
-#            created_at => $current_time,
-#            updated_at => $current_time,
-#        });
-#        c->db->fast_insert(user_dojo_map => {
-#            user_id    => $user_data->user_id,
-#            dojo_id    => $dojo_id,
-#            status     => 3, # 師範
-#            created_at => $current_time,
-#            updated_at => $current_time,
-#        });
-#        $user_data->created_dojo($dojo_id);
-#        $txn->commit;
-#    } catch {
-#        $txn->rollback;
-#        die $_;
-#    };
-#
-#    return $dojo_id;
-#}
-#
-#sub info_by_user_id {
-#    my ($class, $user_id) = @_;
-#    c->db->single(dojo => { user_id => $user_id }) or die;
-#}
-#
-#sub commit {
-#    my ($class, $user_id, $params) = @_;
-#    my $dojo_data = c->db->single(dojo => { user_id => $user_id }) or die;
-#    $dojo_data->commit($params);
-#}
+sub create {
+    args 
+        my $class,
+        my $user_id => 'Int';
+
+    my $user = c->db->single(user => { user_id => $user_id }) or die;
+    return 0 if $user->allow_create_dojo != 1 || $user->dojo_id != 0;
+
+    my $dojo_id;
+    my $txn = c->db->txn_scope;
+    try {
+        $dojo_id = c->db->fast_insert(dojo => {
+            dojo_name  => $user->user_name,
+            user_id    => $user->user_id,
+            created_at => scalar localtime,
+            updated_at => scalar localtime,
+        });
+        $user->create_dojo($dojo_id);
+        $txn->commit;
+    } catch {
+        $txn->rollback;
+        die $_;
+    };
+    return $dojo_id;
+}
 
 1;

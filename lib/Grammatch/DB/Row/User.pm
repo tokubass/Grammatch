@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use utf8;
 use parent 'Teng::Row';
+use Amon2::Declare;
 use Try::Tiny;
 use Time::Piece;
 
@@ -37,24 +38,6 @@ sub login {
     };
 }
 
-sub created_dojo {
-    my ($self, $dojo_id) = @_;
-    
-    my $txn = $self->{teng}->txn_scope;
-    my $current_time = localtime();
-    try {
-        $self->update({
-            allow_create_dojo => 0,
-            dojo_id           => $dojo_id,
-            updated_at        => $current_time,
-        });
-        $txn->commit;
-    } catch {
-        $txn->rollback;
-        die $_;
-    };
-}
-
 sub commit {
     my ($self, $params) = @_;
 
@@ -66,6 +49,33 @@ sub commit {
             pref_id      => $params->{pref_id},
             user_summary => $params->{user_summary},
             updated_at   => $current_time,
+        });
+        $txn->commit;
+    } catch {
+        $txn->rollback;
+        die $_;
+    };
+}
+
+
+
+
+
+sub create_dojo { # OK!
+    my ($self, $dojo_id) = @_;
+    my $txn = c->db->txn_scope;
+    try {
+        $self->update({
+            allow_create_dojo => 0,
+            dojo_id           => $dojo_id,
+            updated_at        => scalar localtime,
+        });
+        c->db->fast_insert(user_dojo_map => {
+            user_id    => $self->user_id,
+            dojo_id    => $dojo_id,
+            status     => 3, # 師範
+            updated_at => scalar localtime,
+            created_at => scalar localtime,
         });
         $txn->commit;
     } catch {
