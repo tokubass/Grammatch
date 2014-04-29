@@ -7,46 +7,56 @@
   <div class="col-xs-3">
 
     <h1>
-      <a href="/event/<: $event_data.event_id :>">
-          <: $event_data.event_name :>
+      <a href="/event/<: $event.event_id :>">
+          <: $event.event_name :>
       </a>
     </h1>
 
-: if $user_id == $owner_data.user_id {
     <center>
-      <p><a class="btn btn-primary" href="/event/<: $event_data.event_id :>/edit">
+: if $finished {
+      <p>このイベントは終了しました</p>
+: } elsif $user_id {
+:   if $user_status == 1 {
+      <p><a class="btn btn-primary" href="/event/<: $event.event_id :>/resign">
+        参加をキャンセル 
+      </a></p>
+:   } elsif $user_id != $owner.user_id {
+      <p><a class="btn btn-primary" href="/event/<: $event.event_id :>/join">
+        イベント参加
+      </a></p>
+:   } elsif $user_id == $owner.user_id {
+      <p><a class="btn btn-primary" href="/event/<: $event.event_id :>/edit">
         イベント編集 
       </a></p>
-    </center>
+:   }
 : }
-
-<: $finished :>
+    </center>
 
     <hr>
 
     <dl class="dl">
       <dt>主催者</dt>
       <dd>
-        <a href="/user/<: $owner_data.user_id :>"><: $owner_data.user_name :></a><br>
-        <a href="/dojo/<: $dojo_data.dojo_id :>">(<: $dojo_data.dojo_name :>)</a>
+        <a href="/user/<: $owner.user_id :>"><: $owner.user_name :></a><br>
+        <a href="/dojo/<: $dojo.dojo_id :>">(<: $dojo.dojo_name :>)</a>
       </dd>
      
       <dt>開催地</dt>
-      <dd><: c().config().pref[$event_data.pref_id] :></dd>
+      <dd><: c().config().pref[$event.event_pref_id] :></dd>
    
       <dt>開催場所</td>
-      <dd><: $event_data.place :></dd> 
+      <dd><: $event.place :></dd> 
 
       <dt>おごってほしいもの</td>
-      <dd><: $event_data.reward :></dd> 
+      <dd><: $event.reward :></dd> 
       
       <dt>参加者</dt>
-      <dd><: $event_data.event_member :>人 / <: c().config().event_limit :>人</dd>
+      <dd><: $event.event_member :>人 / <: c().config().event_limit :>人</dd>
     
       <dt>開始時間 / 開催時間</dt>
       <dd>
-        <: $event_data.start_time.strftime("%Y/%m/%d %H:%M") :><br>
-        から <: $event_data.period :>分程度
+        <: $event.start_at.strftime("%Y/%m/%d %H:%M") :><br>
+        から <: $event.period :>分程度
       </dd>
     </dl>
 
@@ -58,7 +68,7 @@
         イベント概要         
       </div>
       <div class="panel-body">
-        <: $event_data.event_summary :>
+        <: $event.event_summary :>
       </div>
     </div>
 
@@ -76,12 +86,12 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         参加者一覧 
-        <small>(<: $event_data.event_member :>/<: c().config().event_limit :>)</small>
+        <small>(<: $event.event_member :>/<: c().config().event_limit :>)</small>
       </div>
       <ul class="list-group">
-: while $member_list.next -> $member {
+: while $participants.next -> $p {
         <li class="list-group-item">
-        <a href="/user/<: $member.user_id :>"><: $member.user_name :></a>
+        <a href="/user/<: $p.user_id :>"><: $p.user_name :></a>
         </li>
 : }
       </ul>

@@ -33,6 +33,7 @@ requires 'Plack::Session::Store::Redis';
 requires 'Net::OAuth';
 requires 'Plack::Middleware::Auth::Basic';
 requires 'Teng::Plugin::Pager';
+requires 'Smart::Args';
 
 requires 'Server::Starter';
 requires 'Starman';

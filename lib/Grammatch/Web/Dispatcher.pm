@@ -28,11 +28,13 @@ post '/dojo/edit' => 'Dojo#commit';
 get '/search/dojo'  => 'Search#dojo';
 
 # event
-get '/event/create'            => 'Event#create';
-post '/event/create'           => 'Event#create_commit';
-get '/event/{id:[0-9]+}'       => 'Event#event';
-get '/event/{id:[0-9]+}/edit'  => 'Event#edit';
-post '/event/{id:[0-9]+}/edit' => 'Event#update';
+get  '/event/{event_id:[0-9]+}'        => 'Event#event';
+get  '/event/{event_id:[0-9]+}/join'   => 'Event#join';
+get  '/event/{event_id:[0-9]+}/resign' => 'Event#resign';
+get  '/event/{event_id:[0-9]+}/edit'   => 'Event#edit_form';
+post '/event/{event_id:[0-9]+}/edit'   => 'Event#edit';
+get  '/event/create'                   => 'Event#create_form';
+post '/event/create'                   => 'Event#create';
 
 
 1;

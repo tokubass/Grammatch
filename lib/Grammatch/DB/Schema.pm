@@ -51,15 +51,14 @@ table {
     name 'event';
     pk   'event_id';
     columns qw/
-        event_id user_id event_id
-        event_name event_member pref_id place reward period event_summary
-        start_time created_at updated_at
+        event_id user_id dojo_id
+        event_name event_member event_pref_id event_summary
+        place reward period start_at
+        created_at updated_at
     /;
 
     inflate qr/_at$/ => sub { inflate_time(@_) };
     deflate qr/_at$/ => sub { deflate_time(@_) };
-    inflate 'start_time' => sub { inflate_time(@_) };
-    deflate 'start_time' => sub { deflate_time(@_) };
 };
 
 table {

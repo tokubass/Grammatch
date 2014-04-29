@@ -2,21 +2,102 @@ package Grammatch::DB::Row::Event;
 use strict;
 use warnings;
 use parent 'Teng::Row';
+use Amon2::Declare;
 use Try::Tiny;
 use Time::Piece;
 
-sub owner {
+sub owner { # OK!
     my $self = shift;
-    $self->{teng}->single(user => { user_id => $self->user_id });
+    return c->db->single(user => { user_id => $self->user_id }) or die;
 }
 
-sub members {
+sub dojo { # OK!
     my $self = shift;
-    $self->{teng}->search_by_sql(q{
-        SELECT * FROM user_event_map JOIN user ON user_event_map.user_id = user.user_id
-        WHERE user_event_map.event_id = ? AND user_event_map.status = 1
+    return c->db->single(dojo => { dojo_id => $self->dojo_id }) or die;
+}
+
+sub participants { # OK!
+    my $self = shift;
+    return scalar c->db->search_by_sql(q{
+        SELECT *
+        FROM   user_event_map
+        JOIN   user
+        ON     user_event_map.user_id = user.user_id
+        WHERE  user_event_map.event_id = ?
+          AND  user_event_map.status = 1
     }, [ $self->event_id ],
     );
+}
+
+sub user_status { # OK!
+    my ($self, $user_id) = @_;
+    return 0 unless $user_id;
+    my $user_event_map = c->db->single(user_event_map => {
+        user_id => $user_id, 
+        event_id => $self->event_id
+    });
+    return defined $user_event_map ? $user_event_map->status : 0;
+}
+
+sub is_vacancy { # OK!
+    my ($self) = @_;
+    return $self->event_member < c->config->{event_limit} ? 1 : 0;
+}
+
+sub join { # OK!
+    my ($self, $user_id) = @_;
+    my $txn = c->db->txn_scope;
+    try {
+        c->db->fast_insert(user_event_map => {
+            event_id   => $self->event_id,
+            user_id    => $user_id,
+            created_at => scalar localtime,
+            updated_at => scalar localtime,
+            status     => 1,
+        }); 
+        $self->update({ event_member => $self->event_member + 1 });
+        $txn->commit;
+    } catch {
+        $txn->rollback;
+        die $_;
+    };
+}
+
+sub resign { # OK!
+    my ($self, $user_id) = @_;
+    my $txn = c->db->txn_scope;
+    try {
+        c->db->delete(user_event_map => {
+            event_id   => $self->event_id,
+            user_id    => $user_id,
+        }); 
+        $self->update({ event_member => $self->event_member - 1 });
+        $txn->commit;
+    } catch {
+        $txn->rollback;
+        die $_;
+    };
+}
+
+sub event_update {
+    my ($self, $params) = @_;
+    my $txn = c->db->txn_scope;
+    try {
+        $self->update({
+            event_name    => $params->{event_name},
+            event_pref_id => $params->{event_pref_id},
+            place         => $params->{place},
+            reward        => $params->{reward},
+            period        => $params->{period},
+            start_at      => $params->{start_at} - 60 * 60 * 9, # FIXME
+            updated_at    => scalar localtime,
+            event_summary => $params->{event_summary},
+        });
+        $txn->commit;
+    } catch {
+        $txn->rollback;
+        die $_;
+    };
 }
 
 1;

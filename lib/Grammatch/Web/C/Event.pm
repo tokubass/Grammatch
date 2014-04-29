@@ -2,86 +2,112 @@ package Grammatch::Web::C::Event;
 use strict;
 use warnings;
 use Grammatch::App::Event;
-use Grammatch::App::Dojo;
 use Time::Piece;
 
-sub event {
-    my ($class, $c, $param) = @_;
+sub event { # OK!
+    my ($class, $c, $path_param) = @_;
     my $logged_user_id = $c->session_get();
-    my $data = Grammatch::App::Event->event($param->{id}, $logged_user_id);
-
-    return $c->redirect('/') unless $data; 
+    
+    my $data = Grammatch::App::Event->event(
+        event_id => $path_param->{event_id}, 
+        user_id  => $logged_user_id
+    );
     return $c->render('event/event.tx', $data);
 }
 
-sub create {
+# require login
+sub create_form { # OK!
     my ($class, $c) = @_;
     my $logged_user_id = $c->session_get();
     return $c->redirect('/') unless $logged_user_id;
-    
-    my $dojo_data = Grammatch::App::Dojo->info_by_user_id($logged_user_id);
-    $c->render('/event/edit.tx', { event_data => { pref_id => $dojo_data->pref_id }});
+   
+    my $user = c->db->single(user => { user_id => $logged_user_id });
+    $c->render('/event/edit.tx', { event => {
+        event_pref_id => $user->pref_id, # FIXME -> user_pref_id ?
+        start_at      => scalar localtime, 
+    }});
 }
 
-sub create_commit {
-    my ($class, $c) = @_;
+sub create { # OK!
+    my ($class, $c, $path_param) = @_;
     my $logged_user_id = $c->session_get();
     return $c->redirect('/') unless $logged_user_id;
 
-    my $params = $c->req->parameters()->as_hashref;
     $c->form(
         event_name => [qw/ NOT_BLANK /, [qw/ LENGTH 1 20 /]],
         place      => [qw/ NOT_BLANK /, [qw/ LENGTH 1 50 /]],
         reward     => [qw/ NOT_BLANK /, [qw/ LENGTH 1 20 /]],
-        start_time => [qw/ NOT_BLANK /, [qw/ REGEX /, qr!\d{4}/\d{2}/\d{2}\s+\d{2}:\d{2}!]],
-        period     => [qw/ NOT_BLANK /, [qw/ REGEX /, qr!\d+!]],
+        start_at   => [qw/ NOT_BLANK /, ['DATETIME_STRPTIME', '%Y/%m/%d %H:%M']],
+        period     => [qw/ NOT_BLANK INT /],
     );
-    $params->{start_time} = Time::Piece->strptime($params->{start_time}, "%Y/%m/%d %H:%M");
-    if ($c->form->has_error) {
-        my $errors;
-        return $c->render('/event/edit.tx', { event_data => $params, form => $c->form });
-    }
+    my $params = $c->req->parameters()->as_hashref;
+    $params->{start_at} = $params->{start_at}
+        ? Time::Piece->strptime($params->{start_at}, "%Y/%m/%d %H:%M")
+        : scalar localtime;
+    return $c->render('/event/edit.tx', { event => $params, form => $c->form }) if $c->form->has_error;
 
-    $c->log->info($params);
-    my $event_id = Grammatch::App::Event->insert($logged_user_id, $params);
+    my $event_id = Grammatch::App::Event->create(params => $params, user_id => $logged_user_id);
     return $c->redirect('/event/' . $event_id);
 }
 
-sub edit {
-    my ($class, $c, $param) = @_;
+sub edit_form { # OK!
+    my ($class, $c, $path_param) = @_;
     my $logged_user_id = $c->session_get();
     return $c->redirect('/') unless $logged_user_id;
     
-    my $event_data = Grammatch::App::Event->info($param->{id});
-    return $c->redirect('/event/' . $param->{id}) if $event_data->user_id != $logged_user_id;
+    my $event = Grammatch::App::Event->edit_form(
+        event_id => $path_param->{event_id},
+        user_id  => $logged_user_id,
+    );
 
-    $c->render('/event/edit.tx', { event_data => $event_data });
+    $c->render('/event/edit.tx', { event => $event });
 }
 
-sub update {
-    my ($class, $c, $param) = @_;
+sub edit { # OK!
+    my ($class, $c, $path_param) = @_;
     my $logged_user_id = $c->session_get();
     return $c->redirect('/') unless $logged_user_id;
 
-    my $params = $c->req->parameters()->as_hashref;
     $c->form(
         event_name => [qw/ NOT_BLANK /, [qw/ LENGTH 1 20 /]],
         place      => [qw/ NOT_BLANK /, [qw/ LENGTH 1 50 /]],
         reward     => [qw/ NOT_BLANK /, [qw/ LENGTH 1 20 /]],
-        start_time => [qw/ NOT_BLANK /, [qw/ REGEX /, qr!\d{4}/\d{2}/\d{2}\s+\d{2}:\d{2}!]],
-        period     => [qw/ NOT_BLANK /, [qw/ REGEX /, qr!\d+!]],
+        start_at   => [qw/ NOT_BLANK /, ['DATETIME_STRPTIME', '%Y/%m/%d %H:%M']],
+        period     => [qw/ NOT_BLANK INT /],
     );
-    $params->{start_time} = Time::Piece->strptime($params->{start_time}, "%Y/%m/%d %H:%M");
-    $params->{event_id} = $param->{id};
-    if ($c->form->has_error) {
-        my $errors;
-        return $c->render('/event/edit.tx', { event_data => $params, form => $c->form });
-    }
+    my $params = $c->req->parameters()->as_hashref;
+    $params->{start_at} = $params->{start_at}
+        ? Time::Piece->strptime($params->{start_at}, "%Y/%m/%d %H:%M")
+        : scalar localtime;
+    $params->{event_id} = $path_param->{event_id};
+    return $c->render('/event/edit.tx', { event => $params, form => $c->form }) if $c->form->has_error;
 
-    $c->log->info($params);
-    Grammatch::App::Event->update($params);
-    return $c->redirect('/event/' . $param->{id});
+    Grammatch::App::Event->edit(params => $params, user_id => $logged_user_id);
+    return $c->redirect('/event/' . $path_param->{event_id});
+}
 
+sub join { # OK!
+    my ($class, $c, $path_param) = @_;
+    my $logged_user_id = $c->session_get();
+    return $c->redirect('/') unless $logged_user_id;
+
+    Grammatch::App::Event->join(
+        event_id => $path_param->{event_id},
+        user_id  => $logged_user_id
+    );
+    return $c->redirect('/event/' . $path_param->{event_id});
+}
+
+sub resign { # OK!
+    my ($class, $c, $path_param) = @_;
+    my $logged_user_id = $c->session_get();
+    return $c->redirect('/') unless $logged_user_id;
+
+    Grammatch::App::Event->resign(
+        event_id => $path_param->{event_id},
+        user_id  => $logged_user_id
+    );
+    return $c->redirect('/event/' . $path_param->{event_id});
 }
 
 1;
