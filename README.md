@@ -1,6 +1,7 @@
+# Grammatch
+開発コードネーム｢Grammatch｣ - エンジニアの師匠と弟子を繋げる｢GeekDojo｣
 
-フォントについて
-  キルゴフォントを利用
-  http://getsuren.com/
-  フォントはフリーで商用可
+# フォント
+キルゴフォントを利用 - http://getsuren.com/
+- フォントはフリーで商用可
 
