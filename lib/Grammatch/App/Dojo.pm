@@ -30,6 +30,7 @@ sub dojo {
         owner_data         => $owner_data,
         member_list        => $member_list,
         event_list         => $event_list,
+        comments           => $dojo_data->comments,
         logged_user_status => $logged_user_status,
     }
 }

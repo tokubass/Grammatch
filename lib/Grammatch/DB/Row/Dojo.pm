@@ -3,6 +3,7 @@ use strict;
 use warnings;
 use utf8;
 use parent 'Teng::Row';
+use Amon2::Declare;   
 use Try::Tiny;
 use Time::Piece;
 
@@ -90,6 +91,21 @@ sub commit {
 sub events {
     my $self = shift;
     $self->{teng}->search(event => { dojo_id => $self->dojo_id });
+}
+
+
+
+sub comments { # OK!
+    my $self = shift;
+    return scalar c->db->search_by_sql(q{
+        SELECT *, dojo_comment.created_at as posted_at
+        FROM   dojo_comment 
+        JOIN   user
+        ON     dojo_comment.user_id  = user.user_id
+        WHERE  dojo_comment.dojo_id = ?
+        ORDER BY dojo_comment.id DESC
+    }, [ $self->dojo_id ],
+    );
 }
 
 1;

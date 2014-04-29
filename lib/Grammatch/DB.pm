@@ -4,8 +4,6 @@ use warnings;
 use utf8;
 use parent qw/ Teng /;
 
-#__PACKAGE__->load_plugin('pager');
-
-1;
+__PACKAGE__->load_plugin('SearchJoined');
 
 1;

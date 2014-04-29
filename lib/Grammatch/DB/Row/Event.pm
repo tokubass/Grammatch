@@ -6,6 +6,7 @@ use parent 'Teng::Row';
 use Amon2::Declare;
 use Try::Tiny;
 use Time::Piece;
+use Data::Page::NoTotalEntries;
 
 sub owner { # OK!
     my $self = shift;
@@ -80,7 +81,7 @@ sub resign { # OK!
     };
 }
 
-sub event_update {
+sub edit { # OK!
     my ($self, $params) = @_;
     my $txn = c->db->txn_scope;
     try {
@@ -99,6 +100,19 @@ sub event_update {
         $txn->rollback;
         die $_;
     };
+}
+
+sub comments { # OK!
+    my $self = shift;
+    return scalar c->db->search_by_sql(q{
+        SELECT *, event_comment.created_at as posted_at
+        FROM   event_comment 
+        JOIN   user
+        ON     event_comment.user_id  = user.user_id
+        WHERE  event_comment.event_id = ?
+        ORDER BY event_comment.id DESC
+    }, [ $self->event_id ],
+    );
 }
 
 1;

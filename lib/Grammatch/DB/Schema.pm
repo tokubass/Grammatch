@@ -86,6 +86,19 @@ table {
     deflate qr/_at$/ => sub { deflate_time(@_) };
 };
 
+table {
+    name 'dojo_comment';
+    pk   'id';
+    columns qw/
+        id user_id dojo_id
+        comment
+        deleted created_at updated_at
+    /;
+
+    inflate qr/_at$/ => sub { inflate_time(@_) };
+    deflate qr/_at$/ => sub { deflate_time(@_) };
+};
+
 sub inflate_time {
     my ($col_value) = shift;
     return localtime( $col_value );

@@ -12,7 +12,7 @@ sub event { # OK!
         my $class,
         my $event_id => 'Int',
         my $user_id  => { optional => 1 };
-    
+   
     my $event = c->db->single(event => { event_id => $event_id }) or die;
     return {
         event         => $event,
@@ -21,10 +21,11 @@ sub event { # OK!
         participants  => $event->participants,
         user_status   => $event->user_status($user_id),
         finished      => $event->start_at <= localtime() ? 1 : 0,
+        comments      => $event->comments,
     };
 }
 
-sub create_form {
+sub create_form { # OK!
     args
         my $class,
         my $user_id => 'Int';
@@ -34,7 +35,7 @@ sub create_form {
     return $user;
 }
 
-sub create {
+sub create { # OK!
     args
         my $class,
         my $user_id => 'Int',
@@ -77,7 +78,7 @@ sub edit_form { # OK!
     return $event;
 }
 
-sub edit {
+sub edit { # OK!
     args
         my $class,
         my $user_id => 'Int',
@@ -87,7 +88,7 @@ sub edit {
     my $event = c->db->single(event => { event_id => $event_id }) or die;
     die if $event->user_id != $user_id; 
     
-    $event->event_update($params)
+    $event->edit($params)
 }
 
 sub join { # OK!

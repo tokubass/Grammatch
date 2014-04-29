@@ -27,6 +27,9 @@ post '/dojo/edit' => 'Dojo#commit';
 
 get '/search/dojo'  => 'Search#dojo';
 
+# ok!
+post '/dojo/{dojo_id:[0-9]+}/post' => 'Comment#dojo_post';
+
 # event
 get  '/event/{event_id:[0-9]+}'        => 'Event#event';
 get  '/event/{event_id:[0-9]+}/join'   => 'Event#join';
@@ -35,5 +38,6 @@ get  '/event/{event_id:[0-9]+}/edit'   => 'Event#edit_form';
 post '/event/{event_id:[0-9]+}/edit'   => 'Event#edit';
 get  '/event/create'                   => 'Event#create_form';
 post '/event/create'                   => 'Event#create';
+post '/event/{event_id:[0-9]+}/post'   => 'Comment#event_post';
 
 1;

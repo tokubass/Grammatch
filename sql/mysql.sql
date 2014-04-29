@@ -81,3 +81,13 @@ CREATE TABLE IF NOT EXISTS event_comment (
     updated_at INTEGER NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS dojo_comment (
+    id         INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    user_id    INTEGER NOT NULL,
+    dojo_id   INTEGER NOT NULL,
+    comment    TEXT    NOT NULL,
+
+    deleted    INTEGER NOT NULL DEFAULT 0,
+    created_at INTEGER NOT NULL,
+    updated_at INTEGER NOT NULL
+);

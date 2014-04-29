@@ -112,4 +112,17 @@ sub resign { # OK!
     return $c->redirect('/event/' . $path_param->{event_id});
 }
 
+sub comment {
+    my ($class, $c, $path_param) = @_;
+    my $logged_user_id = $c->session_get();
+    return $c->redirect('/') unless $logged_user_id;
+   
+    Grammatch::App::Event->comment(
+        event_id => $path_param->{event_id}, 
+        user_id  => $logged_user_id,
+        comment  => $c->req->param('comment'),
+    );
+    return $c->redirect('/event/' . $path_param->{event_id});
+}
+
 1;

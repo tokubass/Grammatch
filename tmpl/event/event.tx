@@ -76,9 +76,28 @@
       <div class="panel-heading">
         コメント 
       </div>
-      <div class="panel-body">
-        いぜんさんかしたよー 
-      </div>
+      <ul class="list-group">
+        <li class="list-group-item">
+
+          <center>
+            <form class="form-inline" role="form" method="POST" action="/event/<: $event.event_id :>/post">
+              <div class="form-group">
+                <label class="sr-only" for="comment">コメント</label>
+                <input type="text" class="form-control" id="comment" placeholder="コメント" name="comment">
+              </div>
+              <button type="submit" class="btn btn-default">発言する</button>
+            </form>
+          </center>
+
+        </li>
+: while $comments.next -> $comment {
+        <li class="list-group-item">
+          <a href="/user/<: $comment.user_id :>"><: $comment.user_name :></a>
+          <small><: $comment.posted_at.strftime("%Y/%m/%d %H:%M:%S") :></small><br>
+          <: $comment.comment :>   
+        </li>
+: }
+      </ul>
     </div>
   </div>
   
@@ -91,7 +110,7 @@
       <ul class="list-group">
 : while $participants.next -> $p {
         <li class="list-group-item">
-        <a href="/user/<: $p.user_id :>"><: $p.user_name :></a>
+          <a href="/user/<: $p.user_id :>"><: $p.user_name :></a>
         </li>
 : }
       </ul>
