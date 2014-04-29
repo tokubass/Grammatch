@@ -23,9 +23,9 @@ sub participants { # OK!
         SELECT *
         FROM   user_event_map
         JOIN   user
-        ON     user_event_map.user_id = user.user_id
+        ON     user_event_map.user_id  = user.user_id
         WHERE  user_event_map.event_id = ?
-          AND  user_event_map.status = 1
+          AND  user_event_map.status   = 1
     }, [ $self->event_id ],
     );
 }
