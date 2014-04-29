@@ -7,9 +7,8 @@ div.container-fluid{
   background-image: -webkit-gradient(linear, center top, center bottom, from(#ffd2a1), to(#c7a77e));
   background-image: -webkit-linear-gradient(top, #ffd2a1, #c7a77e);
   background-image: linear-gradient(top, #ffd2a1, #c7a77e);
-
   border-style: none;
-}
+} 
 
 a:link { color: #754c24; }
 a:visited { color: #754c24; }
@@ -25,15 +24,14 @@ a.btn:hover { color:white; }
 }
 
 div.navbar-header{
-  height:80px;
-  margin-top:20px;
+  height:50px;
   padding-left:20px;
 }
 
 a#top_logo{
   margin-top:50px;
   padding-top:30px;
-  margin-top:-2px;
+  margin-top:-13px;
   padding-left:10px;
   margin-right:-25px;
   background:url(/static/img/GeekDojo_logo.png);
@@ -71,7 +69,7 @@ a#top_logo:hover {
   color: #999;
 }
 div.collapse{
-  margin-top:45px;
+  margin-top:15px;
 }
 
 a.btn-primary{

@@ -7,11 +7,20 @@
       </ol>
       <div class="carousel-inner">
         <div class="item active">
-          <img src="<: static_file('/static/img/main1.jpg') :>" alt=""  width="300" height="200">
+          <img src="<: static_file('/static/img/top1.jpg') :>" alt=""  width="300" height="200">
           <div class="container">
             <div class="carousel-caption">
               <p class="title">プログラミング学習をもっと温かく</p>
-              <p class="message">ギーク道場は師匠を囲んでの<br>プログラミング学習の場を提供します。</p>
+              <p class="message">ギーク道場では、プログラミングを学ぶ場を提供します。それはオフラインによる場です。face to faceによる人とのコミュニケーションを大切にします。</p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="<: static_file('/static/img/papix.jpg') :>" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <p class="title">まだ出会えていない師匠に出会える</p>
+              <p class="message">プログラミングは初心者が1人で勉強するには難しい技術です。ギーク道場はあなたに合った師匠と出会える場です。</p>
             </div>
           </div>
         </div>
@@ -19,17 +28,8 @@
           <img src="<: static_file('/static/img/main2.jpg') :>" alt="">
           <div class="container">
             <div class="carousel-caption">
-              <p class="title">道場で学ぶ</p>
-              <p class="message">道場は同じ師匠の下で学び合う<br>仲間のコミュニティです。</p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="<: static_file('/static/img/img3.jpg') :>" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-              <p class="title">あなたも師匠に</p>
-              <p class="message">師匠に認められ、免許皆伝がもらえると<br>あなたも師匠になることができます。</p>
+              <p class="title">同じ道場で学ぶ仲間と共に成長する</p>
+              <p class="message">同じ志を持ち、同じ師匠の元に集まった仲間と出会えます。1人でプログラミングをするよりも、みんなでやった方が楽しい。ギーク道場はプログラマー同士のシナジーを生み出します。</p>
             </div>
           </div>
         </div>
@@ -45,25 +45,68 @@
     <div class="container marketing">
 
       <div class="col-lg-4">
-        <img class="img-circle" src="/static/img/top1.jpg" alt="Generic placeholder image">
-        <h2>気軽に直接質問できる</h2>
-        <p>近くのカフェで、コワーキングスペースで、師匠を囲んでプログラミングの勉強。
-        一人での勉強では解決できないつまづきを、直接質問して解決できます。
-        開催地と師匠でイベントを選んで、参加申請してみましょう！</p>
+        <h2>師匠</h2>
+        <p>師匠とは、プログラミング学習における自分だけのメンターです。優れた技術力を持つプログラマーを師匠としてプログラミングを学びましょう。</p>
       </div>
       
       <div class="col-lg-4">
-        <img class="img-circle" src="/static/img/top2.jpg" alt="Generic placeholder image">
-        <h2>書ける人＝師匠</h2>
-        <p>道場にはあなたのスキルを必要としている人がいます。
-        授業を用意する必要はありません、質問に答えられれば大丈夫です。
-        初心者が壁を乗り越える瞬間の手助けをしてみませんか。</p>
+        <h2>弟子</h2>
+        <p>弟子は、道場に入門し、師匠からプログラミングを学ぶことができます。師匠から認められることで免許皆伝がもらうことを目標に技術力を向上させましょう。</p>
       </div>
       
       <div class="col-lg-4">
-        <img class="img-circle" src="/static/img/top3.jpg" alt="Generic placeholder image">
-        <h2>道場で仲間と出会う</h2>
-        <p>道場は同じ師のもと切磋琢磨しあう学友のコミュニティ。
-        壁にぶつかる事が多いプログラミング学習も、仲間がいれば楽しみながら進めます。
-        道場に入門すれば師匠にイベント開催をリクエストすることもできます。</p>
+        <h2>道場</h2>
+        <p>道場は同じ師のもと切磋琢磨しあう学友のコミュニティ。師匠に共感し、「この人に学びたい！」という気持ちを持って集まったプログラマーが共に学び合うことができる場です。</p>
       </div>
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">登録をしてイベントを探そう！</h2>
+          <p class="lead">新規登録からTwitter認証を行い、プロフィール編集で居住地情報を入力しましょう。この情報を元に、あなたの住む街のイベントを見つけ出します。</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" src="../static/img/event.png" alt="Generic placeholder image">
+        </div>
+      </div>
+      
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" src="../static/img/event_click.png" alt="Generic placeholder image">
+        </div>
+        <div class="col-md-7">
+          <h2 class="featurette-heading">行きたいイベントが見つかったら、参加申し込みをしよう！</h2>
+          <p class="lead">開催場所、師匠の情報を元に行きたいイベントを見つけて参加申し込みをしましょう。イベント参加人数は基本5人までとなっています。参加したいイベントには早めに申し込みをしましょう！</p>
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">学びたい師匠が見つかったら道場に入門しよう！</h2>
+          <p class="lead">「この人に学びたい！」という師匠に出会えたら入門申請をしましょう。入門すれば、あなたもイベント開催を師匠に申請することが可能となります。</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" src="../static/img/entry_click.png" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+      
+      <div class="row featurette">
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" src="../static/img/main2.jpg" alt="Generic placeholder image">
+        </div>
+        <div class="col-md-7">
+          <h2 class="featurette-heading">免許皆伝を手に入れて、自分の道場を開設しよう！</h2>
+          <p class="lead">あなたの入門する道場の師匠に認められたら免許皆伝をもらうことが可能です。免許皆伝を持つとあなたも道場を開設して師匠になる事ができます。この世に1つしかないあなただけの道場を開設しましょう！</p>
+        </div>
+      </div>
+
+    </div><!-- /.container -->
