@@ -13,7 +13,8 @@ sub event_post {
         my $event_id => 'Int',
         my $user_id  => 'Int',
         my $comment;
-   
+    
+    return unless $comment;  
     my $txn = c->db->txn_scope;
     try {
         c->db->fast_insert(event_comment => {
@@ -37,6 +38,7 @@ sub dojo_post {
         my $user_id => 'Int',
         my $comment;
   
+    return unless $comment;  
     my $user_dojo_map = c->db->single(user_dojo_map => {
         user_id => $user_id, dojo_id => $dojo_id,     
     }) or die;

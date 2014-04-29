@@ -77,17 +77,14 @@
       </div>
       <ul class="list-group">
         <li class="list-group-item">
-
-          <center>
-            <form class="form-inline" role="form" method="POST" action="/event/<: $event.event_id :>/post">
-              <div class="form-group">
-                <label class="sr-only" for="comment">コメント</label>
-                <input type="text" class="form-control" id="comment" placeholder="コメント" name="comment">
-              </div>
-              <button type="submit" class="btn btn-default">発言する</button>
-            </form>
-          </center>
-
+          <form class="form-inline" role="form" method="POST" action="/event/<: $event.event_id :>/post">
+            <div class="input-group">
+              <input type="text" class="form-control" id="comment" placeholder="コメント" name="comment">
+              <span class="input-group-btn">
+                <input type="submit" class="btn btn-default" type="button">発言する</input>
+              </span>
+            </div><!-- /input-group -->
+          </form>
         </li>
 : while $comments.next -> $comment {
         <li class="list-group-item">
