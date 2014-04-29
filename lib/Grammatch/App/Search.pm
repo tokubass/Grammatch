@@ -18,7 +18,7 @@ sub dojo {
     $stmt->add_where('dojo.pref_id' => $pref_id) if $pref_id;
     $stmt->add_select('*');
     $stmt->add_select('dojo.pref_id' => 'dojo_pref_id');
-    $stmt->add_order_by('dojo_id' => 'DESC');
+    $stmt->add_order_by('dojo.dojo_id' => 'DESC');
 
     my $sql  = $stmt->as_sql();
     my @bind = $stmt->bind();
