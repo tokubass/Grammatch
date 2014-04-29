@@ -15,6 +15,14 @@ sub dojo {
     return $c->render('dojo/dojo.tx', $data);
 }
 
+sub event {
+    my ($class, $c, $path_param) = @_;
+    my $data = Grammatch::App::Dojo->events(
+        dojo_id => $path_param->{dojo_id}, 
+    );
+    return $c->render('dojo/event.tx', $data);
+}
+
 # require login
 sub dojo_root {
     my ($class, $c) = @_;

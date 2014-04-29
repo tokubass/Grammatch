@@ -69,6 +69,37 @@
 
     <div class="panel panel-primary">
       <div class="panel-heading">
+        直近の主催イベント
+      </div>
+      <div class="panel-body">
+        <a href="/dojo/<: $dojo.dojo_id :>/event">全てのイベントを見る</a>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <h4>        
+            <a href="/event/<: $event.event_id :>"><: $event.event_name :></a>
+          </h4>
+          <dl class="dl">
+            <dt>開催場所</dt>
+            <dd><: c().config().pref[$event.pref_id] :> (<: $event.place :>)</dd>
+
+            <dt>おごってほしいもの</dt>
+            <dd><: $event.reward :></dd>
+
+            <dt>参加者</dt>
+            <dd><: $event.event_member :>人 / <: c().config().event_limit :>人</dd>
+          
+            <dt>開始時間 / 開催時間</dt>
+            <dd>
+              <: $event.start_at.strftime("%Y/%m/%d %H:%M") :> から <: $event.period :>分程度
+            </dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">
         コメント 
       </div>
       <ul class="list-group">
@@ -94,35 +125,6 @@
       </ul>
     </div>
 
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        主催イベント 
-      </div>
-      <ul class="list-group">
-: while $events.next() -> $event {
-        <li class="list-group-item">
-          <h4>        
-            <a href="/event/<: $event.event_id :>"><: $event.event_name :></a>
-          </h4>
-          <dl class="dl">
-            <dt>開催場所</dt>
-            <dd><: c().config().pref[$event.pref_id] :> (<: $event.place :>)</dd>
-
-            <dt>おごってほしいもの</dt>
-            <dd><: $event.reward :></dd>
-
-            <dt>参加者</dt>
-            <dd><: $event.event_member :>人 / <: c().config().event_limit :>人</dd>
-          
-            <dt>開始時間 / 開催時間</dt>
-            <dd>
-              <: $event.start_at.strftime("%Y/%m/%d %H:%M") :> から <: $event.period :>分程度
-            </dd>
-          </dl>
-        </li>
-: }
-      </ul>
-    </div>
   </div>
   
   <div class="col-xs-3">

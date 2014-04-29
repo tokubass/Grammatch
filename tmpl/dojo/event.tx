@@ -1,0 +1,44 @@
+: cascade common::base
+: around container -> {
+
+<h1>
+  イベント一覧
+  <small>
+    <a href="/dojo/<: $dojo.dojo_id :>"><: $dojo.dojo_name :></a>
+  </small>
+</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>イベント名</th>
+      <th>開催地</th>
+      <th>開催場所</th>
+      <th>おごってほしいもの</th>
+      <th>参加者</th>
+      <th>開始時間 / 開催時間</th>
+    </tr>
+  </thead>
+  <tbody>
+: while $events.next -> $event {
+    <tr>
+      <th><a href="/event/<: $event.event_id :>"><: $event.event_name :></a></th>
+      <th><: c().config().pref[$event.pref_id] :></th>
+      <th><: $event.place :></th>
+      <th><: $event.reward :></th>
+      <th><: $event.event_member :>人</th>
+      <th><: $event.start_at.strftime("%Y/%m/%d %H:%M") :> から <: $event.period :>分程度</th>
+    </tr>
+    <tr>
+      <th>
+        イベント概要 
+      </th>
+      <th colspan="5">
+        <: $event.event_summary :>
+      </th>
+    </th>
+: }
+  </tbody>
+</table>
+
+: }

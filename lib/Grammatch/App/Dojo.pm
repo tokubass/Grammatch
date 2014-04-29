@@ -19,7 +19,7 @@ sub dojo {
         dojo         => $dojo,
         owner        => $dojo->owner,
         participants => $dojo->participants,
-        events       => $dojo->events,
+        event        => $dojo->newest_event,
         comments     => $dojo->comments,
         user_status  => $dojo->user_status($user_id),
     }
@@ -142,6 +142,18 @@ sub create {
         die $_;
     };
     return $dojo_id;
+}
+
+sub events {
+    args 
+        my $class,
+        my $dojo_id => 'Int';
+    
+    my $dojo = c->db->single(dojo => { dojo_id => $dojo_id }) or die;
+    return {
+        dojo   => $dojo, 
+        events => $dojo->events,
+    };
 }
 
 1;

@@ -5,6 +5,7 @@ use utf8;
 use Amon2::Declare;   
 use SQL::Maker::Select;
 use Smart::Args;
+use Time::Piece;
 
 sub dojo {
     args
@@ -36,9 +37,11 @@ sub event {
     $stmt->add_join(event => { table => 'user', condition => 'event.user_id = user.user_id '});
     $stmt->add_where(event_summary => { like => '%'.$keyword.'%'}) if $keyword;
     $stmt->add_where('event.pref_id' => $pref_id) if $pref_id;
+    $stmt->add_where(start_at => { '>' => localtime->epoch });
     $stmt->add_select('*');
     $stmt->add_select('event.pref_id' => 'event_pref_id');
     $stmt->add_order_by('start_at' => 'DESC');
+
 
     my $sql  = $stmt->as_sql();
     my @bind = $stmt->bind();

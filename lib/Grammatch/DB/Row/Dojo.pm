@@ -36,11 +36,13 @@ sub user_status { # OK!
     return defined $user_dojo_map ? $user_dojo_map->status : 0;
 }
 
-sub events { # OK!
+sub newest_event { # OK!
     my $self = shift;
-    return scalar c->db->search(event => {
+    return c->db->single(event => {
         dojo_id  => $self->dojo_id,
         start_at => { '>' => localtime->epoch },
+    }, {
+        order_by => 'start_at',
     });
 }
 
@@ -114,6 +116,16 @@ sub accept {
         $txn->rollback;
         die $_;
     };
+}
+
+sub events {
+    my $self = shift;
+    return scalar c->db->search(event => {
+        dojo_id  => $self->dojo_id,
+        start_at => { '>' => localtime->epoch },
+    }, {
+        order_by => 'start_at',
+    });
 }
 
 1;

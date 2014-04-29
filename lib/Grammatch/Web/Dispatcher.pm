@@ -24,6 +24,7 @@ get  '/dojo/request'                  => 'Dojo#request_list';
 post '/dojo/accept'                   => 'Dojo#accept';
 post '/dojo/create'                   => 'Dojo#create';
 get  '/search/dojo'                   => 'Search#dojo';
+get  '/dojo/{dojo_id:[0-9]+}/event'   => 'Dojo#event';
 
 # event
 get  '/event/{event_id:[0-9]+}'        => 'Event#event';
