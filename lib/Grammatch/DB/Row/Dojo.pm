@@ -15,12 +15,13 @@ sub owner { # OK!
 sub participants { # OK!
     my $self = shift;
     return scalar c->db->search_by_sql(q{
-        SELECT *
-        FROM   user_dojo_map
-        JOIN   user 
-        ON     user_dojo_map.user_id = user.user_id
-        WHERE  user_dojo_map.dojo_id = ? 
-          AND  user_dojo_map.status = 1
+        SELECT   *
+        FROM     user_dojo_map
+        JOIN     user 
+        ON       user_dojo_map.user_id = user.user_id
+        WHERE    user_dojo_map.dojo_id = ? 
+          AND    user_dojo_map.status = 1
+        ORDER BY user_dojo_map.id DESC
     }, [ $self->dojo_id ],
     );
 }
@@ -63,11 +64,11 @@ sub edit { # OK!
 sub comments { # OK!
     my $self = shift;
     return scalar c->db->search_by_sql(q{
-        SELECT *, dojo_comment.created_at as posted_at
-        FROM   dojo_comment 
-        JOIN   user
-        ON     dojo_comment.user_id  = user.user_id
-        WHERE  dojo_comment.dojo_id = ?
+        SELECT   *, dojo_comment.created_at as posted_at
+        FROM     dojo_comment 
+        JOIN     user
+        ON       dojo_comment.user_id  = user.user_id
+        WHERE    dojo_comment.dojo_id = ?
         ORDER BY dojo_comment.id DESC
     }, [ $self->dojo_id ],
     );
@@ -88,12 +89,13 @@ sub dropout { # OK!
 sub requests { # OK!
     my $self = shift;
     return scalar c->db->search_by_sql(q{
-        SELECT * 
-        FROM   user_dojo_map 
-        JOIN   user 
-        ON     user_dojo_map.user_id = user.user_id
-        WHERE  user_dojo_map.dojo_id = ? 
-          AND  user_dojo_map.status = 2
+        SELECT   * 
+        FROM     user_dojo_map 
+        JOIN     user 
+        ON       user_dojo_map.user_id = user.user_id
+        WHERE    user_dojo_map.dojo_id = ? 
+          AND    user_dojo_map.status = 2
+        ORDER BY user_dojo_map.id DESC
     }, [ $self->dojo_id ],
     );
 }

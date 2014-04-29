@@ -21,12 +21,13 @@ sub dojo { # OK!
 sub participants { # OK!
     my $self = shift;
     return scalar c->db->search_by_sql(q{
-        SELECT *
-        FROM   user_event_map
-        JOIN   user
-        ON     user_event_map.user_id  = user.user_id
-        WHERE  user_event_map.event_id = ?
-          AND  user_event_map.status   = 1
+        SELECT   *
+        FROM     user_event_map
+        JOIN     user
+        ON       user_event_map.user_id  = user.user_id
+        WHERE    user_event_map.event_id = ?
+          AND    user_event_map.status   = 1
+        ORDER BY user_event_map.id DESC
     }, [ $self->event_id ],
     );
 }
@@ -105,11 +106,11 @@ sub edit { # OK!
 sub comments { # OK!
     my $self = shift;
     return scalar c->db->search_by_sql(q{
-        SELECT *, event_comment.created_at as posted_at
-        FROM   event_comment 
-        JOIN   user
-        ON     event_comment.user_id  = user.user_id
-        WHERE  event_comment.event_id = ?
+        SELECT   *, event_comment.created_at as posted_at
+        FROM     event_comment 
+        JOIN     user
+        ON       event_comment.user_id  = user.user_id
+        WHERE    event_comment.event_id = ?
         ORDER BY event_comment.id DESC
     }, [ $self->event_id ],
     );

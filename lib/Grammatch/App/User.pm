@@ -10,7 +10,7 @@ sub user {
         my $class,
         my $user_id => 'Int';
 
-    my $user      = c->db->single(user => { user_id => $user_id }) or die;
+    my $user = c->db->single(user => { user_id => $user_id }) or die;
     return {
         user       => $user,
         dojo       => $user->dojo,

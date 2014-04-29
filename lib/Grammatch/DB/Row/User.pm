@@ -6,6 +6,7 @@ use parent 'Teng::Row';
 use Amon2::Declare;
 use Try::Tiny;
 use Time::Piece;
+use SQL::Maker::Select;
 
 sub login {
     my ($self, $twitter_screen_name) = @_;
@@ -36,19 +37,26 @@ sub joined_dojo {
         JOIN   dojo 
         ON     user_dojo_map.dojo_id = dojo.dojo_id
         WHERE  user_dojo_map.user_id = ?
+        ORDER BY dojo.dojo_id DESC
     }, [ $self->user_id ],
     );
 }
 
-sub events { # OK!
+sub joined_event { # OK!
     my $self = shift;
+    my $stmt = SQL::Maker::Select->new();
+    $stmt->add_join(user_event_map => { table => 'event', condition => 'user_event_map.event_id = event.event_id'});
+    $stmt->add_join(event => { table => 'dojo', condition => 'event.dojo_id = dojo.dojo_id'});
+    $stmt->add_join(dojo => { table => 'user', condition => 'dojo.user_id = user.user_id'});
+    $stmt->add_where('user_event_map.user_id' => $self->user_id);
+    $stmt->add_where(start_at => { '>' => localtime->epoch });
+    $stmt->add_select('*');
+    $stmt->add_select('event.pref_id' => 'event_pref_id');
+    $stmt->add_order_by('start_at' => 'DESC');
 
-
-
-    return scalar c->db->search(event => {
-        user_id  => $self->dojo_id,
-        start_at => { '>' => localtime->epoch },
-    });
+    my $sql  = $stmt->as_sql();
+    my @bind = $stmt->bind();
+    return scalar c->db->search_by_sql($sql, [@bind]);
 }
 
 sub create_dojo { # OK!

@@ -18,10 +18,10 @@ sub dojo {
     $stmt->add_where('dojo.pref_id' => $pref_id) if $pref_id;
     $stmt->add_select('*');
     $stmt->add_select('dojo.pref_id' => 'dojo_pref_id');
+    $stmt->add_order_by('dojo_id' => 'DESC');
 
     my $sql  = $stmt->as_sql();
     my @bind = $stmt->bind();
-
     return scalar c->db->search_by_sql($sql, [@bind]);
 }
 
@@ -38,6 +38,7 @@ sub event {
     $stmt->add_where('event.pref_id' => $pref_id) if $pref_id;
     $stmt->add_select('*');
     $stmt->add_select('event.pref_id' => 'event_pref_id');
+    $stmt->add_order_by('start_at' => 'DESC');
 
     my $sql  = $stmt->as_sql();
     my @bind = $stmt->bind();

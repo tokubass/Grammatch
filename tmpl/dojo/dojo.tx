@@ -106,7 +106,7 @@
           </h4>
           <dl class="dl">
             <dt>開催場所</dt>
-            <dd><: c().config().pref[$event.event_pref_id] :>(<: $event.place :>)</dd>
+            <dd><: c().config().pref[$event.pref_id] :> (<: $event.place :>)</dd>
 
             <dt>おごってほしいもの</dt>
             <dd><: $event.reward :></dd>
@@ -116,8 +116,7 @@
           
             <dt>開始時間 / 開催時間</dt>
             <dd>
-              <: $event.start_at.strftime("%Y/%m/%d %H:%M") :><br>
-              から <: $event.period :>分程度
+              <: $event.start_at.strftime("%Y/%m/%d %H:%M") :> から <: $event.period :>分程度
             </dd>
           </dl>
         </li>
@@ -133,7 +132,7 @@
         <small>(<: $dojo.dojo_member :>/<: c().config().dojo_limit :>)</small>
       </div>
       <ul class="list-group">
-: while $member_list.next -> $member {
+: while $participants.next -> $member {
         <li class="list-group-item">
         <a href="/user/<: $member.user_id :>"><: $member.user_name :></a>
         <small>
