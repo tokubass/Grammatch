@@ -1,6 +1,7 @@
 package Grammatch::DB::Row::UserDojoMap;
 use strict;
 use warnings;
+use utf8;
 use parent 'Teng::Row';
 use Try::Tiny;
 

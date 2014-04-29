@@ -1,6 +1,7 @@
 package Grammatch::App::Search;
 use strict;
 use warnings;
+use utf8;
 use Amon2::Declare;   
 use SQL::Maker::Condition;
 

@@ -1,6 +1,7 @@
 package Grammatch::App::Dojo;
 use strict;
 use warnings;
+use utf8;
 use Amon2::Declare;   
 use Try::Tiny;
 use Time::Piece;

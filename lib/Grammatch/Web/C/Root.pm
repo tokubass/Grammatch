@@ -1,6 +1,7 @@
 package Grammatch::Web::C::Root;
 use strict;
 use warnings;
+use utf8;
 use Grammatch::App::User;
 
 sub root {

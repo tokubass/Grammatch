@@ -1,6 +1,7 @@
 package Grammatch::Web::C::Dojo;
 use strict;
 use warnings;
+use utf8;
 use Grammatch::App::Dojo;
 
 sub dojo {

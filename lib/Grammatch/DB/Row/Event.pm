@@ -1,6 +1,7 @@
 package Grammatch::DB::Row::Event;
 use strict;
 use warnings;
+use utf8;
 use parent 'Teng::Row';
 use Amon2::Declare;
 use Try::Tiny;

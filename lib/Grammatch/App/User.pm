@@ -1,6 +1,7 @@
 package Grammatch::App::User;
 use strict;
 use warnings;
+use utf8;
 use Amon2::Declare;   
 
 sub user {

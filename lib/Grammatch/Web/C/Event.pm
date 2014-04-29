@@ -1,6 +1,7 @@
 package Grammatch::Web::C::Event;
 use strict;
 use warnings;
+use utf8;
 use Grammatch::App::Event;
 use Time::Piece;
 
@@ -20,8 +21,9 @@ sub create_form { # OK!
     my ($class, $c) = @_;
     my $logged_user_id = $c->session_get();
     return $c->redirect('/') unless $logged_user_id;
-   
-    my $user = c->db->single(user => { user_id => $logged_user_id });
+
+    my $user = Grammatch::App::Event->create_form(user_id => $logged_user_id);
+
     $c->render('/event/edit.tx', { event => {
         event_pref_id => $user->pref_id, # FIXME -> user_pref_id ?
         start_at      => scalar localtime, 
