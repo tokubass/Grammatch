@@ -7,33 +7,29 @@
   <div class="col-xs-3">
 
     <h1>
-      <a href="/dojo/<: $dojo_data.dojo_id :>">
-          <: $dojo_data.dojo_name :>
-      </a>
+      <: $dojo.dojo_name :>
     </h1>
 
     <center><h4>
 : if $user_id {
-:   if $logged_user_status {
-:     if $logged_user_status.status == 1 {
-      <p><span class="label label-primary">弟子</span></p>
-:     } elsif $logged_user_status.status == 2 {
-      <p><span class="label label-info">申請中</span></p>
-:     } elsif $logged_user_status.status == 3 {
-      <p><span class="label label-danger">師範</span></p>
-:     } elsif $logged_user_status.status == 4 {
-      <p><span class="label label-warning">免許皆伝</span></p>
-:     }
+:   if $user_status == 1 {
+    <p><span class="label label-primary">弟子</span></p>
+:   } elsif $user_status == 2 {
+    <p><span class="label label-info">申請中</span></p>
+:   } elsif $user_status == 3 {
+    <p><span class="label label-danger">師範</span></p>
+:   } elsif $user_status == 4 {
+    <p><span class="label label-warning">免許皆伝</span></p>
 :   } else {
       <p><span class="label label-warning">未加入</span></p>
-:     if $dojo_data.dojo_member < c().config().dojo_limit {
-        <form method="POST" action="/dojo/<: $dojo_data.dojo_id :>/join">
+:     if $dojo.dojo_member < c().config().dojo_limit {
+        <form method="POST" action="/dojo/<: $dojo.dojo_id :>/request">
           <input type="submit" value="入門申請" class="btn btn-primary">
         </form>
-:     } else {
-        <a href="/dojo/<: $dojo_data.dojo_id :>/join" class="btn btn-primary">入門申請</a>
-:     } 
+:     }
 :   }
+: } else {
+        <a href="/dojo/<: $dojo.dojo_id :>/join" class="btn btn-primary">入門申請</a>
 : }      
     </h4></center>
 
@@ -41,30 +37,30 @@
 
     <dl class="dl">
       <dt>所在地</dt>
-      <dd><: c().config().pref[$dojo_data.pref_id] :></dd>
+      <dd><: c().config().pref[$dojo.pref_id] :></dd>
     
       <dt>道場主 (師匠)</dt>
       <dd>
-        <a href="/user/<: $owner_data.user_id :>"><: $owner_data.user_name :></a>
+        <a href="/user/<: $owner.user_id :>"><: $owner.user_name :></a>
       </dd>
       
       <dt>門下生</dt>
-      <dd><: $dojo_data.dojo_member :>人 / <: c().config().dojo_limit :>人</dd>
+      <dd><: $dojo.dojo_member :>人 / <: c().config().dojo_limit :>人</dd>
     
       <dt>設立</dt>
-      <dd><: $dojo_data.created_at.strftime("%Y/%m/%d %H:%M:%S") :></dd>
+      <dd><: $dojo.created_at.strftime("%Y/%m/%d %H:%M:%S") :></dd>
       
       <dt>紹介文</dt>
       <dd>
-        <: $dojo_data.dojo_summary :>
+        <: $dojo.dojo_summary :>
       </dd>
     </dl>
 
-: if $user_id && $logged_user_status && $logged_user_status.status == 3 {
+: if $user_status == 3 {
     <hr>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="/dojo/edit">道場編集</a></li>
-      <li><a href="/dojo/motion">入門申請確認</a></li>
+      <li><a href="/dojo/request">入門申請確認</a></li>
     </ul>
 : }
   </div>
@@ -79,7 +75,7 @@
         <li class="list-group-item">
 
           <center>
-            <form class="form-inline" role="form" method="POST" action="/dojo/<: $dojo_data.dojo_id :>/post">
+            <form class="form-inline" role="form" method="POST" action="/dojo/<: $dojo.dojo_id :>/post">
               <div class="form-group">
                 <label class="sr-only" for="comment">コメント</label>
                 <input type="text" class="form-control" id="comment" placeholder="コメント" name="comment">
@@ -135,7 +131,7 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         弟子 
-        <small>(<: $dojo_data.dojo_member :>/<: c().config().dojo_limit :>)</small>
+        <small>(<: $dojo.dojo_member :>/<: c().config().dojo_limit :>)</small>
       </div>
       <ul class="list-group">
 : while $member_list.next -> $member {
@@ -153,18 +149,14 @@
 
 <hr>
 
-: if $user_id {
-:   if $logged_user_status {
-:     if $logged_user_status.status == 1 || $logged_user_status.status == 4 {
-  <form method="POST" action="/dojo/<: $dojo_data.dojo_id :>/dropout">
+: if $user_status == 1 || $user_status == 4 {
+  <form method="POST" action="/dojo/<: $dojo.dojo_id :>/dropout">
     <input type="submit" value="道場脱退" class="btn btn-danger pull-right">
   </form>
-:     } elsif $logged_user_status.status == 2 {
-  <form method="POST" action="/dojo/<: $dojo_data.dojo_id :>/dropout">
+: } elsif $user_status == 2 {
+  <form method="POST" action="/dojo/<: $dojo.dojo_id :>/dropout">
     <input type="submit" value="申請取消" class="btn btn-danger pull-right">
   </form>
-:     }
-:   }
 : }      
 
 : }

@@ -52,7 +52,7 @@ table {
     pk   'event_id';
     columns qw/
         event_id user_id dojo_id
-        event_name event_member event_pref_id event_summary
+        event_name event_member pref_id event_summary
         place reward period start_at
         created_at updated_at
     /;

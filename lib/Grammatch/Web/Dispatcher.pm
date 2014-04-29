@@ -13,22 +13,19 @@ get '/user/edit'        => 'User#edit';
 post '/user/edit'       => 'User#commit';
 
 # dojo
-get '/dojo/{id:[0-9]+}'          => 'Dojo#dojo';
-post '/dojo/{id:[0-9]+}/join'    => 'Dojo#join';
-post '/dojo/{id:[0-9]+}/dropout' => 'Dojo#dropout';
-
-get '/dojo/motion'  => 'Dojo#motion';
-post '/dojo/accept' => 'Dojo#accept';
-post '/dojo/create' => 'Dojo#create';
-get '/dojo'         => 'Dojo#dojo_root';
-
-get '/dojo/edit'  => 'Dojo#edit';
-post '/dojo/edit' => 'Dojo#commit';
-
-get '/search/dojo'  => 'Search#dojo';
-
-# ok!
-post '/dojo/{dojo_id:[0-9]+}/post' => 'Comment#dojo_post';
+get  '/dojo'                          => 'Dojo#dojo_root';
+get  '/dojo/{dojo_id:[0-9]+}'         => 'Dojo#dojo';
+post '/dojo/{dojo_id:[0-9]+}/post'    => 'Comment#dojo_post';
+get  '/dojo/edit'                     => 'Dojo#edit_form';
+post '/dojo/edit'                     => 'Dojo#edit';
+post '/dojo/{dojo_id:[0-9]+}/request' => 'Dojo#request';
+post '/dojo/{dojo_id:[0-9]+}/dropout' => 'Dojo#dropout';
+get '/dojo/request'                   => 'Dojo#request_list';
+post '/dojo/accept'                   => 'Dojo#accept';
+#post '/dojo/create' => 'Dojo#create';
+#
+#
+#get '/search/dojo'  => 'Search#dojo';
 
 # event
 get  '/event/{event_id:[0-9]+}'        => 'Event#event';

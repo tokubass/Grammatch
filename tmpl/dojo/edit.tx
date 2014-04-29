@@ -16,12 +16,8 @@
       <label class="control-label">
         道場名を記入して下さい.
       </label>
-: } elsif $form.invalid('dojo_name') {
-      <label class="control-label">
-        道場名は20文字以下にしてください.
-      </label>
 : }
-      <input type="text" class="form-control" id="dojo_name" name="dojo_name" placeholder="Dojo name" value="<: $dojo_data.dojo_name :>">
+      <input type="text" class="form-control" id="dojo_name" name="dojo_name" placeholder="Dojo name" value="<: $dojo.dojo_name :>">
     </div>
   </div>
   <div class="form-group">
@@ -30,7 +26,7 @@
       <select name="pref_id" class="form-control">
 : my $pref_map = c().config().pref;
 : for $pref_map.keys().sort(-> $a, $b { $a <=> $b }) -> $id {
-        <option value="<: $id :>" <: if $id == $dojo_data.pref_id { :> selected <: } :>><: $pref_map[$id] :></option>
+        <option value="<: $id :>" <: if $id == $dojo.pref_id { :> selected <: } :>><: $pref_map[$id] :></option>
 : }
       </select>
     </div>
@@ -38,7 +34,7 @@
   <div class="form-group">
     <label for="summary" class="col-sm-3 control-label">紹介文</label>
     <div class="col-sm-7">
-      <textarea class="form-control" name="dojo_summary" rows="10"><: $dojo_data.dojo_summary :></textarea>
+      <textarea class="form-control" name="dojo_summary" rows="10"><: $dojo.dojo_summary :></textarea>
     </div>
   </div>
   <div class="form-group">

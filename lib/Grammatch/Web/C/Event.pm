@@ -25,8 +25,8 @@ sub create_form { # OK!
     my $user = Grammatch::App::Event->create_form(user_id => $logged_user_id);
 
     $c->render('/event/edit.tx', { event => {
-        event_pref_id => $user->pref_id, # FIXME -> user_pref_id ?
-        start_at      => scalar localtime, 
+        pref_id  => $user->pref_id || 13,
+        start_at => scalar localtime,
     }});
 }
 
@@ -77,7 +77,7 @@ sub edit { # OK!
         start_at   => [qw/ NOT_BLANK /, ['DATETIME_STRPTIME', '%Y/%m/%d %H:%M']],
         period     => [qw/ NOT_BLANK INT /],
     );
-    my $params = $c->req->parameters()->as_hashref;
+    my $params = $c->req->parameters->as_hashref;
     $params->{start_at} = $params->{start_at}
         ? Time::Piece->strptime($params->{start_at}, "%Y/%m/%d %H:%M")
         : scalar localtime;
@@ -112,7 +112,7 @@ sub resign { # OK!
     return $c->redirect('/event/' . $path_param->{event_id});
 }
 
-sub comment {
+sub comment { # OK!
     my ($class, $c, $path_param) = @_;
     my $logged_user_id = $c->session_get();
     return $c->redirect('/') unless $logged_user_id;

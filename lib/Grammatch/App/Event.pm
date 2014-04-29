@@ -50,7 +50,7 @@ sub create { # OK!
             user_id       => $user_id,
             dojo_id       => $user->dojo_id,
             event_name    => $params->{event_name},
-            event_pref_id => $params->{event_pref_id},
+            pref_id       => $params->{pref_id},
             place         => $params->{place},
             reward        => $params->{reward},
             period        => $params->{period},
@@ -73,7 +73,7 @@ sub edit_form { # OK!
         my $event_id => 'Int',
         my $user_id  => 'Int';
 
-    my $event =  c->db->single(event => { event_id => $event_id }) or die;
+    my $event = c->db->single(event => { event_id => $event_id }) or die;
     die if $event->user_id != $user_id;
     return $event;
 }

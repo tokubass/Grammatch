@@ -28,13 +28,13 @@
   </div>
 
   <div class="form-group">
-    <label for="event_pref_id" class="col-sm-3 control-label">開催地</label>
+    <label for="pref_id" class="col-sm-3 control-label">開催地</label>
     <div class="col-sm-7">
-      <select name="event_pref_id" class="form-control">
+      <select name="pref_id" class="form-control">
 : my $pref_map = c().config().pref;
 : for $pref_map.keys().sort(-> $a, $b { $a <=> $b }) -> $id {
 :   if $id != 0 {
-        <option value="<: $id :>" <: if $id == $event.event_pref_id { :> selected <: } :>><: $pref_map[$id] :></option>
+        <option value="<: $id :>" <: if $id == $event.pref_id { :> selected <: } :>><: $pref_map[$id] :></option>
 :   }
 : }
       </select>

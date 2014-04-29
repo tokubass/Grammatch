@@ -5,53 +5,87 @@ use utf8;
 use Grammatch::App::Dojo;
 
 sub dojo {
-    my ($class, $c, $param) = @_;
+    my ($class, $c, $path_param) = @_;
     my $logged_user_id = $c->session_get();
 
-    my $data = Grammatch::App::Dojo->dojo($param->{id}, $logged_user_id);
-    return $c->redirect('/') unless $data;
+    my $data = Grammatch::App::Dojo->dojo(
+        dojo_id => $path_param->{dojo_id},
+        user_id => $logged_user_id
+    );
     return $c->render('dojo/dojo.tx', $data);
 }
 
+# require login
 sub dojo_root {
     my ($class, $c) = @_;
     my $logged_user_id = $c->session_get();
     return $c->redirect('/') unless $logged_user_id;
 
-    my $data = Grammatch::App::Dojo->dojo(undef, $logged_user_id);
-    return $c->redirect('/') unless $data;
-    return $c->render('dojo/dojo.tx', $data);
+    my $dojo_id = Grammatch::App::Dojo->dojo_root( user_id => $logged_user_id );
+    return $c->redirect('/') unless $dojo_id;
+    return $c->redirect('/dojo/' . $dojo_id);
 }
 
-sub join {
-    my ($class, $c, $param) = @_;
-    my $logged_user_id = $c->session_get();
-    return $c->redirect('/') unless $logged_user_id;
-
-    Grammatch::App::Dojo->join($param->{id}, $logged_user_id); 
-    return $c->redirect('/dojo/' . $param->{id});
-}
-
-sub dropout {
-    my ($class, $c, $param) = @_;
-    my $logged_user_id = $c->session_get();
-    return $c->redirect('/') unless $logged_user_id;
-
-    Grammatch::App::Dojo->dropout($param->{id}, $logged_user_id); 
-    return $c->redirect('/dojo/' . $param->{id});
-}
-
-sub motion {
+sub edit_form {
     my ($class, $c) = @_;
     my $logged_user_id = $c->session_get();
     return $c->redirect('/') unless $logged_user_id;
 
-    my $motion_list = Grammatch::App::Dojo->motion($logged_user_id); 
-    if ($motion_list) {
-        return $c->render('dojo/motion.tx', $motion_list); 
-    } else {
-        return $c->redirect('/dojo'); 
-    }
+    my $dojo = Grammatch::App::Dojo->edit_form( user_id => $logged_user_id );
+    return $c->render('dojo/edit.tx', { dojo => $dojo });
+}
+
+sub edit {
+    my ($class, $c) = @_;
+    my $logged_user_id = $c->session_get();
+    return $c->redirect('/') unless $logged_user_id;
+
+    $c->form(
+        dojo_name => [qw/ NOT_BLANK /, [qw/ LENGTH 1 20 /]], 
+    );
+    my $params = $c->req->parameters->as_hashref;
+    return $c->render('dojo/edit.tx', { dojo => $params, form => $c->form }) if $c->form->has_error;
+
+    my $dojo_id = Grammatch::App::Dojo->edit(
+        params => $params,
+        user_id => $logged_user_id
+    );
+
+    return $c->redirect('/') unless $dojo_id;
+    return $c->redirect('/dojo/' . $dojo_id);
+}
+
+sub request {
+    my ($class, $c, $path_param) = @_;
+    my $logged_user_id = $c->session_get();
+    return $c->redirect('/') unless $logged_user_id;
+
+    Grammatch::App::Dojo->request(
+        dojo_id => $path_param->{dojo_id},
+        user_id => $logged_user_id
+    );
+    return $c->redirect('/dojo/' . $path_param->{dojo_id});
+}
+
+sub dropout {
+    my ($class, $c, $path_param) = @_;
+    my $logged_user_id = $c->session_get();
+    return $c->redirect('/') unless $logged_user_id;
+
+    Grammatch::App::Dojo->dropout(
+        dojo_id => $path_param->{dojo_id},
+        user_id => $logged_user_id
+    ); 
+    return $c->redirect('/dojo/' . $path_param->{dojo_id});
+}
+
+sub request_list {
+    my ($class, $c) = @_;
+    my $logged_user_id = $c->session_get();
+    return $c->redirect('/') unless $logged_user_id;
+
+    my $requests = Grammatch::App::Dojo->request_list( user_id => $logged_user_id ); 
+    return $c->render('dojo/request.tx', $requests); 
 }
 
 sub accept {
@@ -60,8 +94,11 @@ sub accept {
     my $accept_user_id = $c->req->param('user_id');
     return $c->redirect('/') unless $logged_user_id;
 
-    Grammatch::App::Dojo->accept($logged_user_id, $accept_user_id);
-    return $c->redirect('/dojo/motion');
+    Grammatch::App::Dojo->accept(
+        user_id        => $logged_user_id,
+        accept_user_id => $accept_user_id,
+    );
+    return $c->redirect('/dojo/request');
 }
 
 sub create {
@@ -69,38 +106,11 @@ sub create {
     my $logged_user_id = $c->session_get();
     return $c->redirect('/') unless $logged_user_id;
     
-    my $dojo_id = Grammatch::App::Dojo->create($logged_user_id);
+    my $dojo_id = Grammatch::App::Dojo->create( user_id => $logged_user_id );
     return $c->redirect('/') unless $dojo_id;
     
     $c->session->set('dojo_id' => $dojo_id);
-    return $c->redirect("/dojo/$dojo_id");
-}
-
-sub edit {
-    my ($class, $c) = @_;
-    my $logged_user_id = $c->session_get();
-    return $c->redirect('/') unless $logged_user_id;
-
-    my $dojo_data = Grammatch::App::Dojo->info_by_user_id($logged_user_id);
-    return $c->render('dojo/edit.tx', { dojo_data => $dojo_data });
-}
-
-sub commit {
-    my ($class, $c) = @_;
-    my $logged_user_id = $c->session_get();
-    return $c->redirect('/') unless $logged_user_id;
-
-    my $params = $c->req->parameters();
-    $c->form(
-        dojo_name => [qw/ NOT_BLANK /, [qw/ LENGTH 1 20 /]], 
-    );
-    if ($c->form->has_error) {
-        my $errors;
-        return $c->render('dojo/edit.tx', { dojo_data => $params->as_hashref, form => $c->form });
-    }
-
-    Grammatch::App::Dojo->commit($logged_user_id, $params);
-    return $c->redirect('/dojo');
+    return $c->redirect('/dojo/' . $dojo_id);
 }
 
 1;

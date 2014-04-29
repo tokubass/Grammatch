@@ -87,7 +87,7 @@ sub edit { # OK!
     try {
         $self->update({
             event_name    => $params->{event_name},
-            event_pref_id => $params->{event_pref_id},
+            pref_id       => $params->{pref_id},
             place         => $params->{place},
             reward        => $params->{reward},
             period        => $params->{period},

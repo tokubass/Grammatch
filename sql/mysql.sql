@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS event (
 
     event_name    TEXT NOT NULL,
     event_member  INTEGER NOT NULL DEFAULT 0,
-    event_pref_id INTEGER NOT NULL,
+    pref_id       INTEGER NOT NULL,
     place         TEXT NOT NULL, 
     reward        TEXT NOT NULL,
     period        INTEGER NOT NULL,
