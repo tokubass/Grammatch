@@ -4,7 +4,7 @@
 <h1>
   入門申請確認
   <small>
-    <: $dojo.dojo_name :>
+    <a href="/dojo/<: $dojo.dojo_id :>"><: $dojo.dojo_name :></a>
   </small>
 </h1>
 : if $dojo.dojo_member < c().config().dojo_limit {
