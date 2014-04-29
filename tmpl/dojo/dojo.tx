@@ -58,6 +58,7 @@
 : if $user_status == 3 {
     <hr>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="/event/create">イベント作成</a></li>
       <li><a href="/dojo/edit">道場編集</a></li>
       <li><a href="/dojo/request">入門申請確認</a></li>
     </ul>
