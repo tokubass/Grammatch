@@ -36,14 +36,14 @@ a#top_logo{
   margin-top:-2px;
   padding-left:10px;
   margin-right:-25px;
-  background:url(/static/img/top_logo_mitekafe.png);
+  background:url(/static/img/GeekDojo_logo.png);
   background-repeat: no-repeat;
   height:80px;
   width:250px;
 }
 
 a#top_logo:hover {
-  background:url(/static/img/top_logo_mitekafe_hover.png);
+  background:url(/static/img/GeekDojo_logo_hover.png);
   background-repeat: no-repeat;
 }
 

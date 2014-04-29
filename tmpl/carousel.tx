@@ -10,8 +10,8 @@
           <img src="<: static_file('/static/img/main1.jpg') :>" alt=""  width="300" height="200">
           <div class="container">
             <div class="carousel-caption">
-              <p class="title">あなたのプログラミング学習に仲間と師匠を</p>
-              <p class="message">ギーク道場はチューターを囲んでの<br>プログラミング学習の場を提供します。</p>
+              <p class="title">プログラミング学習をもっと温かく</p>
+              <p class="message">ギーク道場は師匠を囲んでの<br>プログラミング学習の場を提供します。</p>
             </div>
           </div>
         </div>
@@ -28,8 +28,8 @@
           <img src="<: static_file('/static/img/img3.jpg') :>" alt="">
           <div class="container">
             <div class="carousel-caption">
-              <p class="title">師匠に学ぶ</p>
-              <p class="message">師匠がオフラインの場で<br>あなたのプログラミングの疑問に答えます。</p>
+              <p class="title">あなたも師匠に</p>
+              <p class="message">師匠に認められ、免許皆伝がもらえると<br>あなたも師匠になることができます。</p>
             </div>
           </div>
         </div>
@@ -49,15 +49,14 @@
         <h2>気軽に直接質問できる</h2>
         <p>近くのカフェで、コワーキングスペースで、師匠を囲んでプログラミングの勉強。
         一人での勉強では解決できないつまづきを、直接質問して解決できます。
-        開催地と言語の種類でイベントを選んで、エントリーしてみましょう！</p>
+        開催地と師匠でイベントを選んで、参加申請してみましょう！</p>
       </div>
       
       <div class="col-lg-4">
         <img class="img-circle" src="/static/img/top2.jpg" alt="Generic placeholder image">
         <h2>書ける人＝師匠</h2>
-        <p>プログラミングが出来るだけで、初心者にとっては立派な先生です。
-        道場にはあなたのスキルを必要としている人がいます。
-        授業を用意する必要はありません、質問に答えられればOKです。
+        <p>道場にはあなたのスキルを必要としている人がいます。
+        授業を用意する必要はありません、質問に答えられれば大丈夫です。
         初心者が壁を乗り越える瞬間の手助けをしてみませんか。</p>
       </div>
       
