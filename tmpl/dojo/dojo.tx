@@ -74,6 +74,7 @@
       <ul class="list-group">
         <li class="list-group-item">
 
+: if $user_status == 1 || $user_status == 3 || $user_status == 4 {
           <center>
             <form class="form-inline" role="form" method="POST" action="/dojo/<: $dojo.dojo_id :>/post">
               <div class="form-group">
@@ -83,6 +84,7 @@
               <button type="submit" class="btn btn-default">発言する</button>
             </form>
           </center>
+: }
 
         </li>
 : while $comments.next -> $comment {

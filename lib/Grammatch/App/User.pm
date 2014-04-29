@@ -3,34 +3,40 @@ use strict;
 use warnings;
 use utf8;
 use Amon2::Declare;   
+use Smart::Args;
 
 sub user {
-    my ($class, $user_id) = @_;
-    my $user_data = c->db->single(user => { user_id => $user_id }) or die;
-   
-    my $dojo_data = $user_data->own_dojo();
-    my $dojo_list = $user_data->related_dojos();
+    args
+        my $class,
+        my $user_id => 'Int';
+
+    my $user      = c->db->single(user => { user_id => $user_id }) or die;
+    my $dojo      = $user->dojo();
+    my $dojo_list = $user->joined_dojo();
 
     return {
-        user_data => $user_data,
-        dojo_data => $dojo_data,
+        user      => $user,
+        dojo      => $dojo,
         dojo_list => $dojo_list,
     }; 
 }
 
-sub profile {
-    my ($class, $user_id) = @_;
-    c->db->single(user => { user_id => $user_id }) or die;
+sub edit_form {
+    args
+        my $class,
+        my $user_id => 'Int';
+
+    return c->db->single(user => { user_id => $user_id }) or die;
 }
 
-sub commit {
-    my ($class, $user_id, $params) = @_;
-    my $user_data = c->db->single(user => { user_id => $user_id }) or die;
-    $user_data->commit($params);
-}
+sub edit {
+    args
+        my $class,
+        my $user_id => 'Int',
+        my $params  => 'HashRef';
 
-sub create_dojo {
-
+    my $user = c->db->single(user => { user_id => $user_id }) or die;
+    $user->edit($params);
 }
 
 1;

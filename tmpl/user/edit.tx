@@ -16,12 +16,8 @@
       <label class="control-label">
         ユーザー名を記入して下さい.
       </label>
-: } elsif $form.invalid('user_name') {
-      <label class="control-label">
-        ユーザー名は20文字以下にしてください.
-      </label>
 : }
-      <input type="text" class="form-control" id="user_name" name="user_name" placeholder="User name" value="<: $user_data.user_name :>">
+      <input type="text" class="form-control" id="user_name" name="user_name" placeholder="User name" value="<: $user.user_name :>">
     </div>
   </div>
   <div class="form-group">
@@ -30,7 +26,7 @@
       <select name="pref_id" class="form-control">
 : my $pref_map = c().config().pref;
 : for $pref_map.keys().sort(-> $a, $b { $a <=> $b }) -> $id {
-        <option value="<: $id :>" <: if $id == $user_data.pref_id { :> selected <: } :>><: $pref_map[$id] :></option>
+        <option value="<: $id :>" <: if $id == $user.pref_id { :> selected <: } :>><: $pref_map[$id] :></option>
 : }
       </select>
     </div>
@@ -38,7 +34,7 @@
   <div class="form-group">
     <label for="summary" class="col-sm-3 control-label">自己紹介</label>
     <div class="col-sm-7">
-      <textarea class="form-control" name="user_summary" rows="10"><: $user_data.user_summary :></textarea>
+      <textarea class="form-control" name="user_summary" rows="10"><: $user.user_summary :></textarea>
     </div>
   </div>
   <div class="form-group">

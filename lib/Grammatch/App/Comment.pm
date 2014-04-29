@@ -36,7 +36,12 @@ sub dojo_post {
         my $dojo_id => 'Int',
         my $user_id => 'Int',
         my $comment;
-   
+  
+    my $user_dojo_map = c->db->single(user_dojo_map => {
+        user_id => $user_id, dojo_id => $dojo_id,     
+    }) or die;
+    return if $user_dojo_map->status == 0 || $user_dojo_map->status == 2;
+
     my $txn = c->db->txn_scope;
     try {
         c->db->fast_insert(dojo_comment => {

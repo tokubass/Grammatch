@@ -10,17 +10,17 @@
     
     <center>
       <h1>
-        <a href="/user/<: $user_data.user_id :>">
-          <: $user_data.user_name :>
+        <a href="/user/<: $user.user_id :>">
+          <: $user.user_name :>
         </a>
       </h1>
     </center>
 
     <center>
-      <p><a class="btn btn-info btn-xs" href="https://twitter.com/<: $user_data.twitter_screen_name :>">
+      <p><a class="btn btn-info btn-xs" href="https://twitter.com/<: $user.twitter_screen_name :>">
         Twitter
       </a></p>
-: if $user_data && $user_data.user_id == $user_id {
+: if $user && $user.user_id == $user_id {
       <p><a class="btn btn-primary" href="/user/edit">
         プロフィール編集 
       </a></p>
@@ -30,7 +30,7 @@
     <hr>
       <dl class="dl">
         <dt>居住地</dt>
-        <dd><: c().config().pref[$user_data.pref_id] :></dd>
+        <dd><: c().config().pref[$user.pref_id] :></dd>
       
         <dt>所有道場</dt>
         <dd style="display:block;">
@@ -38,7 +38,7 @@
           <a href="/dojo/<: $dojo_data.dojo_id :>"><: $dojo_data.dojo_name :></a>
 : } else {
           未設立<br>
-:    if $user_data.allow_create_dojo {
+:    if $user.allow_create_dojo {
           <form method="POST" action="/dojo/create">
             <input type="submit" value="道場設立" class="btn btn-primary btn-xs">
           </form>
@@ -47,11 +47,11 @@
         </dd>
       
         <dt>最終ログイン</dt>
-        <dd><: $user_data.last_logged_at.strftime("%Y/%m/%d %H:%M:%S") :></dd>
+        <dd><: $user.last_logged_at.strftime("%Y/%m/%d %H:%M:%S") :></dd>
         
         <dt>自己紹介</dt>
         <dd>
-          <: $user_data.user_summary :>
+          <: $user.user_summary :>
         </dd>
       </dl>
   </div>

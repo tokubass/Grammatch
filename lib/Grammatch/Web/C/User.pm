@@ -5,11 +5,20 @@ use utf8;
 use Grammatch::App::User;
 
 sub user {
-    my ($class, $c, $param) = @_;
-    my $data = Grammatch::App::User->user($param->{id});
-
+    my ($class, $c, $path_param) = @_;
+    my $data = Grammatch::App::User->user( user_id => $path_param->{user_id} );
     return $c->redirect('/') unless $data; 
     return $c->render('user/user.tx', $data);
+}
+
+# require login
+sub edit_form {
+    my ($class, $c) = @_;
+    my $logged_user_id = $c->session_get();
+    return $c->redirect('/') unless $logged_user_id;
+
+    my $user = Grammatch::App::User->edit_form( user_id => $logged_user_id );
+    return $c->render('user/edit.tx', { user => $user });
 }
 
 sub edit {
@@ -17,25 +26,18 @@ sub edit {
     my $logged_user_id = $c->session_get();
     return $c->redirect('/') unless $logged_user_id;
 
-    my $user_data = Grammatch::App::User->profile($logged_user_id);
-    return $c->render('user/edit.tx', { user_data => $user_data });
-}
-
-sub commit {
-    my ($class, $c) = @_;
-    my $logged_user_id = $c->session_get();
-    return $c->redirect('/') unless $logged_user_id;
-
-    my $params = $c->req->parameters();
     $c->form(
         user_name => [qw/ NOT_BLANK /, [qw/ LENGTH 1 20 /]], 
     );
+    my $params = $c->req->parameters->as_hashref;
     if ($c->form->has_error) {
-        my $errors;
-        return $c->render('user/edit.tx', { user_data => $params->as_hashref, form => $c->form });
+        return $c->render('user/edit.tx', { user => $params, form => $c->form });
     }
 
-    Grammatch::App::User->commit($logged_user_id, $params);
+    Grammatch::App::User->edit(
+        user_id => $logged_user_id,
+        params  => $params
+    );
     return $c->redirect('/');
 }
 

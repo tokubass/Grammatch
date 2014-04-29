@@ -8,9 +8,9 @@ get '/'       => 'Root#root';
 get '/logout' => 'Root#logout';
 
 # user
-get '/user/{id:[0-9]+}' => 'User#user';
-get '/user/edit'        => 'User#edit';
-post '/user/edit'       => 'User#commit';
+get  '/user/{user_id:[0-9]+}' => 'User#user';
+get  '/user/edit'             => 'User#edit_form';
+post '/user/edit'             => 'User#edit';
 
 # dojo
 get  '/dojo'                          => 'Dojo#dojo_root';
@@ -23,8 +23,7 @@ post '/dojo/{dojo_id:[0-9]+}/dropout' => 'Dojo#dropout';
 get  '/dojo/request'                  => 'Dojo#request_list';
 post '/dojo/accept'                   => 'Dojo#accept';
 post '/dojo/create'                   => 'Dojo#create';
-
-#get '/search/dojo'  => 'Search#dojo';
+get  '/search/dojo'                   => 'Search#dojo';
 
 # event
 get  '/event/{event_id:[0-9]+}'        => 'Event#event';
