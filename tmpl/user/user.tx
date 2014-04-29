@@ -34,8 +34,8 @@
       
         <dt>所有道場</dt>
         <dd style="display:block;">
-: if $dojo_data {
-          <a href="/dojo/<: $dojo_data.dojo_id :>"><: $dojo_data.dojo_name :></a>
+: if $dojo {
+          <a href="/dojo/<: $dojo.dojo_id :>"><: $dojo.dojo_name :></a>
 : } else {
           未設立<br>
 :    if $user.allow_create_dojo {

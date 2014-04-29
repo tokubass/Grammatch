@@ -3,28 +3,46 @@ use strict;
 use warnings;
 use utf8;
 use Amon2::Declare;   
-use SQL::Maker::Condition;
+use SQL::Maker::Select;
+use Smart::Args;
 
 sub dojo {
-    my ($class, $pref_id, $keyword) = @_;
+    args
+        my $class,
+        my $pref_id => { optional => 1 },
+        my $keyword => { optional => 1 };
+    
+    my $stmt = SQL::Maker::Select->new();
+    $stmt->add_join(dojo => { table => 'user', condition => 'dojo.user_id = user.user_id '});
+    $stmt->add_where(dojo_summary => { like => '%'.$keyword.'%'}) if $keyword;
+    $stmt->add_where('dojo.pref_id' => $pref_id) if $pref_id;
+    $stmt->add_select('*');
+    $stmt->add_select('dojo.pref_id' => 'dojo_pref_id');
 
-    my $condition = SQL::Maker::Condition->new();
-    if ($keyword) {
-        my @splited_keyword = split /\s/, $keyword;
-        for (0 .. $#splited_keyword) {
-            if ($_ == 0) {
-                $condition->add(dojo_summary => {like => '%'.$splited_keyword[$_].'%'});
-            } else {
-                my $condition_keyword = SQL::Maker::Condition->new();
-                $condition_keyword->add(dojo_summary => {like => '%'.$splited_keyword[$_].'%'});
-                $condition = $condition | $condition_keyword;
-            } 
-        }
-    }
-    $condition = $condition->add('dojo.pref_id' => $pref_id) if $pref_id && $pref_id != 0;
-    return c->db->search_by_sql(q{
-        SELECT dojo.dojo_id as dojo_id, dojo_name, dojo_summary, dojo.pref_id as dojo_pref_id, user_name FROM dojo JOIN user ON dojo.user_id = user.user_id WHERE 
-    } . $condition->as_sql, [ $condition->bind ], 'dojo');
+    my $sql  = $stmt->as_sql();
+    my @bind = $stmt->bind();
+
+    return scalar c->db->search_by_sql($sql, [@bind]);
+}
+
+sub event {
+    args
+        my $class,
+        my $pref_id => { optional => 1 },
+        my $keyword => { optional => 1 };
+    
+    my $stmt = SQL::Maker::Select->new();
+    $stmt->add_join(event => { table => 'dojo', condition => 'event.dojo_id = dojo.dojo_id '});
+    $stmt->add_join(event => { table => 'user', condition => 'event.user_id = user.user_id '});
+    $stmt->add_where(event_summary => { like => '%'.$keyword.'%'}) if $keyword;
+    $stmt->add_where('event.pref_id' => $pref_id) if $pref_id;
+    $stmt->add_select('*');
+    $stmt->add_select('event.pref_id' => 'event_pref_id');
+
+    my $sql  = $stmt->as_sql();
+    my @bind = $stmt->bind();
+
+    return scalar c->db->search_by_sql($sql, [@bind]);
 }
 
 1;

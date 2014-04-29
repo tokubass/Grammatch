@@ -40,6 +40,17 @@ sub joined_dojo {
     );
 }
 
+sub events { # OK!
+    my $self = shift;
+
+
+
+    return scalar c->db->search(event => {
+        user_id  => $self->dojo_id,
+        start_at => { '>' => localtime->epoch },
+    });
+}
+
 sub create_dojo { # OK!
     my ($self, $dojo_id) = @_;
     my $txn = c->db->txn_scope;

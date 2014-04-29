@@ -5,10 +5,11 @@
 
 <div class="row">
   <div class="col-xs-3">
-
-    <h1>
-      <: $event.event_name :>
-    </h1>
+    <center>
+      <h1>
+        <: $event.event_name :>
+      </h1>
+    </center>
 
     <center>
 : if $finished {

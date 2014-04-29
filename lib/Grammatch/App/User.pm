@@ -11,13 +11,11 @@ sub user {
         my $user_id => 'Int';
 
     my $user      = c->db->single(user => { user_id => $user_id }) or die;
-    my $dojo      = $user->dojo();
-    my $dojo_list = $user->joined_dojo();
-
     return {
-        user      => $user,
-        dojo      => $dojo,
-        dojo_list => $dojo_list,
+        user       => $user,
+        dojo       => $user->dojo,
+        dojo_list  => $user->joined_dojo,
+        event_list => $user->joined_event,
     }; 
 }
 

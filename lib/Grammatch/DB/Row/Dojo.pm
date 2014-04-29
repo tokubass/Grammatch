@@ -37,7 +37,7 @@ sub user_status { # OK!
 
 sub events { # OK!
     my $self = shift;
-    return scalar $self->{teng}->search(event => {
+    return scalar c->db->search(event => {
         dojo_id  => $self->dojo_id,
         start_at => { '>' => localtime->epoch },
     });

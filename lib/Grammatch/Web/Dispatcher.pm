@@ -34,5 +34,6 @@ post '/event/{event_id:[0-9]+}/edit'   => 'Event#edit';
 get  '/event/create'                   => 'Event#create_form';
 post '/event/create'                   => 'Event#create';
 post '/event/{event_id:[0-9]+}/post'   => 'Comment#event_post';
+get  '/search/event'                   => 'Search#event';
 
 1;

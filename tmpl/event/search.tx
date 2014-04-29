@@ -1,0 +1,63 @@
+: cascade common::base
+: around container -> {
+
+<h1>
+  イベント検索
+</h1>
+
+<form class="form-inline" role="form" method="GET" action="/search/event">
+  <div class="form-group">
+    <label class="sr-only" for="keyword">キーワード</label>
+    <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Keyword" value="<: $keyword :>">
+  </div>
+  <div class="form-group">
+    <label class="sr-only" for="pref_id">所在地</label>
+    所在地
+    <select name="pref_id" class="form-control">
+: my $pref_map = c().config().pref;
+: for $pref_map.keys().sort(-> $a, $b { $a <=> $b }) -> $id {
+      <option value="<: $id :>" <: if $id == $pref_id { :> selected <: } :>><: $pref_map[$id] :></option>
+: }
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">検索</button>
+</form>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>イベント名</th>
+      <th>道場名</th>
+      <th>師匠</th>
+      <th>開催地</th>
+      <th>開催場所</th>
+      <th>おごってほしいもの</th>
+      <th>参加者</th>
+      <th>開始時間 / 開催時間</th>
+    </tr>
+  </thead>
+  <tbody>
+: while $event_list.next -> $event {
+    <tr>
+      <th><a href="/event/<: $event.event_id :>"><: $event.event_name :></a></th>
+      <th><a href="/dojo/<: $event.dojo_id :>"><: $event.dojo_name :></a></th>
+      <th><a href="/user/<: $event.dojo_id :>"><: $event.user_name :></a></th>
+      <th><: c().config().pref[$event.event_pref_id] :></th>
+      <th><: $event.place :></th>
+      <th><: $event.reward :></th>
+      <th><: $event.event_member :>人</th>
+      <th><: $event.start_at.strftime("%Y/%m/%d %H:%M") :> から <: $event.period :>分程度</th>
+    </tr>
+    <tr>
+      <th>
+        イベント概要 
+      </th>
+      <th colspan="7">
+        <: $event.event_summary :>
+      </th>
+    </th>
+: }
+  </tbody>
+</table>
+
+: }
