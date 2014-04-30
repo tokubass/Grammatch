@@ -46,8 +46,8 @@
 : }
         </dd>
       
-        <dt>最終ログイン</dt>
-        <dd><: $user.last_logged_at.strftime("%Y/%m/%d %H:%M:%S") :></dd>
+:#        <dt>最終ログイン</dt>
+:#        <dd><: $user.last_logged_at.strftime("%Y/%m/%d %H:%M:%S") :></dd>
         
         <dt>自己紹介</dt>
         <dd>
