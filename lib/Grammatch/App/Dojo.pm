@@ -50,6 +50,7 @@ sub edit {
 
     my $dojo = c->db->single(dojo => { user_id => $user_id }) or die;
     $dojo->edit($params);
+    return $dojo->dojo_id;
 }
 
 sub request {
