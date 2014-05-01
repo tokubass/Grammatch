@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use utf8;
 use parent 'Teng::Row';
-use Amon2::Declare;
 use Try::Tiny;
 use Time::Piece;
 use SQL::Maker::Select;
@@ -11,7 +10,7 @@ use SQL::Maker::Select;
 sub login {
     my ($self, $twitter_screen_name) = @_;
 
-    my $txn = c->db->txn_scope;
+    my $txn = $self->handle->txn_scope;
     try {
         $self->update({
             last_logged_at      => scalar localtime,
@@ -26,12 +25,12 @@ sub login {
 
 sub dojo {
     my $self = shift;
-    return c->db->single(dojo => { dojo_id => $self->dojo_id }) || undef;
+    return $self->handle->single(dojo => { dojo_id => $self->dojo_id }) || undef;
 }
 
 sub joined_dojo {
     my $self = shift;
-    return scalar c->db->search_by_sql(q{
+    return scalar $self->handle->search_by_sql(q{
         SELECT *
         FROM   user_dojo_map 
         JOIN   dojo 
@@ -56,19 +55,19 @@ sub joined_event { # OK!
 
     my $sql  = $stmt->as_sql();
     my @bind = $stmt->bind();
-    return scalar c->db->search_by_sql($sql, [@bind]);
+    return scalar $self->handle->search_by_sql($sql, [@bind]);
 }
 
 sub create_dojo { # OK!
     my ($self, $dojo_id) = @_;
-    my $txn = c->db->txn_scope;
+    my $txn = $self->handle->txn_scope;
     try {
         $self->update({
             allow_create_dojo => 0,
             dojo_id           => $dojo_id,
             updated_at        => scalar localtime,
         });
-        c->db->fast_insert(user_dojo_map => {
+        $self->handle->fast_insert(user_dojo_map => {
             user_id    => $self->user_id,
             dojo_id    => $dojo_id,
             status     => 3, # 師範
@@ -85,7 +84,7 @@ sub create_dojo { # OK!
 sub edit {
     my ($self, $params) = @_;
 
-    my $txn = c->db->txn_scope;
+    my $txn = $self->handle->txn_scope;
     try {
         $self->update({
             user_name    => $params->{user_name},

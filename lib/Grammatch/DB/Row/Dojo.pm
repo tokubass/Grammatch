@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use utf8;
 use parent 'Teng::Row';
-use Amon2::Declare;   
 use Try::Tiny;
 use Time::Piece;
 
@@ -14,7 +13,7 @@ sub owner { # OK!
 
 sub participants { # OK!
     my $self = shift;
-    return scalar c->db->search_by_sql(q{
+    return scalar $self->handle->search_by_sql(q{
         SELECT   *
         FROM     user_dojo_map
         JOIN     user 
@@ -29,7 +28,7 @@ sub participants { # OK!
 sub user_status { # OK!
     my ($self, $user_id) = @_;
     return 0 unless $user_id;
-    my $user_dojo_map = c->db->single(user_dojo_map => {
+    my $user_dojo_map = $self->handle->single(user_dojo_map => {
         user_id  => $user_id,
         dojo_id  => $self->dojo_id,
     });
@@ -38,7 +37,7 @@ sub user_status { # OK!
 
 sub newest_event { # OK!
     my $self = shift;
-    return c->db->single(event => {
+    return $self->handle->single(event => {
         dojo_id  => $self->dojo_id,
         start_at => { '>' => localtime->epoch },
     }, {
@@ -48,7 +47,7 @@ sub newest_event { # OK!
 
 sub edit { # OK!
     my ($self, $params) = @_;
-    my $txn = c->db->txn_scope;
+    my $txn = $self->handle->txn_scope;
     try {
         $self->update({
             dojo_name    => $params->{dojo_name},
@@ -65,7 +64,7 @@ sub edit { # OK!
 
 sub comments { # OK!
     my $self = shift;
-    return scalar c->db->search_by_sql(q{
+    return scalar $self->handle->search_by_sql(q{
         SELECT   *, dojo_comment.created_at as posted_at
         FROM     dojo_comment 
         JOIN     user
@@ -78,7 +77,7 @@ sub comments { # OK!
 
 sub dropout { # OK!
     my ($self, $dojo_id) = @_;
-    my $txn = c->db->txn_scope;
+    my $txn = $self->handle->txn_scope;
     try {
         $self->update({ dojo_member => $self->dojo_member - 1 });
         $txn->commit;
@@ -90,7 +89,7 @@ sub dropout { # OK!
 
 sub requests { # OK!
     my $self = shift;
-    return scalar c->db->search_by_sql(q{
+    return scalar $self->handle->search_by_sql(q{
         SELECT   * 
         FROM     user_dojo_map 
         JOIN     user 
@@ -105,7 +104,7 @@ sub requests { # OK!
 sub accept {
     my ($self, $user_id) = @_;
     
-    my $txn = c->db->txn_scope;
+    my $txn = $self->handle->txn_scope;
     try {
         $self->update({
             dojo_member => $self->dojo_member + 1,
@@ -120,7 +119,7 @@ sub accept {
 
 sub events {
     my $self = shift;
-    return scalar c->db->search(event => {
+    return scalar $self->handle->search(event => {
         dojo_id  => $self->dojo_id,
         start_at => { '>' => localtime->epoch },
     }, {
